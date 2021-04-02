@@ -1,0 +1,7 @@
+# GET - Found Hash
+GET http://127.0.0.1:8787/bootcamp
+
+###
+
+# GET - Not Found Hash
+GET http://127.0.0.1:8787/not-found
