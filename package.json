@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

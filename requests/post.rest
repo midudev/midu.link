@@ -1,2 +1,18 @@
-POST http://127.0.0.1:8787/arreglar-react-2
+### Working example with Destination and expected Auth
+POST http://127.0.0.1:8787/arreglar-react-3
+Authorization: midusecret
+X-Destination: https://midu.dev/como-arreglar-error-react-has-detected-change-order-hooks/
+
+### Working example without hash, destination and expected Auth
+POST http://127.0.0.1:8787/
+Authorization: midusecret
+X-Destination: https://midu.dev/como-arreglar-error-react-has-detected-change-order-hooks/
+
+### Without Authorization Header
+POST http://127.0.0.1:8787/arreglar-react-3
+X-Destination: https://midu.dev/como-arreglar-error-react-has-detected-change-order-hooks/
+
+### With a wrong Auth
+POST http://127.0.0.1:8787/arreglar-react-6
+Authorization: wrong-auth
 X-Destination: https://midu.dev/como-arreglar-error-react-has-detected-change-order-hooks/

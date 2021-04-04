@@ -1,1 +1,6 @@
-DELETE http://127.0.0.1:8787/arreglar-react-2
+### Working Delete with Auth header
+DELETE http://127.0.0.1:8787/arreglar-react-3
+Authorization: midusecret
+
+### Not working delete without Auth Header
+DELETE http://127.0.0.1:8787/arreglar-react-3
