@@ -26,6 +26,18 @@ const createIndexHtml = ({ allKeys }) => `
 
     div {
       display: flex;
+        & > input:last-child {
+          margin-right: 0;
+        }
+      }
+      
+    @media (width < 400px) {
+      div {
+        & > input{
+          margin-right: 0;
+        }
+        flex-direction: column;
+      }
     }
 
     [full-width] {
