@@ -101,8 +101,10 @@ const respondWith = ({ body = null, contentType = 'text/html', location, status 
 const handleGet = async ({ hash }) => {
   const location = await URLS.get(hash)
 
+  const validUrlLocation = location.startsWith('http') ? location : `https://${location}`
+
   return location
-    ? respondWith({ status: 302, location })
+    ? respondWith({ status: 302, location: `${validUrlLocation}` })
     : respondWith({ status: 404 })
 }
 
