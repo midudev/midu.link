@@ -7,7 +7,8 @@ account_id = "599228840df452ef6b4df93a2b67c0ee"
 route = "midu.link/*"
 # zone_id = "f6b1a3cea101d6b04171ca2409ed57bc"
 
-vars = { AUTH_SECRET = "test" }
+# uncomment the following lines to enable the AUTH_SECRET environment variable in development
+# vars = { AUTH_SECRET = "test" }
 
 kv_namespaces = [
   { binding = "URLS", id = "5d72e7f7bff7451493c7e07a43bdfc3b", preview_id = "879ecdf303634fd290aaf857dc3b2b7a" }
