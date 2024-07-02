@@ -47,7 +47,7 @@ const createIndexHtml = ({ allKeys }) => `
     </form>
     <div id="result"></div>
     <h2>Already used URLs</h2>
-    <strong>${allKeys.map(key => `${key}<br />`).join('')}</strong>
+    <strong>${allKeys.map(key => `<a href="/${key}">${key}</a><br />`).join('')}</strong>
   </main>
   <script>
     const $ = el => document.querySelector(el)
