@@ -26,6 +26,18 @@ const createIndexHtml = ({ allKeys }) => `
 
     div {
       display: flex;
+        & > input:last-child {
+          margin-right: 0;
+        }
+      }
+      
+    @media (width < 400px) {
+      div {
+        & > input{
+          margin-right: 0;
+        }
+        flex-direction: column;
+      }
     }
 
     [full-width] {
@@ -47,7 +59,7 @@ const createIndexHtml = ({ allKeys }) => `
     </form>
     <div id="result"></div>
     <h2>Already used URLs</h2>
-    <strong>${allKeys.map(key => `${key}<br />`).join('')}</strong>
+    <strong>${allKeys.map(key => `<a href="/${key}">${key}</a><br />`).join('')}</strong>
   </main>
   <script>
     const $ = el => document.querySelector(el)
@@ -101,8 +113,10 @@ const respondWith = ({ body = null, contentType = 'text/html', location, status 
 const handleGet = async ({ hash }) => {
   const location = await URLS.get(hash)
 
+  const validUrlLocation = location.startsWith('http') ? location : `https://${location}`
+
   return location
-    ? respondWith({ status: 302, location })
+    ? respondWith({ status: 302, location: `${validUrlLocation}` })
     : respondWith({ status: 404 })
 }
 
