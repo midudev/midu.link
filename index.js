@@ -31,7 +31,7 @@ const createIndexHtml = ({ allKeys }) => `
         }
       }
       
-    @media (width < 400px) {
+    @media (width <= 430px) {
       div {
         & > input{
           margin-right: 0;
