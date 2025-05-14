@@ -236,12 +236,13 @@ export const createIndexHtml = ({ urls }) => `
 
 export const renderUI = async (URLS) => {
   const { keys } = await URLS.list();
-  const urls = [];
-  for (const key of keys) {
-    const hash = key.name;
-    const destination = await URLS.get(hash);
-    urls.push({ hash, destination });
-  }
+  const urls = await Promise.all(
+    keys.map(async key => {
+      const hash = key.name;
+      const destination = await URLS.get(hash);
+      return { hash, destination };
+    })
+  );
   const body = createIndexHtml({ urls });
   return respondWith({ body });
 };
