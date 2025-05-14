@@ -180,7 +180,6 @@ export const createIndexHtml = ({ urls }) => `
 </head>
 <body>
   <main>
-    <h1>URL shortener</h1>
     <form>
       <input full-width required id='link' placeholder='Shorten your link'>
       <div>

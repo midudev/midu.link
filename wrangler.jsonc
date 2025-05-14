@@ -3,6 +3,8 @@
   "name": "midulink",
   // Entrypoint for the Worker
   "main": "index.js",
+  // Add compatibility date
+  "compatibility_date": "2025-05-14",
   // Enable workers_dev for development
   "workers_dev": true,
   // Cloudflare account ID
