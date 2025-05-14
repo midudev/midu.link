@@ -15,6 +15,9 @@
   "vars": {
     "AUTH_SECRET": "test"
   },
+  "placement": {
+    "mode": "smart"
+  },
   "observability": {
     "enabled": true
   },
