@@ -2,20 +2,19 @@
   "name": "midu-link",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler publish",
+    "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "standard": "16.0.3",
-    "wrangler": "^3.62.0"
-  },
-  "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "neostandard": "0.12.1",
+    "wrangler": "4.14.4"
   }
 }
