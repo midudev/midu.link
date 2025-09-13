@@ -1,0 +1,746 @@
+[
+  {
+    "key": "1",
+    "value": "https://replit.com/learn/100-days-of-python?utm_medium=referral&utm_campaign=100_days_of_code_python"
+  },
+  {
+    "key": "100python",
+    "value": "https://join.replit.com/python"
+  },
+  {
+    "key": "20a6zdm8",
+    "value": "https://replit.com/learn/100-days-of-python?utm_medium=referral&utm_campaign=100_days_of_code_python"
+  },
+  {
+    "key": "42",
+    "value": "https://www.eventbrite.es/e/entradas-impulsa-tu-futuro-tecnicas-para-desarrolladores-que-marcan-la-diferencia-906114662347?aff=oddtdtcreator"
+  },
+  {
+    "key": "42t",
+    "value": "https://urldefense.com/v3/__https:/www.42barcelona.com/es?utm_source=midudev&utm_medium=IG&utm_id=influencers42__;!!IHJ3XrWN4X8!KWmL6yvLIsu-CfC2-j0epvIYYBLWRQlQlgLp-_y-RG7H5yI9UQis00oVdkfRx27K5rT9fL9kvuH4koCNnnqjd6dv3bO5EXQK$"
+  },
+  {
+    "key": "ai",
+    "value": "https://datacamp.pxf.io/RGWbXb"
+  },
+  {
+    "key": "algo-js",
+    "value": "https://github.com/trekhleb/javascript-algorithms/blob/master/README.es-ES.md"
+  },
+  {
+    "key": "angular",
+    "value": "https://www.youtube.com/watch?v=f7unUpshmpA"
+  },
+  {
+    "key": "api",
+    "value": "https://rapidapi.com/hub?utm_source=midudev&utm_medium=DevRel&utm_campaign=DevRel"
+  },
+  {
+    "key": "apidog",
+    "value": "https://apidog.com/?utm_campaign=midudev"
+  },
+  {
+    "key": "aprende-msft",
+    "value": "https://docs.microsoft.com/es-es/learn/student-hub/"
+  },
+  {
+    "key": "arc",
+    "value": "https://m.arc.dev/3mjfpME"
+  },
+  {
+    "key": "arc-encuesta-remoto",
+    "value": "https://arcdotdev.typeform.com/to/OhYHY5G6?utm_source=blast&utm_medium=email&utm_campaign=devsalary2022&utm_content=developer-segment"
+  },
+  {
+    "key": "astro",
+    "value": "https://www.youtube.com/playlist?list=PLUofhDIg_38q8ZBsl9-GPRNI1AIjkRIHZ"
+  },
+  {
+    "key": "autentia",
+    "value": "https://www.izertis.com/es/talento"
+  },
+  {
+    "key": "aws",
+    "value": "https://youtu.be/zQyrhjEAqLs"
+  },
+  {
+    "key": "bbc",
+    "value": "https://www.bbc.co.uk/learningenglish/"
+  },
+  {
+    "key": "bootcamp",
+    "value": "https://www.youtube.com/watch?v=wTpuKOhGfJE&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7"
+  },
+  {
+    "key": "build",
+    "value": "https://developer.microsoft.com/es-es/reactor/events/25902/?wt.mc_id=1reg_25902_webpage_reactor"
+  },
+  {
+    "key": "cabify",
+    "value": "https://cabify.careers/es/"
+  },
+  {
+    "key": "camiseta",
+    "value": "https://www.redbubble.com/es/i/camiseta/MiduFest-de-midu-dev/142737019.IJ6L0.XYZ"
+  },
+  {
+    "key": "carlosble",
+    "value": "https://leanmind.es/es/blog/codigo-sostenible-en-miduconf-2022/"
+  },
+  {
+    "key": "cert-ms",
+    "value": "https://learn.microsoft.com/es-es/training/challenges?id=150aae80-e46b-4a07-894a-5247fcdfcbad&WT.mc_id=cloudskillschallenge_150aae80-e46b-4a07-894a-5247fcdfcbad"
+  },
+  {
+    "key": "certificado-sql",
+    "value": "https://datacamp.pxf.io/Oezn5r"
+  },
+  {
+    "key": "cleanjs",
+    "value": "https://github.com/devictoribero/clean-code-javascript?tab=readme-ov-fil"
+  },
+  {
+    "key": "clerk",
+    "value": "https://go.clerk.com/midu-live"
+  },
+  {
+    "key": "cloudflare",
+    "value": "https://www.youtube.com/watch?v=I2mv4456l74"
+  },
+  {
+    "key": "code-apple-scroll",
+    "value": "https://codi.link/PCEtLSBCYXNhZG8gZW4gbGEgZGVtbyBvcmlnaW5hbCBkZSBKaGV5OiBodHRwczovL2NvZGVwZW4uaW8vamgzeS9wZW4vTVd6UXZLSyAtLT4KCjxtYWluPgogIDxzZWN0aW9uPgogICAgPGRpdj4KICAgICAgPGgxPgogICAgICAgIDxzcGFuPk51ZXZvPC9zcGFuPgogICAgICAgIDxzcGFuPmlQaG9uZSAxNSBQcm88L3NwYW4+CiAgICAgIDwvaDE+CiAgICA8L2Rpdj4KICA8L3NlY3Rpb24+CiAgPHNlY3Rpb24+CiAgICA8aDM+WSB0b2RvIGNvbiBzw7NsbyBDU1M8L2gzPgogIDwvc2VjdGlvbj4KPC9tYWluPgoK%7CQGtleWZyYW1lcyBzY2FsZS11cCB7Cgl0byB7IHNjYWxlOiAxLjU7IH0KfQoKQGtleWZyYW1lcyBmYWRlLWF3YXkgewoJdG8geyBvcGFjaXR5OiAwOyB9Cn0KCgoKc2VjdGlvbiB7Cgl2aWV3LXRpbWVsaW5lOiAtLXNjcm9sbDsKfQoKaDEgc3BhbjpmaXJzdC1jaGlsZCB7CglhbmltYXRpb246IGZhZGUtYXdheSBib3RoIGxpbmVhcjsKCWFuaW1hdGlvbi10aW1lbGluZTogLS1zY3JvbGw7CglhbmltYXRpb24tcmFuZ2U6IGV4aXQgMjAlIGV4aXQgOTAlOwp9CgpoMSBzcGFuOmxhc3QtY2hpbGQgewoJYW5pbWF0aW9uOgoJCXNjYWxlLXVwIGJvdGggZWFzZS1pbi1vdXQsCgkJZmFkZS1hd2F5IGJvdGggbGluZWFyOwoJYW5pbWF0aW9uLXRpbWVsaW5lOiAtLXNjcm9sbDsKCWFuaW1hdGlvbi1yYW5nZToKCQlleGl0IDAlIGV4aXQgMTAwJSwKCQlleGl0IDUwJSBleGl0IDkwJTsJCn0KCi8qIGJhc2ljICovCnNlY3Rpb24gewoJcG9zaXRpb246IHJlbGF0aXZlOwoJbWluLWhlaWdodDogMTAwdmg7CglkaXNwbGF5OiBncmlkOwoJcGxhY2UtaXRlbXM6IGNlbnRlcjsKfQoKaDEgc3BhbjpmaXJzdC1vZi10eXBlIHsKCWNvbG9yOiAjMDlmOwoJZm9udC1zaXplOiAwLjM1ZW07Cn0KCnNlY3Rpb246bnRoLW9mLXR5cGUoMSkgewoJaGVpZ2h0OiAxMDB2aDsKfQoKc2VjdGlvbjpudGgtb2YtdHlwZSgyKSB7CgloZWlnaHQ6IDE0MHZoOwp9CgpoMSB7CglkaXNwbGF5OiBncmlkOwp9CgpoMiB7Cglmb250LXNpemU6IGNsYW1wKDJyZW0sIDV2dyArIDFyZW0sIDZyZW0pOwoJdGV4dC1hbGlnbjogY2VudGVyOwp9CgpzZWN0aW9uIGRpdiB7Cgl3aWR0aDogODAwcHg7CgltYXgtd2lkdGg6IDEwMHZ3OwoJcGFkZGluZzogMCAxcmVtOwp9Cgo6aXMoaDEsIGgyKSB7Cglmb250LXNpemU6IGNsYW1wKDIuNXJlbSwgN3Z3ICsgMXJlbSwgMTByZW0pOwoJdGV4dC1hbGlnbjogY2VudGVyOwoJbGluZS1oZWlnaHQ6IDE7Cglwb3NpdGlvbjogZml4ZWQ7Cgl0b3A6IDUwJTsKCWxlZnQ6IDUwJTsKCW1hcmdpbjogMDsKCXRyYW5zbGF0ZTogLTUwJSAtNTAlOwoJd2lkdGg6IDEwMCU7Cn0KCi8qIHJlc2V0ICovCiosICo6YWZ0ZXIsICo6YmVmb3JlIHsKCWJveC1zaXppbmc6IGJvcmRlci1ib3g7Cn0KCmJvZHkgewogIGJhY2tncm91bmQ6ICMwMDA7CiAgY29sb3I6IHdoaXRlOwogIGRpc3BsYXk6IGdyaWQ7CiAgZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgJ1NlZ29lIFVJJywgUm9ib3RvLCBPeHlnZW4sIFVidW50dSwgQ2FudGFyZWxsLCAnT3BlbiBTYW5zJywgJ0hlbHZldGljYSBOZXVlJywgc2Fucy1zZXJpZjsKICBmb250LXdlaWdodDogNzAwOwogIG1hcmdpbjogMDsKICBtaW4taGVpZ2h0OiAxMDBkdmg7CiAgb3ZlcmZsb3cteDogaGlkZGVuOwogIHBsYWNlLWl0ZW1zOiBjZW50ZXI7Cn0=%7C"
+  },
+  {
+    "key": "codely",
+    "value": "https://codely.com/pro/midudev"
+  },
+  {
+    "key": "codely-bf",
+    "value": "https://codely.com/blackfriday?utm_source=twitter&utm_medium=social&utm_campaign=black_friday-23&utm_content=midu"
+  },
+  {
+    "key": "codelyi",
+    "value": "https://codely.com/blackfriday?utm_source=instagram&utm_medium=social&utm_campaign=black_friday-23&utm_content=midu"
+  },
+  {
+    "key": "codelyt",
+    "value": "https://codely.com/blackfriday?utm_source=twitter&utm_medium=social&utm_campaign=black_friday-23&utm_content=midu"
+  },
+  {
+    "key": "codemotion",
+    "value": "https://events.hubilo.com/workshop-fest-spain/register?utm_source=community&utm_campaign=WKSH_ESP_CODEMOTION_2023_AUTUMN&utm_medium=referral&utm_content=Midudev"
+  },
+  {
+    "key": "conf",
+    "value": "https://streamyard.com/u785bcp7y3"
+  },
+  {
+    "key": "connect",
+    "value": "https://connect.keepcoding.io/?utm_source=paid&utm_medium=rrss&utm_campaign=MIDUDEV&utm_id=MIDUDEV"
+  },
+  {
+    "key": "coursera",
+    "value": "https://imp.i384100.net/c/2662387/3132411/14726"
+  },
+  {
+    "key": "cs50ai",
+    "value": "https://www.edx.org/es/course/cs50s-introduction-to-artificial-intelligence-with-python"
+  },
+  {
+    "key": "css",
+    "value": "https://www.youtube.com/playlist?list=PLUofhDIg_38q7l8gV4IVCz_pjUeyD99_j"
+  },
+  {
+    "key": "css-tooltip",
+    "value": "https://kushagra.dev/lab/hint/"
+  },
+  {
+    "key": "curso-google-ia",
+    "value": "https://www.linkedin.com/events/mejoratuproductividadconia7181198863284736000/theater/"
+  },
+  {
+    "key": "curso-react",
+    "value": "https://github.com/midudev/aprendiendo-react"
+  },
+  {
+    "key": "curso-smart",
+    "value": "https://spr.ly/6006vAUUO"
+  },
+  {
+    "key": "curso-testing",
+    "value": "https://web.dev/learn/testing/welcome"
+  },
+  {
+    "key": "curso-tizen",
+    "value": "https://europe-samsung.com/smsdev/Noticias/Detalle/da_el_salto_al_diseno_de_apps_para_smart_tv_con_nuestra_nueva_edicion_del_curso_tizen/148725ec-e6d8-48a6-a482-b5e8aee6cca9/?cid=es_ow_social_instagram_none_none_campa%C3%B1a-curso-tizen-alumnos_video_none_none+&cid=es_ow_social_linkedin_none_none_campa%C3%B1a-alumnos-tizen-recordatorio-midudev_text_none_none"
+  },
+  {
+    "key": "cursos",
+    "value": "https://x.com/midudev/status/1803810081852551533"
+  },
+  {
+    "key": "cv",
+    "value": "https://delacruzdev.notion.site/Apply-to-tech-companies-with-this-CV-template-fd977e7e715d4445a6ba1878a500e327"
+  },
+  {
+    "key": "cvp",
+    "value": "https://docs.google.com/document/d/12WyXqF_4-FmKPH2a9VpBTrvrH38o43cD/copy"
+  },
+  {
+    "key": "cvt",
+    "value": "https://docs.google.com/document/d/1_zB6eWfH00beu8cONeY1mZKEHOQbLDi4/edit?usp=sharing&ouid=115683092888388788010&rtpof=true&sd=true"
+  },
+  {
+    "key": "dana",
+    "value": "https://lateuaterra.com/donations/apoya-los-comercios-locales-afectados-por-la-dana/"
+  },
+  {
+    "key": "datacamp",
+    "value": "https://datacamp.pxf.io/3JrnXK"
+  },
+  {
+    "key": "demo-back-to-top",
+    "value": "https://codi.link/PGFydGljbGU+CiAgPGgxPlNwaWRlci1NYW46IEVsIEjDqXJvZSBkZSBsYSBDaXVkYWQgZGUgTnVldmEgWW9yazwvaDE+CiAgICAgICAgPHA+CiAgICAgICAgICAgIFNwaWRlci1NYW4sIHRhbWJpw6luIGNvbm9jaWRvIGNvbW8gUGV0ZXIgUGFya2VyLCBlcyB1bm8gZGUgbG9zIHN1cGVyaMOpcm9lcyBtw6FzIGljw7NuaWNvcyBkZWwgdW5pdmVyc28gTWFydmVsLiBGdWUgY3JlYWRvIHBvciBTdGFuIExlZSB5IFN0ZXZlIERpdGtvIHkgYXBhcmVjacOzIHBvciBwcmltZXJhIHZleiBlbiBlbCBjw7NtaWMgIkFtYXppbmcgRmFudGFzeSIgIzE1IGVuIDE5NjIuIAogICAgICAgIDwvcD4KICAgICAgICA8cD4KICAgICAgICAgICAgQ29tbyBhZG9sZXNjZW50ZSwgUGV0ZXIgUGFya2VyIGVzIG1vcmRpZG8gcG9yIHVuYSBhcmHDsWEgcmFkaWFjdGl2YSwgbG8gcXVlIGxlIG90b3JnYSBoYWJpbGlkYWRlcyBlc3BlY2lhbGVzIGNvbW8gdHJlcGFyIHBvciBsYXMgcGFyZWRlcywgdW5hIGZ1ZXJ6YSBzb2JyZWh1bWFuYSB5IHVuICJzZW50aWRvIGFyw6FjbmlkbyIgcXVlIGxlIGFkdmllcnRlIGRlIGxvcyBwZWxpZ3JvcyBpbm1pbmVudGVzLiBBIGxvIGxhcmdvIGRlIGxvcyBhw7FvcywgU3BpZGVyLU1hbiBoYSBlbmZyZW50YWRvIGEgbnVtZXJvc29zIHZpbGxhbm9zLCBkZXNkZSBlbCBEdWVuZGUgVmVyZGUgaGFzdGEgZWwgRG9jdG9yIE9jdG9wdXMsIHByb3RlZ2llbmRvIGEgbGEgY2l1ZGFkIGRlIE51ZXZhIFlvcmsgY29uIHN1IGluZ2VuaW8geSB2YWxvci4KICAgICAgICA8L3A+CiAgICAgICAgPHA+CiAgICAgICAgICAgIFNwaWRlci1NYW4gbm8gc29sbyBlcyB1biBzdXBlcmjDqXJvZSBlbiBsb3MgY8OzbWljcywgc2lubyBxdWUgdGFtYmnDqW4gaGEgc2lkbyBlbCBwcm90YWdvbmlzdGEgZGUgdmFyaWFzIHBlbMOtY3VsYXMsIHNlcmllcyBkZSB0ZWxldmlzacOzbiB5IHZpZGVvanVlZ29zLCBjb252aXJ0acOpbmRvbG8gZW4gdW4gcGVyc29uYWplIGN1bHR1cmFsbWVudGUgc2lnbmlmaWNhdGl2byB5IGFtYWRvIHBvciBmYW5zIGRlIHRvZGFzIGxhcyBlZGFkZXMgYWxyZWRlZG9yIGRlbCBtdW5kby4KICAgICAgICA8L3A+CiAgICAgICAgPHA+CiAgICAgICAgICAgIFNwaWRlci1NYW4sIHRhbWJpw6luIGNvbm9jaWRvIGNvbW8gUGV0ZXIgUGFya2VyLCBlcyB1bm8gZGUgbG9zIHN1cGVyaMOpcm9lcyBtw6FzIGljw7NuaWNvcyBkZWwgdW5pdmVyc28gTWFydmVsLiBGdWUgY3JlYWRvIHBvciBTdGFuIExlZSB5IFN0ZXZlIERpdGtvIHkgYXBhcmVjacOzIHBvciBwcmltZXJhIHZleiBlbiBlbCBjw7NtaWMgIkFtYXppbmcgRmFudGFzeSIgIzE1IGVuIDE5NjIuIAogICAgICAgIDwvcD4KICAgICAgICA8cD4KICAgICAgICAgICAgQ29tbyBhZG9sZXNjZW50ZSwgUGV0ZXIgUGFya2VyIGVzIG1vcmRpZG8gcG9yIHVuYSBhcmHDsWEgcmFkaWFjdGl2YSwgbG8gcXVlIGxlIG90b3JnYSBoYWJpbGlkYWRlcyBlc3BlY2lhbGVzIGNvbW8gdHJlcGFyIHBvciBsYXMgcGFyZWRlcywgdW5hIGZ1ZXJ6YSBzb2JyZWh1bWFuYSB5IHVuICJzZW50aWRvIGFyw6FjbmlkbyIgcXVlIGxlIGFkdmllcnRlIGRlIGxvcyBwZWxpZ3JvcyBpbm1pbmVudGVzLiBBIGxvIGxhcmdvIGRlIGxvcyBhw7FvcywgU3BpZGVyLU1hbiBoYSBlbmZyZW50YWRvIGEgbnVtZXJvc29zIHZpbGxhbm9zLCBkZXNkZSBlbCBEdWVuZGUgVmVyZGUgaGFzdGEgZWwgRG9jdG9yIE9jdG9wdXMsIHByb3RlZ2llbmRvIGEgbGEgY2l1ZGFkIGRlIE51ZXZhIFlvcmsgY29uIHN1IGluZ2VuaW8geSB2YWxvci4KICAgICAgICA8L3A+CiAgICAgICAgPHA+CiAgICAgICAgICAgIFNwaWRlci1NYW4gbm8gc29sbyBlcyB1biBzdXBlcmjDqXJvZSBlbiBsb3MgY8OzbWljcywgc2lubyBxdWUgdGFtYmnDqW4gaGEgc2lkbyBlbCBwcm90YWdvbmlzdGEgZGUgdmFyaWFzIHBlbMOtY3VsYXMsIHNlcmllcyBkZSB0ZWxldmlzacOzbiB5IHZpZGVvanVlZ29zLCBjb252aXJ0acOpbmRvbG8gZW4gdW4gcGVyc29uYWplIGN1bHR1cmFsbWVudGUgc2lnbmlmaWNhdGl2byB5IGFtYWRvIHBvciBmYW5zIGRlIHRvZGFzIGxhcyBlZGFkZXMgYWxyZWRlZG9yIGRlbCBtdW5kby4KICAgICAgICA8L3A+CjwvYXJ0aWNsZT4KCjxhIGlkPSJiYWNrLXRvcCIgaHJlZj0nI3RvcCc+Vm9sdmVyPC9hPg==%7CI2JhY2stdG9wIHsKICBtYXJnaW4tdG9wOiAxMDV2aDsKICBwb3NpdGlvbjogc3RpY2t5OwogIGJvdHRvbTogMzJweDsKCWxlZnQ6IDMycHg7Cn0KCmh0bWwgewoJc2Nyb2xsLWJlaGF2aW9yOiBzbW9vdGg7Cn0KCiNiYWNrLXRvcCB7CglwYWRkaW5nOiAxMHB4OwogIGJhY2tncm91bmQ6IHdoaXRlOwoJYm9yZGVyLXJhZGl1czogMTAwMHB4OwoJYm94LXNoYWRvdzogMCAwIDEwcHggIzAwMDAwMDM1OwoJYmFja2dyb3VuZDogIzA5ZjsKCWNvbG9yOiAjZmZmOwoJdGV4dC1kZWNvcmF0aW9uOiBub25lOwp9CgoKCgoKYXJ0aWNsZSB7CgltYXgtd2lkdGg6IDQwMHB4OwoJbWFyZ2luOiAwIGF1dG87Cn0KCiNiYWNrVG9Ub3AgewogIHBhZGRpbmc6IDEwcHg7CiAgYmFja2dyb3VuZDogd2hpdGU7CiAgCiAgbWFyZ2luLXRvcDogMTEwdmg7CiAgcG9zaXRpb246IHN0aWNreTsKICBib3R0b206IDA7Cn0KCgoKCgoKCgoKCgpib2R5IHsKCXNjcm9sbC1iZWhhdmlvcjogc21vb3RoOwoJZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgJ1NlZ29lIFVJJywgUm9ib3RvLCBPeHlnZW4sIFVidW50dSwgQ2FudGFyZWxsLCAnT3BlbiBTYW5zJywgJ0hlbHZldGljYSBOZXVlJywgc2Fucy1zZXJpZjsKCXdpZHRoOiAxMDAlOwp9CgoKaW1nIHsKCWJvcmRlci1yYWRpdXM6IDEwMDBweDsKCXdpZHRoOiAxMjBweDsKCWhlaWdodDogMTIwcHg7Cn0=%7CLy8gMCBsw61uZWFzIGRlIEpTCi8vIMKhU8OzbG8gQ1NTIQ=="
+  },
+  {
+    "key": "descargar-pdf",
+    "value": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  },
+  {
+    "key": "directory",
+    "value": "https://www.twitch.tv/directory"
+  },
+  {
+    "key": "dondominio",
+    "value": "https://www.dondominio.com/es/?_x-c=649"
+  },
+  {
+    "key": "eloquent",
+    "value": "https://eloquent-javascript-es.vercel.app/"
+  },
+  {
+    "key": "elsacupon",
+    "value": "https://elsaspeak.com/inf/midudev/"
+  },
+  {
+    "key": "elsagratis",
+    "value": "https://elsaspeak.com/es/?shortlink=a7lemmx4&c=AFF_midudev&pid=AFF_midudev"
+  },
+  {
+    "key": "eng1",
+    "value": "https://www.cambridgeenglish.org/learning-english/activities-for-learners/"
+  },
+  {
+    "key": "eng2",
+    "value": "https://www.engvid.com/"
+  },
+  {
+    "key": "esim",
+    "value": "http://rwrd.io/5xbkx15"
+  },
+  {
+    "key": "exercism",
+    "value": "https://exercism.org/"
+  },
+  {
+    "key": "falcon",
+    "value": "https://vdo.ninja/?director=midudevlivestream&password=falcon&showdirector"
+  },
+  {
+    "key": "flexbox",
+    "value": "https://www.youtube.com/watch?v=PSwlAuRbv_A&t=19s"
+  },
+  {
+    "key": "founderz",
+    "value": "https://founderz.com/es/eventos/master-inteligencia-artificial?utm_source=colab&utm_medium=twitch&utm_campaign=midudev_24102023se abre en una nueva pesta�a"
+  },
+  {
+    "key": "g",
+    "value": "https://www.google.com"
+  },
+  {
+    "key": "gbtwr7xj",
+    "value": "http://deyvida.dev/"
+  },
+  {
+    "key": "geekom",
+    "value": "https://www.geekom.es/geekom-it15-mini-pc/?mtm_campaign=KOL_IT15&mtm_kwd=midudev"
+  },
+  {
+    "key": "gh-actions",
+    "value": "https://www.youtube.com/watch?v=sIhm4YOMK6Q"
+  },
+  {
+    "key": "git",
+    "value": "https://www.youtube.com/watch?v=niPExbK8lSw"
+  },
+  {
+    "key": "gitpdf",
+    "value": "https://training.github.com/downloads/es_ES/github-git-cheat-sheet.pdf"
+  },
+  {
+    "key": "google-certificado",
+    "value": "https://cloud.google.com/innovators/getcertified"
+  },
+  {
+    "key": "graphql",
+    "value": "https://www.youtube.com/watch?v=KRV46iZ844s&list=PLV8x_i1fqBw3wHa7HOle0MMAcRjfViWwC"
+  },
+  {
+    "key": "grid",
+    "value": "https://www.youtube.com/watch?v=iTjkiI8QQsM"
+  },
+  {
+    "key": "grid-trucos",
+    "value": "https://www.paradigmadigital.com/assets/cms/cheat_sheet_flexbox_6fb013edd1.pdf"
+  },
+  {
+    "key": "guia",
+    "value": "https://github.com/DevCaress/guia-entrevistas-de-programacion"
+  },
+  {
+    "key": "guianode",
+    "value": "https://github.com/goldbergyoni/nodebestpractices/blob/spanish-translation/README.spanish.md"
+  },
+  {
+    "key": "hack",
+    "value": "https://hacktoberfest-2022.vercel.app/"
+  },
+  {
+    "key": "html",
+    "value": "https://www.youtube.com/watch?v=3nYLTiY5skU"
+  },
+  {
+    "key": "ia",
+    "value": "https://dashboard.cohere.ai/welcome/register?utm_source=influencer&utm_medium=social&utm_campaign=midudev"
+  },
+  {
+    "key": "ignite",
+    "value": "https://ignite.microsoft.com/home?wt.mc_ID=ignite2022_az_fld_latam_soc_pd_Influencers_SP"
+  },
+  {
+    "key": "infojobs",
+    "value": "https://www.infojobs.net/madrid/programador-para-web-del-calendario-adviento-ibai/of-i0c0bcc15a34ff384ca1201b14e1d0f"
+  },
+  {
+    "key": "ingles",
+    "value": "https://www.curso-ingles.com/"
+  },
+  {
+    "key": "ingles-a2",
+    "value": "https://www.freecodecamp.org/learn/a2-english-for-developers/"
+  },
+  {
+    "key": "instagram",
+    "value": "https://www.instagram.com/midu.dev/"
+  },
+  {
+    "key": "join",
+    "value": "https://vdo.ninja/?room=midudevlivestream&hash=a724"
+  },
+  {
+    "key": "join-1",
+    "value": "https://vdo.ninja/?room=midudevlivestream&push=XMIDUX01&password=falcon"
+  },
+  {
+    "key": "join-2",
+    "value": "https://vdo.ninja/?room=midudevlivestream&push=XMIDUX02&password=falcon"
+  },
+  {
+    "key": "js",
+    "value": "https://aprendejavascript.dev/"
+  },
+  {
+    "key": "js30",
+    "value": "https://github.com/Asabeneh/30-Days-Of-JavaScript/tree/master/Spanish"
+  },
+  {
+    "key": "keepcoding",
+    "value": "https://keepcoding.io/nuestros-bootcamps/?utm_campaign=MIDUCONF24&utm_source=twitch&utm_medium=paidsocial&utm_term=MIDUCONF24&utm_content=TWITCH"
+  },
+  {
+    "key": "king",
+    "value": "https://twitter.com/midudev/status/1610635988786610179"
+  },
+  {
+    "key": "leanmind",
+    "value": "https://leanmind.es/es/"
+  },
+  {
+    "key": "lemon",
+    "value": "https://l.lemon.io/midudev"
+  },
+  {
+    "key": "lemoncode",
+    "value": "https://lemoncode.net/master-frontend#inicio-banner"
+  },
+  {
+    "key": "libro",
+    "value": "https://amzn.to/3JPtQ6L"
+  },
+  {
+    "key": "libro-digital",
+    "value": "https://leanpub.com/aprendiendo-git"
+  },
+  {
+    "key": "libro-latam",
+    "value": "https://www.amazon.com/-/es/Miguel-%C3%81ngel-Dur%C3%A1n-Garc%C3%ADa/dp/B0D2LPMG6F/ref=sr_1_1?__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3Q3P7KVBZZAQK&dib=eyJ2IjoiMSJ9.ui7BBCi1o6RGBebTJOBUKcynUcVgyWM-1cTd-fKUc3SzBopCp11ID6gNw1UmxJ-R.1_KlcxknPrdTBQXDPxXFi7nM9DfTukqFeK0Yldifkls&dib_tag=se&keywords=aprendiendo+git&qid=1714493433&sprefix=aprendiendo+g%2Caps%2C214&sr=8-1"
+  },
+  {
+    "key": "libro-mx",
+    "value": "https://www.amazon.com.mx/Aprendiendo-Git-GitHub-pr%C3%A1cticas-estrategias/dp/B0D2LPMG6F/ref=sr_1_1?__mk_es_MX=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3PDWYMXF4VTL9&dib=eyJ2IjoiMSJ9.5M-P-HCEb8ttipZCP9e78kFB4inuMtneBrHYSh3a7ojS7dGM9sssSIRfw2zIKcl6clnfWwKQ8EPlq1cl7AkQOUUU56IdI81_mtS0OgdvRvzjdH9HqgbVdpCfJsCTzrl4kzoYO-qaE1ECJoGGK7zizGvAFr44gk1KQf3IYawlGKEs9A9wczcr1UJ7sa0FuYEHea7oKA5hVL7h533vTy4mbnWfqVVro5TTy8MRDUshWE9SfRZ6hmJG7r_GmcUSCCajE9t0ARoEu4EsBMuvErrIkdA_ab8BDt7s3k2HSfZfuMA.NLyAgRzsgKZdJ3pWVnei_dp23PWc-yr23Acx86zcNNs&dib_tag=se&keywords=aprendiendo+git&qid=1714585270&sprefix=aprendiendo+g%2Caps%2C234&sr=8-1&ufe=app_do%3Aamzn1.fos.4e545b5e-1d45-498b-8193-a253464ffa47"
+  },
+  {
+    "key": "libro-python",
+    "value": "https://softlibre.unizar.es/manuales/aplicaciones/python/aprendepython_2023.pdf"
+  },
+  {
+    "key": "libro-react",
+    "value": "https://leanpub.com/react-preguntas-tipicas"
+  },
+  {
+    "key": "limonada",
+    "value": "https://midu.dev/checkout/iniciar-pago?priceId=price_1ROKrGAZltcMyd8wCBMVm4es&coupon=O9hP8zyw"
+  },
+  {
+    "key": "linkedin",
+    "value": "https://opportunity.linkedin.com/es-es/skills-for-in-demand-jobs"
+  },
+  {
+    "key": "logitech",
+    "value": "https://www.amazon.es/stores/page/672B25A0-40D3-40C8-BBE1-24010200BC7C?ingress=0&visitId=db0f78bd-a9e3-4bc8-8c9e-0b531fa00a84&channel=INFLUS+"
+  },
+  {
+    "key": "lolalolita",
+    "value": "https://www.infojobs.net/madrid/programador-para-lola-lolita-land/of-i02543d6ddb41118fee5e2e1a17857b"
+  },
+  {
+    "key": "majo",
+    "value": "https://losapuntesdemajo.vercel.app/"
+  },
+  {
+    "key": "malt",
+    "value": "https://www.malt.es/signup?utm_source=event&utm_medium=Influencers&utm_campaign=ES_freelancer_all_community_midudev-sponsor&utm_content=create-profile-page"
+  },
+  {
+    "key": "malt-sorteo",
+    "value": "https://forms.gle/AHxcJpK1EA8j2pET6"
+  },
+  {
+    "key": "manfred",
+    "value": "https://www.getmanfred.com/developer-career-report?utm_source=twitch&utm_medium=social&utm_campaign=tech-career-report"
+  },
+  {
+    "key": "mcp",
+    "value": "https://www.youtube.com/watch?v=wnHczxwukYY"
+  },
+  {
+    "key": "me-apunto",
+    "value": "https://tally.so/r/wkEe1M"
+  },
+  {
+    "key": "mel",
+    "value": "https://www.melgeek.com/?ref=midudev"
+  },
+  {
+    "key": "microsoft",
+    "value": "https://aka.ms/MSIgniteXL"
+  },
+  {
+    "key": "ms-mcp",
+    "value": "https://developer.microsoft.com/es-es/reactor/series/S-1567/"
+  },
+  {
+    "key": "ms-python",
+    "value": "https://developer.microsoft.com/en-us/reactor/series/S-1580/?utm_source=midudev&utm_medium=referral&utm_campaign=midudev\n"
+  },
+  {
+    "key": "msbuild",
+    "value": "https://build.microsoft.com/?wt.mc_ID=Build2025_marx_fld_us_soc_pd_inst_InfluencerMidu"
+  },
+  {
+    "key": "mspython",
+    "value": "https://developer.microsoft.com/es-es/reactor/series/S-1492/"
+  },
+  {
+    "key": "n26",
+    "value": "https://n26.com/es-es/affiliate-miguelangelduran?irgwc=1&utm_source=ira&utm_medium=influencer&utm_campaign=2960987&utm_term=6217853"
+  },
+  {
+    "key": "naranjada",
+    "value": "https://midu.dev/checkout/iniciar-pago?priceId=price_1ROKrGAZltcMyd8wCBMVm4es&coupon=ZFP1EkIQ"
+  },
+  {
+    "key": "nation",
+    "value": "https://www.developereconomics.net/es?member_id=midudev&locale=es"
+  },
+  {
+    "key": "next",
+    "value": "https://www.youtube.com/watch?v=jMy4pVZMyLM&list=PLUofhDIg_38poFpsV-xAbWUbW1urNmY_I"
+  },
+  {
+    "key": "nextjs",
+    "value": "https://www.youtube.com/watch?v=2jxc8DMzt0I&list=PLV8x_i1fqBw1VR86y4C72xMGJ8ifjBwJ6"
+  },
+  {
+    "key": "node",
+    "value": "https://www.youtube.com/playlist?list=PLUofhDIg_38qm2oPOV-IRTTEKyrVBBaU7"
+  },
+  {
+    "key": "ntt",
+    "value": "https://careers.emeal.nttdata.com/s/offer/a1J2p000009xWENEA2/frontendbackend-developer?language=es"
+  },
+  {
+    "key": "nvidia",
+    "value": "https://v0-nvidia-free-courses.vercel.app"
+  },
+  {
+    "key": "open",
+    "value": "https://fullstackopen.com/es/"
+  },
+  {
+    "key": "paradigma",
+    "value": "https://eventos.paradigmadigital.com/paradigma-open-space-registro"
+  },
+  {
+    "key": "php",
+    "value": "https://www.youtube.com/watch?v=BcGAPkjt_IE&list=PLUofhDIg_38rCmybY4E_bmGvUHaSw7-oc"
+  },
+  {
+    "key": "platzi",
+    "value": "https://platzi.com/promo/?utm_source=affiliates&utm_medium=organic&utm_campaign=IM_202505_Promo_MiduPromo"
+  },
+  {
+    "key": "platziconf",
+    "value": "https://platzi.com/Midudevconf2024"
+  },
+  {
+    "key": "practicar",
+    "value": "https://www.frontendpractice.com/"
+  },
+  {
+    "key": "preguntas-javascript",
+    "value": "https://github.com/lydiahallie/javascript-questions/blob/master/es-ES/README-ES.md"
+  },
+  {
+    "key": "proyectos-2024",
+    "value": "https://midu.dev/proyectos2024.png"
+  },
+  {
+    "key": "public-apis",
+    "value": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "key": "pylatino",
+    "value": "https://codeinplace.stanford.edu/pylatino-publico/join/pylatino-25?r=midudev&utm_source=midudev&utm_medium=website&utm_campaign=midudev"
+  },
+  {
+    "key": "python",
+    "value": "https://www.youtube.com/watch?v=TkN2i-_4N4g"
+  },
+  {
+    "key": "rapidapi",
+    "value": "https://rapidapi.com/hub?utm_source=midudev&utm_medium=DevRel&utm_campaign=DevRel"
+  },
+  {
+    "key": "rapidapix",
+    "value": "https://marketplace.visualstudio.com/items?itemName=RapidAPI.vscode-rapidapi-client&utm_source=midudev&utm_medium=DevRel&utm_campaign=DevRel"
+  },
+  {
+    "key": "react",
+    "value": "https://www.youtube.com/playlist?list=PLUofhDIg_38q4D0xNWp7FEHOTcZhjWJ29"
+  },
+  {
+    "key": "react-advanced",
+    "value": "https://ti.to/gitnation/react-advanced-remote-only-2021/discount/MidudevDiscount"
+  },
+  {
+    "key": "react-summit",
+    "value": "https://gleam.io/3SlPD/react-summit"
+  },
+  {
+    "key": "regexpdf",
+    "value": "https://images.datacamp.com/image/upload/v1665049611/Marketing/Blog/Regular_Expressions_Cheat_Sheet.pdf"
+  },
+  {
+    "key": "roadmap2024",
+    "value": "https://midu.dev/roadmap2024.png"
+  },
+  {
+    "key": "run",
+    "value": "https://app.timetime.in/f/0dedc160-589d-4f1a-bdb0-5789357a5b50?ttz=Europe%2FMadrid&tthcatb=true&tts=2025-03-02T10%3A00%3A00.000%2B01%3A00&tte=2025-03-02T12%3A00%3A00.000%2B01%3A00"
+  },
+  {
+    "key": "rust",
+    "value": "https://learn.microsoft.com/es-es/training/paths/rust-first-steps/"
+  },
+  {
+    "key": "ruta-sql",
+    "value": "https://datacamp.pxf.io/nXgNj9"
+  },
+  {
+    "key": "salarios",
+    "value": "https://forms.gle/LiphJUAuqVrfF9kK9"
+  },
+  {
+    "key": "samsung",
+    "value": "https://spr.ly/60004PY7g"
+  },
+  {
+    "key": "scrimba",
+    "value": "https://v2.scrimba.com/home?via=midudev&pricing"
+  },
+  {
+    "key": "shadowcss",
+    "value": "https://www.joshwcomeau.com/shadow-palette"
+  },
+  {
+    "key": "silla",
+    "value": "https://eu.hinomi.co/collections/for-office?sca_ref=7056739.0a2RiS4TCH&utm_source=uppromote&utm_medium=basic&utm_campaign=affiliate"
+  },
+  {
+    "key": "slashdata",
+    "value": "https://www.developereconomics.net/es?member_id=midudev&locale=es&utm_source=twitch"
+  },
+  {
+    "key": "slashdataig",
+    "value": "https://developereconomics.net?member_id=midudev&lang=es&locale=es&utm_source=ig"
+  },
+  {
+    "key": "slashdot",
+    "value": "https://developereconomics.net?member_id=midudev&lang=es&locale=es&utm_source=twitch"
+  },
+  {
+    "key": "slashdot-ig",
+    "value": "https://developereconomics.net?member_id=midudev&lang=es&locale=es&utm_source=ig"
+  },
+  {
+    "key": "smarttv",
+    "value": "https://www.europe-samsung.com/smsdev/Formacion/Detalle/nuevo_curso_diseno_para_apps_tizen_para_smart_tv/eba2651e-bce7-4b44-aa9f-5e5c07a0eba4"
+  },
+  {
+    "key": "so",
+    "value": "https://stackoverflow.az1.qualtrics.com/jfe/form/SV_czLVsbnGnF4Q04e?utm_source=midudev&utm_medium=midudev&utm_campaign=dev-survey-2023&utm_content=take-the-survey"
+  },
+  {
+    "key": "softtek",
+    "value": "https://softtek.csod.com/ux/ats/careersite/2/home?c=softtek&country=es&lang=en-US"
+  },
+  {
+    "key": "software-architect",
+    "value": "https://user-images.githubusercontent.com/6892666/65896069-834eb700-e37a-11e9-95be-7ae2300d5d50.png"
+  },
+  {
+    "key": "sostenible",
+    "value": "https://savvily.company.site/"
+  },
+  {
+    "key": "sql",
+    "value": "https://www.youtube.com/playlist?list=PLUofhDIg_38qg8LANkItqY-0sYw7CTDui"
+  },
+  {
+    "key": "sql-pdf",
+    "value": "https://drive.google.com/file/d/1sGn1aiE6gvGdakA52jjtXmN7TfogYrTB/view"
+  },
+  {
+    "key": "sqlpdf",
+    "value": "https://learnsql.com/blog/sql-basics-cheat-sheet/sql-basics-cheat-sheet-a3.pdf"
+  },
+  {
+    "key": "svelte",
+    "value": "https://www.youtube.com/watch?v=Xsxm8_BI63s&list=PLV8x_i1fqBw2QScggh0pw2ATSJg_WHqUN"
+  },
+  {
+    "key": "tailwind",
+    "value": "https://www.youtube.com/watch?v=h5HQVHTpeHs"
+  },
+  {
+    "key": "talently",
+    "value": "https://talently.tech/go/"
+  },
+  {
+    "key": "taza",
+    "value": "https://www.redbubble.com/es/i/taza/MiduFest-de-midu-dev/142737019.9Q0AD"
+  },
+  {
+    "key": "tdd",
+    "value": "https://www.youtube.com/watch?v=_t9l2TwGioc"
+  },
+  {
+    "key": "teclado",
+    "value": "https://www.keychron.com/?utm_source=Twitch&utm_medium=twitch&utm_campaign=midudev"
+  },
+  {
+    "key": "terminal",
+    "value": "https://warp.dev/?utm_campaign=warp_ai_launch&utm_source=twitch_midudev"
+  },
+  {
+    "key": "threads-css",
+    "value": "https://codi.link/PHN2ZyB2aWV3Qm94PSIwIDAgNDgwIDQ4MCI+CiAgPGRlZnM+CiAgICA8cGF0aCBpZD0ibGluZSIgZD0iTTM2OC44LDE4NUMzMzMuMzg5OTQxLDU2LjA0ODI1NiwxNTMuMDY4ODk5LDYxLjYzNjI3OCwxMTcuNjI2NDE2LDE4MC43MjQwMjZDODcuNjkzMzA0LDMwMS44NDI2MzMsMTQ4LjAzODgwMiwzOTguNDA5MjE1LDI0MCwzOTEuNzkxNTU0QzI5Ny45Mjg5NjcsMzk1LjEyNjkxOCwzNjAuOTcxMzA3LDM1NC4yNzU5MjksMzU0LjUsMjk4Yy00LjU3MTEwOC00My43MzQyMy01Mi45OTIyNC03MC4wOTI4NTEtMTA0LjgzNTA4Mi02Ni42NDkwODEtNDAuMzk5NjY3LjUzNzIwOS02MC43MzA3OSwyNS40NjU3NzQtNTYuNzUxMDE5LDQ2Ljk0OTA4MS0uNzI0NDM4LDI4LjYzMjcxLDQyLjA2Nzg3MSw0MC45NzEzOTIsNjMuMzY0MTg4LDM1LjE5ODYyMUMyODUuMDg1NTM2LDMwNC4wMTIxMzMsMzAyLjI3MzA5OSwyODMuMjkxMTc0LDMwMC4yLDI0MGM3LjUzNTA2OC0zOC42NjkyOTktMjAuODEwMTYtNzguNzE4NTk2LTY1LjY5OTk5OS03Mi4zMTE5MzgtMTYuNzU0NTQ0LDEuMDQyNDc0LTMyLjcyMjcxOCwxMy4zMjk2MzctNDEuNTg2MTAyLDI0LjY1NTkzOSIgLz4KICA8L2RlZnM+CiAgCiAgPHVzZSBjbGFzcz0iYmFzZSIgeGxpbms6aHJlZj0iI2xpbmUiIC8+CiAgPHVzZSBjbGFzcz0ibG9hZGluZyIgeGxpbms6aHJlZj0iI2xpbmUiIC8+Cjwvc3ZnPg==%7Cc3ZnIHsKICB3aWR0aDogNDhweDsKICBmaWxsOiBub25lOwogIHN0cm9rZS13aWR0aDogMzA7Cn0KCi5iYXNlIHsKICBzdHJva2U6ICNmZmZmZmYzMzsKfQoKLmxvYWRpbmcgewogIHN0cm9rZTogI2ZmZjsKICBzdHJva2UtZGFzaGFycmF5OiAxNTAsIDE1MDM7CiAgc3Ryb2tlLWRhc2hvZmZzZXQ6IDE1MDsKICBhbmltYXRpb246IGxvYWRpbmcgM3MgZWFzZS1pbi1vdXQKICAgIGFsdGVybmF0ZSBpbmZpbml0ZTsKfQoKQGtleWZyYW1lcyBsb2FkaW5nIHsKICAwJSB7CiAgICBzdHJva2UtZGFzaG9mZnNldDogMTUwOwogICAgc3Ryb2tlLWRhc2hhcnJheTogMTUwLCAxNTAzOwogIH0KCiAgNTAlIHsKICAgIHN0cm9rZS1kYXNob2Zmc2V0OiAtMTUwMzsKICAgIHN0cm9rZS1kYXNoYXJyYXk6IDE1MCwgMTUwMzsKICB9CgogIDEwMCUgewogICAgc3Ryb2tlLWRhc2hvZmZzZXQ6IDE1MDsKICAgIHN0cm9rZS1kYXNoYXJyYXk6IDE1MDM7CiAgfQp9CgoKCgoKCgoKCmJvZHkgewogIG1hcmdpbjogMDsKICBiYWNrZ3JvdW5kOiAjMTExOwogIGRpc3BsYXk6IGdyaWQ7CiAgcGxhY2UtY29udGVudDogY2VudGVyOwogIG1pbi1oZWlnaHQ6IDEwMHZoOwp9%7C"
+  },
+  {
+    "key": "tizen",
+    "value": "https://spr.ly/6006vAUUO"
+  },
+  {
+    "key": "tkwwl",
+    "value": "https://www.theknotww.com/careers-view-all-jobs?utm_source=linkedin&utm_medium=social&utm_campaign=miguel-angel-duran-influencer&utm_content=people"
+  },
+  {
+    "key": "tkwwt",
+    "value": "https://www.theknotww.com/careers-view-all-jobs?utm_source=twitch&utm_medium=social&utm_campaign=miguel-angel-duran-influencer&utm_content=people"
+  },
+  {
+    "key": "tkwwtw",
+    "value": "https://www.theknotww.com/careers-view-all-jobs/?utm_source=twitter&utm_medium=social&utm_campaign=miguel-angel-duran-influencer&utm_content=people"
+  },
+  {
+    "key": "trae",
+    "value": "https://www.trae.ai/?utm_source=content&utm_medium=youtube&utm_campaign=midulive"
+  },
+  {
+    "key": "ts",
+    "value": "https://www.youtube.com/playlist?list=PLUofhDIg_38pNCZe9ptj72exbFjzyePxT"
+  },
+  {
+    "key": "typescript",
+    "value": "https://www.youtube.com/playlist?list=PLUofhDIg_38pNCZe9ptj72exbFjzyePxT"
+  },
+  {
+    "key": "velada",
+    "value": "https://www.infojobs.net/madrid/programador-para-velada-4/of-i14436bb760436ca85d8c5911a67994"
+  },
+  {
+    "key": "vota",
+    "value": "https://a.cstmapp.com/voteme/974258/712577253?lc=es-es"
+  },
+  {
+    "key": "w9dq6j6x",
+    "value": "http://deyvida.dev/"
+  },
+  {
+    "key": "warp",
+    "value": "https://app.warp.dev/referral/79ZEM2"
+  },
+  {
+    "key": "wd7h8smi",
+    "value": "https://github.com/midudev/midu.link"
+  },
+  {
+    "key": "websecurity",
+    "value": "https://www.youtube.com/playlist?list=PL1y1iaEtjSYiiSGVlL1cHsXN_kvJOOhu-"
+  },
+  {
+    "key": "windsurf",
+    "value": "https://wind.surf/miduconf"
+  },
+  {
+    "key": "xbox",
+    "value": "https://forms.office.com/pages/responsepage.aspx?id=melOhjjFoES93QRJ3mLfbWMGemVrppZKtHR8tFIYMBBUM1QzRUZPQlZRUVdaVUpZMDY4UE5TRkZXQi4u"
+  },
+  {
+    "key": "youtube",
+    "value": "https://www.youtube.com/channel/UC8LeXCWOalN8SxlrPcG-PaQ"
+  }
+]
