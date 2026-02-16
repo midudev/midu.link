@@ -1,46 +1,39 @@
-# Astro Starter Kit: Basics
+# midu.link
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Acortador de URLs de [midudev](https://midu.dev). Construido con [Astro](https://astro.build).
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Estructura
 
 ```text
 /
 ├── public/
 │   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+├── src/
+│   ├── data/
+│   │   └── links.json        # Todos los enlaces cortos
+│   ├── layouts/
+│   │   └── Layout.astro
+│   └── pages/
+│       └── index.astro        # Homepage con lista de enlaces
+├── astro.config.mjs           # Redirecciones generadas desde links.json
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Cómo funciona
 
-## 🧞 Commands
+Los enlaces se definen en `src/data/links.json`. Cada entrada tiene un `slug` y una `url` destino:
 
-All commands are run from the root of the project, from a terminal:
+```json
+{ "slug": "youtube", "url": "https://www.youtube.com/channel/UC8LeXCWOalN8SxlrPcG-PaQ" }
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+Al hacer build, Astro genera redirecciones 308 para cada slug. La homepage muestra todos los enlaces disponibles.
 
-## 👀 Want to learn more?
+## Comandos
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Comando          | Acción                                    |
+| :--------------- | :---------------------------------------- |
+| `pnpm install`   | Instala dependencias                      |
+| `pnpm dev`       | Servidor de desarrollo en `localhost:4321` |
+| `pnpm build`     | Build de producción en `./dist/`          |
+| `pnpm preview`   | Preview del build local                   |
