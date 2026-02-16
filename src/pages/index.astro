@@ -1,11 +1,145 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import links from '../data/links.json';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const sortedLinks = [...links].sort((a, b) => a.slug.localeCompare(b.slug));
 ---
 
 <Layout>
-	<Welcome />
+	<main>
+		<header>
+			<h1>midu.link</h1>
+			<p class="subtitle">Acortador de URLs de <a href="https://midu.dev" target="_blank" rel="noopener">midudev</a></p>
+			<p class="count">{links.length} enlaces disponibles</p>
+		</header>
+
+		<section class="links">
+			{sortedLinks.map(({ slug, url }) => {
+				let displayUrl = url;
+				try {
+					const u = new URL(url);
+					displayUrl = u.hostname + (u.pathname !== '/' ? u.pathname : '');
+					if (displayUrl.length > 50) displayUrl = displayUrl.slice(0, 50) + '…';
+				} catch {}
+
+				return (
+					<a href={`/${slug}`} class="link-card" data-url={url}>
+						<div class="link-slug">
+							<span class="domain">midu.link/</span><span class="slug">{slug}</span>
+						</div>
+						<div class="link-target">{displayUrl}</div>
+					</a>
+				);
+			})}
+		</section>
+	</main>
 </Layout>
+
+<style>
+	main {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2rem 1.5rem 4rem;
+	}
+
+	header {
+		text-align: center;
+		margin-bottom: 3rem;
+		padding-top: 2rem;
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		font-weight: 800;
+		background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		margin-bottom: 0.5rem;
+	}
+
+	.subtitle {
+		color: #a3a3a3;
+		font-size: 1.1rem;
+	}
+
+	.subtitle a {
+		color: #60a5fa;
+		text-decoration: none;
+	}
+
+	.subtitle a:hover {
+		text-decoration: underline;
+	}
+
+	.count {
+		margin-top: 0.75rem;
+		color: #737373;
+		font-size: 0.9rem;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.links {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.link-card {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 1.25rem;
+		border-radius: 0.75rem;
+		background: #171717;
+		border: 1px solid #262626;
+		text-decoration: none;
+		color: inherit;
+		transition: background 0.15s, border-color 0.15s;
+	}
+
+	.link-card:hover {
+		background: #1e1e1e;
+		border-color: #404040;
+	}
+
+	.link-slug {
+		font-size: 1rem;
+		font-weight: 500;
+	}
+
+	.domain {
+		color: #737373;
+	}
+
+	.slug {
+		color: #60a5fa;
+	}
+
+	.link-target {
+		color: #525252;
+		font-size: 0.8rem;
+		text-align: right;
+		max-width: 50%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	@media (max-width: 600px) {
+		h1 {
+			font-size: 2rem;
+		}
+
+		.link-card {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.25rem;
+		}
+
+		.link-target {
+			text-align: left;
+			max-width: 100%;
+		}
+	}
+</style>
