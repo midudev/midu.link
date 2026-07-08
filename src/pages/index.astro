@@ -3,61 +3,98 @@ import Layout from '../layouts/Layout.astro';
 import links from '../data/links.json';
 
 const sortedLinks = [...links].sort((a, b) => a.slug.localeCompare(b.slug));
+
+const prettyUrl = (url: string) => {
+	try {
+		const u = new URL(url);
+		return u.hostname.replace(/^www\./, '') + (u.pathname !== '/' ? u.pathname : '');
+	} catch {
+		return url;
+	}
+};
 ---
 
 <Layout>
 	<main>
 		<header>
 			<h1>midu.link</h1>
-			<p class="subtitle">Acortador de URLs de <a href="https://midu.dev" target="_blank" rel="noopener noreferrer">midudev</a></p>
-			<p class="count"><span id="count">{links.length}</span> enlaces disponibles</p>
+			<p class="subtitle">
+				Acortador de URLs de <a href="https://midu.dev" target="_blank" rel="noopener noreferrer">midudev</a>
+			</p>
+			<p class="count">
+				<span id="count">{links.length}</span> enlaces disponibles
+			</p>
 		</header>
 
 		<div class="search-wrapper">
+			<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+				<circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+				<path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+			</svg>
 			<input
 				id="search"
 				type="search"
 				aria-label="Buscar enlace"
-				placeholder="Buscar enlace..."
+				placeholder="Buscar por nombre o destino..."
 				autocomplete="off"
+				spellcheck="false"
 				autofocus
 			/>
+			<kbd class="kbd">/</kbd>
 		</div>
 
 		<section class="links" id="links-list">
 			{sortedLinks.map(({ slug, url }) => {
-				let displayUrl = url;
-				try {
-					const u = new URL(url);
-					displayUrl = u.hostname + (u.pathname !== '/' ? u.pathname : '');
-				} catch (e) {
-					console.warn(`Invalid URL for slug "${slug}":`, e);
-				}
-
+				const target = prettyUrl(url);
 				return (
-					<a href={`/${slug}`} class="link-card" data-slug={slug} data-target={displayUrl}>
-						<div class="link-slug">
-							<span class="domain">midu.link/</span><span class="slug">{slug}</span>
-						</div>
-						<div class="link-target">{displayUrl}</div>
-					</a>
+					<div class="link-card" data-slug={slug} data-target={target}>
+						<a
+							href={`/${slug}`}
+							class="link-main"
+							target="_blank"
+							rel="nofollow noopener noreferrer"
+						>
+							<span class="link-slug">
+								<span class="domain">midu.link/</span><span class="slug">{slug}</span>
+							</span>
+							<span class="link-target">{target}</span>
+						</a>
+						<button class="copy" type="button" data-slug={slug} aria-label={`Copiar midu.link/${slug}`}>
+							<svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+								<rect x="9" y="9" width="11" height="11" rx="2.5" stroke="currentColor" stroke-width="2" />
+								<path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+							</svg>
+							<svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+								<path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</button>
+					</div>
 				);
 			})}
 		</section>
 
-		<p id="no-results" class="no-results" hidden>No se encontraron enlaces.</p>
+		<p id="no-results" class="no-results" hidden>
+			No se encontraron enlaces para <span id="query-echo"></span>
+		</p>
+
+		<footer>
+			<a href="https://github.com/midudev/midu.link" target="_blank" rel="noopener noreferrer">
+				Código abierto en GitHub
+			</a>
+		</footer>
 	</main>
 </Layout>
 
-<script lang="ts">
+<script>
 	const search = document.getElementById('search') as HTMLInputElement;
 	const list = document.getElementById('links-list')!;
 	const count = document.getElementById('count')!;
 	const noResults = document.getElementById('no-results')!;
+	const queryEcho = document.getElementById('query-echo')!;
 	const cards = Array.from(list.querySelectorAll<HTMLElement>('.link-card'));
 	const total = cards.length;
 
-	search.addEventListener('input', () => {
+	const runFilter = () => {
 		const query = search.value.trim().toLowerCase();
 		let visible = 0;
 
@@ -70,146 +107,347 @@ const sortedLinks = [...links].sort((a, b) => a.slug.localeCompare(b.slug));
 		}
 
 		count.textContent = String(query ? visible : total);
+		queryEcho.textContent = query ? `"${query}"` : '';
 		noResults.hidden = visible > 0;
+	};
+
+	search.addEventListener('input', runFilter);
+
+	// Prefill from ?q= (enables Google's sitelinks search box → this page)
+	const initialQuery = new URLSearchParams(location.search).get('q');
+	if (initialQuery) {
+		search.value = initialQuery;
+		runFilter();
+	}
+
+	// Keyboard: "/" focuses search, Escape clears it
+	document.addEventListener('keydown', (e) => {
+		if (e.key === '/' && document.activeElement !== search) {
+			e.preventDefault();
+			search.focus();
+			search.select();
+		}
+		if (e.key === 'Escape' && document.activeElement === search) {
+			search.value = '';
+			search.dispatchEvent(new Event('input'));
+			search.blur();
+		}
+	});
+
+	// Copy midu.link/<slug> to clipboard
+	let resetTimer: ReturnType<typeof setTimeout>;
+	list.addEventListener('click', async (e) => {
+		const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.copy');
+		if (!btn) return;
+		e.preventDefault();
+
+		const shortUrl = `${location.origin}/${btn.dataset.slug}`;
+		try {
+			await navigator.clipboard.writeText(shortUrl);
+		} catch {
+			return;
+		}
+
+		document.querySelectorAll('.copy.copied').forEach((el) => el.classList.remove('copied'));
+		clearTimeout(resetTimer);
+		btn.classList.add('copied');
+		resetTimer = setTimeout(() => btn.classList.remove('copied'), 1400);
 	});
 </script>
 
 <style>
 	main {
-		max-width: 800px;
+		max-width: 720px;
 		margin: 0 auto;
-		padding: 2rem 1.5rem 4rem;
+		padding: 4rem 1.5rem 3rem;
 	}
 
+	/* ---------- Header ---------- */
 	header {
 		text-align: center;
-		margin-bottom: 3rem;
-		padding-top: 2rem;
+		margin-bottom: 2.5rem;
 	}
 
 	h1 {
-		font-size: 2.5rem;
-		font-weight: 800;
-		background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		margin-bottom: 0.5rem;
+		font-family: var(--pixel);
+		font-size: clamp(2.75rem, 11vw, 4.25rem);
+		font-weight: 400;
+		line-height: 1;
+		letter-spacing: 0.01em;
+		color: var(--text);
+		margin-bottom: 1.1rem;
 	}
 
 	.subtitle {
-		color: #a3a3a3;
-		font-size: 1.1rem;
+		color: var(--muted);
+		font-size: 0.9rem;
 	}
 
 	.subtitle a {
-		color: #60a5fa;
+		color: var(--text);
 		text-decoration: none;
+		border-bottom: 1px solid var(--border-hover);
+		transition: border-color 0.15s, color 0.15s;
 	}
 
 	.subtitle a:hover {
-		text-decoration: underline;
+		color: var(--accent);
+		border-color: var(--accent);
 	}
 
 	.count {
-		margin-top: 0.75rem;
-		color: #737373;
-		font-size: 0.9rem;
+		margin-top: 0.9rem;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4ch;
+		padding: 0.3rem 0.7rem;
+		border: 1px solid var(--border);
+		border-radius: 999px;
+		background: var(--surface);
+		color: var(--muted);
+		font-size: 0.72rem;
+		letter-spacing: 0.02em;
 		font-variant-numeric: tabular-nums;
 	}
 
+	.count #count {
+		color: var(--text);
+		font-weight: 600;
+	}
+
+	/* ---------- Search ---------- */
 	.search-wrapper {
+		position: sticky;
+		top: 0.75rem;
+		z-index: 10;
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		padding: 0 0.9rem;
 		margin-bottom: 1.5rem;
+		border-radius: var(--radius);
+		background: rgba(16, 16, 16, 0.85);
+		border: 1px solid var(--border);
+		backdrop-filter: blur(12px);
+		transition: border-color 0.15s, box-shadow 0.15s;
+	}
+
+	.search-wrapper:focus-within {
+		border-color: var(--accent);
+		box-shadow: 0 0 0 3px var(--accent-soft);
+	}
+
+	.search-icon {
+		flex-shrink: 0;
+		color: var(--dim);
+		transition: color 0.15s;
+	}
+
+	.search-wrapper:focus-within .search-icon {
+		color: var(--accent);
 	}
 
 	#search {
+		flex: 1;
 		width: 100%;
-		padding: 0.75rem 1rem;
-		border-radius: 0.75rem;
-		background: #171717;
-		border: 1px solid #262626;
-		color: #e5e5e5;
-		font-size: 1rem;
-		font-family: inherit;
+		padding: 0.85rem 0;
+		background: transparent;
+		border: none;
+		color: var(--text);
+		font-family: var(--mono);
+		font-size: 0.95rem;
 		outline: none;
-		transition: border-color 0.15s;
 	}
 
 	#search::placeholder {
-		color: #525252;
+		color: var(--dim);
 	}
 
-	#search:focus {
-		border-color: #60a5fa;
+	#search::-webkit-search-cancel-button {
+		-webkit-appearance: none;
+		appearance: none;
 	}
 
-	.no-results {
-		text-align: center;
-		color: #525252;
-		padding: 2rem 0;
+	.kbd {
+		flex-shrink: 0;
+		min-width: 1.6rem;
+		height: 1.6rem;
+		display: grid;
+		place-items: center;
+		border: 1px solid var(--border-hover);
+		border-radius: 6px;
+		background: var(--bg);
+		color: var(--muted);
+		font-family: var(--mono);
+		font-size: 0.8rem;
 	}
 
+	.search-wrapper:focus-within .kbd {
+		opacity: 0;
+	}
+
+	/* ---------- Links ---------- */
 	.links {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 0.4rem;
 	}
 
 	.link-card {
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 1rem 1.25rem;
-		border-radius: 0.75rem;
-		background: #171717;
-		border: 1px solid #262626;
-		text-decoration: none;
-		color: inherit;
-		transition: background 0.15s, border-color 0.15s;
+		align-items: stretch;
+		border-radius: var(--radius);
+		background: var(--surface);
+		border: 1px solid var(--border);
+		transition: background 0.15s, border-color 0.15s, transform 0.15s;
+		/* Skip rendering work for off-screen cards without breaking Ctrl+F/search */
+		content-visibility: auto;
+		contain-intrinsic-size: auto 60px;
+	}
+
+	.link-card[hidden] {
+		display: none;
 	}
 
 	.link-card:hover {
-		background: #1e1e1e;
-		border-color: #404040;
+		background: var(--surface-hover);
+		border-color: var(--border-hover);
+	}
+
+	.link-main {
+		flex: 1;
+		min-width: 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.9rem 0.5rem 0.9rem 1.15rem;
+		text-decoration: none;
+		color: inherit;
 	}
 
 	.link-slug {
-		font-size: 1rem;
-		font-weight: 500;
+		flex-shrink: 0;
+		font-size: 0.95rem;
+		white-space: nowrap;
 	}
 
 	.domain {
-		color: #737373;
+		color: var(--dim);
 	}
 
 	.slug {
-		color: #60a5fa;
+		color: var(--text);
+		font-weight: 500;
+	}
+
+	.link-card:hover .slug {
+		color: var(--accent);
 	}
 
 	.link-target {
-		color: #525252;
-		font-size: 0.8rem;
+		min-width: 0;
+		color: var(--muted);
+		font-size: 0.78rem;
 		text-align: right;
-		max-width: 50%;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
-	@media (max-width: 600px) {
-		h1 {
-			font-size: 2rem;
+	/* ---------- Copy button ---------- */
+	.copy {
+		flex-shrink: 0;
+		width: 3rem;
+		display: grid;
+		place-items: center;
+		border: none;
+		border-left: 1px solid var(--border);
+		border-radius: 0 var(--radius) var(--radius) 0;
+		background: transparent;
+		color: var(--dim);
+		cursor: pointer;
+		transition: color 0.15s, background 0.15s;
+	}
+
+	.copy:hover {
+		color: var(--text);
+		background: var(--accent-soft);
+	}
+
+	.copy svg {
+		grid-area: 1 / 1;
+		transition: opacity 0.15s, transform 0.15s;
+	}
+
+	.copy .icon-check {
+		opacity: 0;
+		transform: scale(0.6);
+		color: var(--accent);
+	}
+
+	.copy.copied {
+		color: var(--accent);
+	}
+
+	.copy.copied .icon-copy {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+
+	.copy.copied .icon-check {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	/* ---------- Empty state + footer ---------- */
+	.no-results {
+		text-align: center;
+		color: var(--muted);
+		padding: 3rem 0;
+		font-size: 0.9rem;
+	}
+
+	.no-results span {
+		color: var(--text);
+	}
+
+	footer {
+		margin-top: 3rem;
+		text-align: center;
+	}
+
+	footer a {
+		color: var(--dim);
+		text-decoration: none;
+		font-size: 0.78rem;
+		transition: color 0.15s;
+	}
+
+	footer a:hover {
+		color: var(--muted);
+	}
+
+	/* ---------- Responsive ---------- */
+	@media (max-width: 560px) {
+		main {
+			padding: 2.5rem 1rem 2rem;
 		}
 
-		.link-card {
+		.link-main {
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 0.25rem;
+			padding: 0.85rem 0.5rem 0.85rem 1rem;
 		}
 
 		.link-target {
 			text-align: left;
 			max-width: 100%;
+		}
+
+		.kbd {
+			display: none;
 		}
 	}
 </style>
