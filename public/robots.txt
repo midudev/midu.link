@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /$
+Allow: /favicon.svg
+Allow: /og.png
+
+Sitemap: https://midu.link/sitemap.xml
