@@ -24,6 +24,10 @@
     "url": "https://youtube-smart-link.midudev.workers.dev/U9LMje"
   },
   {
+    "slug": "ai-sandbox",
+    "url": "https://apify.com/apify/ai-code-sandbox?utm_source=midudev&utm_medium=social&utm_campaign=gtm-cam-073"
+  },
+  {
     "slug": "algo-js",
     "url": "https://github.com/trekhleb/javascript-algorithms/blob/master/README.es-ES.md"
   },
@@ -150,6 +154,10 @@
   {
     "slug": "connect",
     "url": "https://connect.keepcoding.io/?utm_source=paid&utm_medium=rrss&utm_campaign=MIDUDEV&utm_id=MIDUDEV"
+  },
+  {
+    "slug": "connectors-store",
+    "url": "https://apify.com/store/collections/mcp-connectors?utm_source=midudev&utm_medium=social&utm_campaign=gtm-cam-073"
   },
   {
     "slug": "coursera",
@@ -494,6 +502,10 @@
   {
     "slug": "mcp-connector",
     "url": "https://apify.it/4aMzxjx"
+  },
+  {
+    "slug": "mcp-connectors",
+    "url": "https://blog.apify.com/announcing-mcp-connectors/?utm_source=midudev&utm_medium=social&utm_campaign=gtm-cam-073"
   },
   {
     "slug": "me-apunto",
