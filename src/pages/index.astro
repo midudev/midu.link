@@ -59,6 +59,34 @@ const prettyUrl = (url: string) => {
 							</span>
 							<span class="link-target">{target}</span>
 						</a>
+
+						<div class="analytics" aria-label={`Estadísticas de midu.link/${slug}`} data-analytics={slug}>
+							<svg class="spark" viewBox="0 0 56 22" width="56" height="22" aria-hidden="true" preserveAspectRatio="none">
+								{/* 7 placeholder bars — filled by client script */}
+								{[0, 1, 2, 3, 4, 5, 6].map((i) => (
+									<rect
+										class="spark-bar"
+										data-i={i}
+										x={i * 8}
+										y={18}
+										width="5"
+										height="2"
+										rx="1"
+									/>
+								))}
+							</svg>
+							<div class="stats">
+								<span class="stat" title="Clicks hoy (UTC)">
+									<span class="stat-value" data-today>—</span>
+									<span class="stat-label">hoy</span>
+								</span>
+								<span class="stat" title="Clicks últimos 7 días">
+									<span class="stat-value" data-week>—</span>
+									<span class="stat-label">7d</span>
+								</span>
+							</div>
+						</div>
+
 						<button class="copy" type="button" data-slug={slug} aria-label={`Copiar midu.link/${slug}`}>
 							<svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
 								<rect x="9" y="9" width="11" height="11" rx="2.5" stroke="currentColor" stroke-width="2" />
@@ -153,11 +181,73 @@ const prettyUrl = (url: string) => {
 		btn.classList.add('copied');
 		resetTimer = setTimeout(() => btn.classList.remove('copied'), 1400);
 	});
+
+	// ---------- Analytics sparklines ----------
+	type DayCount = { day: string; count: number };
+	type SlugStats = { days: DayCount[]; today: number; week: number };
+
+	const SPARK_H = 22;
+	const BAR_MIN = 2;
+	const BAR_MAX = 20;
+
+	function formatCount(n: number): string {
+		if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, '')}M`;
+		if (n >= 10_000) return `${Math.round(n / 1000)}k`;
+		if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, '')}k`;
+		return String(n);
+	}
+
+	function paintSpark(root: HTMLElement, stats: SlugStats) {
+		const counts = stats.days.map((d) => d.count);
+		const max = Math.max(...counts, 1);
+
+		root.querySelectorAll<SVGRectElement>('.spark-bar').forEach((bar) => {
+			const i = Number(bar.dataset.i);
+			const value = counts[i] ?? 0;
+			const h = value === 0 ? BAR_MIN : Math.max(BAR_MIN, Math.round((value / max) * BAR_MAX));
+			bar.setAttribute('y', String(SPARK_H - h));
+			bar.setAttribute('height', String(h));
+			bar.classList.toggle('is-today', i === counts.length - 1);
+			bar.classList.toggle('has-clicks', value > 0);
+		});
+
+		const todayEl = root.querySelector<HTMLElement>('[data-today]');
+		const weekEl = root.querySelector<HTMLElement>('[data-week]');
+		if (todayEl) todayEl.textContent = formatCount(stats.today);
+		if (weekEl) weekEl.textContent = formatCount(stats.week);
+
+		root.classList.add('is-loaded');
+		root.title = `Hoy: ${stats.today} · 7 días: ${stats.week}`;
+	}
+
+	async function loadStats() {
+		try {
+			const res = await fetch('/api/stats');
+			if (!res.ok) return;
+			const data = (await res.json()) as Record<string, SlugStats>;
+
+			for (const card of cards) {
+				const slug = card.dataset.slug!;
+				const panel = card.querySelector<HTMLElement>('[data-analytics]');
+				if (!panel) continue;
+				const stats = data[slug] ?? {
+					days: Array.from({ length: 7 }, (_, i) => ({ day: String(i), count: 0 })),
+					today: 0,
+					week: 0,
+				};
+				paintSpark(panel, stats);
+			}
+		} catch {
+			// Stats are progressive enhancement — ignore failures.
+		}
+	}
+
+	loadStats();
 </script>
 
 <style>
 	main {
-		max-width: 720px;
+		max-width: 860px;
 		margin: 0 auto;
 		padding: 4rem 1.5rem 3rem;
 	}
@@ -300,9 +390,8 @@ const prettyUrl = (url: string) => {
 		background: var(--surface);
 		border: 1px solid var(--border);
 		transition: background 0.15s, border-color 0.15s, transform 0.15s;
-		/* Skip rendering work for off-screen cards without breaking Ctrl+F/search */
 		content-visibility: auto;
-		contain-intrinsic-size: auto 60px;
+		contain-intrinsic-size: auto 64px;
 	}
 
 	.link-card[hidden] {
@@ -353,6 +442,68 @@ const prettyUrl = (url: string) => {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+	}
+
+	/* ---------- Analytics ---------- */
+	.analytics {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		padding: 0 0.55rem 0 0.35rem;
+		border-left: 1px solid var(--border);
+		opacity: 0.45;
+		transition: opacity 0.2s;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.analytics.is-loaded {
+		opacity: 1;
+	}
+
+	.spark {
+		display: block;
+		overflow: visible;
+	}
+
+	.spark-bar {
+		fill: var(--dim);
+		transition: y 0.25s ease, height 0.25s ease, fill 0.15s;
+	}
+
+	.spark-bar.has-clicks {
+		fill: color-mix(in srgb, var(--accent) 55%, var(--dim));
+	}
+
+	.spark-bar.is-today {
+		fill: var(--accent);
+	}
+
+	.stats {
+		display: flex;
+		flex-direction: column;
+		gap: 0.1rem;
+		min-width: 2.6rem;
+	}
+
+	.stat {
+		display: flex;
+		align-items: baseline;
+		justify-content: flex-end;
+		gap: 0.3ch;
+		line-height: 1.15;
+	}
+
+	.stat-value {
+		color: var(--text);
+		font-size: 0.72rem;
+		font-weight: 600;
+	}
+
+	.stat-label {
+		color: var(--dim);
+		font-size: 0.58rem;
+		text-transform: lowercase;
 	}
 
 	/* ---------- Copy button ---------- */
@@ -429,7 +580,7 @@ const prettyUrl = (url: string) => {
 	}
 
 	/* ---------- Responsive ---------- */
-	@media (max-width: 560px) {
+	@media (max-width: 640px) {
 		main {
 			padding: 2.5rem 1rem 2rem;
 		}
@@ -446,7 +597,26 @@ const prettyUrl = (url: string) => {
 			max-width: 100%;
 		}
 
+		.analytics {
+			flex-direction: column;
+			justify-content: center;
+			gap: 0.25rem;
+			padding: 0 0.4rem;
+		}
+
+		.stats {
+			flex-direction: row;
+			gap: 0.45rem;
+			min-width: 0;
+		}
+
 		.kbd {
+			display: none;
+		}
+	}
+
+	@media (max-width: 400px) {
+		.spark {
 			display: none;
 		}
 	}

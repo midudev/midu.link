@@ -1,18 +1,13 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import links from './src/data/links.json';
-
 import vercel from '@astrojs/vercel';
 
-// 302 (temporary) redirects: a URL shortener's destinations change over time,
-// and a permanent 301 gets cached by browsers forever, breaking future updates.
-const redirects = Object.fromEntries(
-  links.map(({ slug, url }) => [`/${slug}`, { status: 302, destination: url }])
-);
-
+// Short-link redirects are handled at runtime by `src/middleware.ts`
+// so we can record clicks without delaying the 302 response.
+// The site stays static; only routes with `prerender = false` (e.g. /api/stats)
+// become serverless functions.
 export default defineConfig({
   site: 'https://midu.link',
   trailingSlash: 'ignore',
-  redirects,
   adapter: vercel(),
 });

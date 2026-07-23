@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@astrojs/vercel": "11.0.3",
+    "@libsql/client": "^0.17.4",
+    "@vercel/functions": "^3.7.5",
     "astro": "7.1.1"
   }
 }
