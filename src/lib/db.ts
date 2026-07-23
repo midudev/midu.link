@@ -169,3 +169,101 @@ export async function getStats(slugs?: string[]): Promise<Record<string, SlugSta
 
 	return out;
 }
+
+export type SlugAnalytics = {
+	/** Daily series oldest → newest (filled zeros for missing days in range). */
+	days: DayCount[];
+	today: number;
+	week: number;
+	month: number;
+	/** All-time total clicks recorded for this slug. */
+	total: number;
+	/** First day with any clicks, if any. */
+	firstDay: string | null;
+	/** Day with the highest click count. */
+	peak: DayCount | null;
+};
+
+/**
+ * Full analytics for a single slug: daily history (up to `maxDays`) + rollups.
+ */
+export async function getSlugAnalytics(slug: string, maxDays = 90): Promise<SlugAnalytics> {
+	const empty: SlugAnalytics = {
+		days: lastNDays(Math.min(maxDays, 7)).map((day) => ({ day, count: 0 })),
+		today: 0,
+		week: 0,
+		month: 0,
+		total: 0,
+		firstDay: null,
+		peak: null,
+	};
+
+	const db = getClient();
+	if (!db) return empty;
+
+	await ensureSchema();
+
+	const result = await db.execute({
+		sql: `
+			SELECT day, count
+			FROM clicks_daily
+			WHERE slug = ?
+			ORDER BY day ASC
+		`,
+		args: [slug],
+	});
+
+	if (result.rows.length === 0) {
+		// Still return a 7-day zero window so the chart has structure.
+		return {
+			...empty,
+			days: lastNDays(7).map((day) => ({ day, count: 0 })),
+		};
+	}
+
+	const map = new Map<string, number>();
+	let total = 0;
+	let firstDay: string | null = null;
+	let peak: DayCount | null = null;
+
+	for (const row of result.rows) {
+		const day = String(row.day);
+		const count = Number(row.count) || 0;
+		map.set(day, count);
+		total += count;
+		if (!firstDay) firstDay = day;
+		if (!peak || count > peak.count) peak = { day, count };
+	}
+
+	const todayKey = utcDay();
+	const weekKeys = lastNDays(7);
+	const monthKeys = lastNDays(30);
+
+	// Chart window: from first recorded day (capped at maxDays) through today.
+	const spanStart = firstDay!;
+	const startCandidate = lastNDays(maxDays)[0]!;
+	const chartFrom = spanStart > startCandidate ? spanStart : startCandidate;
+
+	const days: DayCount[] = [];
+	{
+		const cursor = new Date(`${chartFrom}T00:00:00.000Z`);
+		const end = new Date(`${todayKey}T00:00:00.000Z`);
+		while (cursor <= end) {
+			const day = utcDay(cursor);
+			days.push({ day, count: map.get(day) ?? 0 });
+			cursor.setUTCDate(cursor.getUTCDate() + 1);
+		}
+	}
+
+	const sumKeys = (keys: string[]) => keys.reduce((s, d) => s + (map.get(d) ?? 0), 0);
+
+	return {
+		days,
+		today: map.get(todayKey) ?? 0,
+		week: sumKeys(weekKeys),
+		month: sumKeys(monthKeys),
+		total,
+		firstDay,
+		peak,
+	};
+}

@@ -1,6 +1,11 @@
 import links from '../data/links.json';
 
-export type Link = { slug: string; url: string };
+export type Link = {
+	slug: string;
+	url: string;
+	/** ISO date (YYYY-MM-DD) when the short link was first added. */
+	created?: string;
+};
 
 const linkList = links as Link[];
 

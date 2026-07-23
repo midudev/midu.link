@@ -1,0 +1,597 @@
+---
+export const prerender = false;
+
+import Layout from '../../layouts/Layout.astro';
+import { linksBySlug } from '../../lib/links';
+import { getSlugAnalytics, lastNDays } from '../../lib/db';
+
+const slug = Astro.params.slug ?? '';
+const destination = linksBySlug.get(slug);
+
+if (!slug || !destination) {
+	return Astro.redirect('/');
+}
+
+const stats = await getSlugAnalytics(slug, 90);
+
+const prettyUrl = (url: string) => {
+	try {
+		const u = new URL(url);
+		return u.hostname.replace(/^www\./, '') + (u.pathname !== '/' ? u.pathname : '');
+	} catch {
+		return url;
+	}
+};
+
+const target = prettyUrl(destination);
+const shortUrl = `midu.link/${slug}`;
+
+const WEEKDAYS = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+const MONTHS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+
+const formatDay = (iso: string) => {
+	const d = new Date(`${iso}T12:00:00Z`);
+	if (Number.isNaN(d.getTime())) return iso;
+	return `${WEEKDAYS[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
+};
+
+const formatFull = (iso: string) => {
+	const d = new Date(`${iso}T12:00:00Z`);
+	if (Number.isNaN(d.getTime())) return iso;
+	return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+};
+
+const formatCount = (n: number) => {
+	if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, '')}M`;
+	if (n >= 10_000) return `${Math.round(n / 1000)}k`;
+	if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, '')}k`;
+	return String(n);
+};
+
+// Always a fixed 30-day window so the chart looks identical regardless of history.
+const CHART_DAYS = 30;
+const byDay = new Map(stats.days.map((d) => [d.day, d.count]));
+const chartDays = lastNDays(CHART_DAYS).map((day) => ({
+	day,
+	count: byDay.get(day) ?? 0,
+}));
+const maxCount = Math.max(...chartDays.map((d) => d.count), 1);
+
+// Daily table newest first (same fixed window)
+const tableDays = [...chartDays].reverse();
+
+const title = `${shortUrl} · Analíticas`;
+const description = `Clicks y estadísticas de ${shortUrl} → ${target}`;
+---
+
+<Layout title={title} description={description}>
+	<main>
+		<nav class="crumb">
+			<a href="/">← midu.link</a>
+		</nav>
+
+		<header>
+			<p class="eyebrow">Analíticas</p>
+			<h1>
+				<span class="domain">midu.link/</span><span class="slug">{slug}</span>
+			</h1>
+			<a class="destination" href={`/${slug}`} target="_blank" rel="nofollow noopener noreferrer">
+				<span class="dest-arrow" aria-hidden="true">→</span>
+				<span>{target}</span>
+			</a>
+		</header>
+
+		<section class="kpis" aria-label="Resumen de clicks">
+			<div class="kpi">
+				<span class="kpi-value">{formatCount(stats.today)}</span>
+				<span class="kpi-label">Hoy</span>
+			</div>
+			<div class="kpi">
+				<span class="kpi-value">{formatCount(stats.week)}</span>
+				<span class="kpi-label">7 días</span>
+			</div>
+			<div class="kpi">
+				<span class="kpi-value">{formatCount(stats.month)}</span>
+				<span class="kpi-label">30 días</span>
+			</div>
+			<div class="kpi kpi-accent">
+				<span class="kpi-value">{formatCount(stats.total)}</span>
+				<span class="kpi-label">Total</span>
+			</div>
+		</section>
+
+		<section class="panel chart-panel">
+			<div class="panel-head">
+				<h2>Últimos {CHART_DAYS} días</h2>
+				{stats.peak && stats.peak.count > 0 && (
+					<p class="panel-meta">
+						Pico: <strong>{formatCount(stats.peak.count)}</strong> el {formatFull(stats.peak.day)}
+					</p>
+				)}
+			</div>
+
+			<div
+				class="chart"
+				role="img"
+				aria-label={`Gráfico de clicks de los últimos ${CHART_DAYS} días`}
+			>
+				{
+					chartDays.map((d, i) => {
+						// Always a visible stub; scale the rest against the window max.
+						const pct = d.count === 0 ? 1.5 : Math.max(6, (d.count / maxCount) * 100);
+						const isToday = i === chartDays.length - 1;
+						// Label every 5th day + first + last to keep axis readable
+						const showLabel = i === 0 || isToday || i % 5 === 0;
+						const dayNum = d.day.slice(8);
+						return (
+							<div
+								class:list={['chart-col', { 'is-today': isToday, 'has-clicks': d.count > 0 }]}
+								title={`${formatDay(d.day)}: ${d.count} click${d.count === 1 ? '' : 's'}`}
+							>
+								<div class="chart-bar-track">
+									<div class="chart-bar" style={`height: ${pct}%`} />
+								</div>
+								<span class:list={['chart-label', { 'is-visible': showLabel }]}>
+									{showLabel ? dayNum : ''}
+								</span>
+							</div>
+						);
+					})
+				}
+			</div>
+		</section>
+
+		<section class="panel meta-panel">
+			<div class="meta-grid">
+				<div class="meta-item">
+					<span class="meta-label">Enlace corto</span>
+					<span class="meta-value mono">{shortUrl}</span>
+				</div>
+				<div class="meta-item">
+					<span class="meta-label">Destino</span>
+					<a class="meta-value mono dest-link" href={destination} target="_blank" rel="noopener noreferrer">
+						{destination}
+					</a>
+				</div>
+				<div class="meta-item">
+					<span class="meta-label">Primer click</span>
+					<span class="meta-value">{stats.firstDay ? formatFull(stats.firstDay) : '—'}</span>
+				</div>
+				<div class="meta-item">
+					<span class="meta-label">Mejor día</span>
+					<span class="meta-value">
+						{stats.peak && stats.peak.count > 0
+							? `${formatFull(stats.peak.day)} · ${formatCount(stats.peak.count)}`
+							: '—'}
+					</span>
+				</div>
+			</div>
+		</section>
+
+		<section class="panel table-panel">
+			<div class="panel-head">
+				<h2>Detalle diario</h2>
+				<p class="panel-meta">Últimos {tableDays.length} días · UTC</p>
+			</div>
+
+			{tableDays.length === 0 ? (
+				<p class="empty">Sin datos todavía.</p>
+			) : (
+				<div class="table-wrap">
+					<table>
+						<thead>
+							<tr>
+								<th>Día</th>
+								<th class="num">Clicks</th>
+								<th class="bar-col" aria-hidden="true"></th>
+							</tr>
+						</thead>
+						<tbody>
+							{
+								tableDays.map((d) => {
+									const pct = maxCount > 0 ? (d.count / maxCount) * 100 : 0;
+									const isToday = d.day === stats.days[stats.days.length - 1]?.day;
+									return (
+										<tr class:list={[{ 'is-today': isToday }]}>
+											<td>
+												<span class="day-name">{formatDay(d.day)}</span>
+												{isToday && <span class="badge">hoy</span>}
+											</td>
+											<td class="num">{formatCount(d.count)}</td>
+											<td class="bar-col">
+												<span class="mini-bar" style={`width: ${Math.max(d.count > 0 ? 4 : 0, pct)}%`} />
+											</td>
+										</tr>
+									);
+								})
+							}
+						</tbody>
+					</table>
+				</div>
+			)}
+		</section>
+
+		<footer>
+			<a href="/">← Volver a todos los enlaces</a>
+		</footer>
+	</main>
+</Layout>
+
+<style>
+	main {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 2.5rem 1.5rem 3rem;
+	}
+
+	.crumb {
+		margin-bottom: 1.75rem;
+	}
+
+	.crumb a {
+		color: var(--muted);
+		text-decoration: none;
+		font-size: 0.85rem;
+		transition: color 0.15s;
+	}
+
+	.crumb a:hover {
+		color: var(--text);
+	}
+
+	header {
+		margin-bottom: 2rem;
+	}
+
+	.eyebrow {
+		color: var(--accent);
+		font-size: 0.72rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		margin-bottom: 0.65rem;
+	}
+
+	h1 {
+		font-size: clamp(1.4rem, 4vw, 1.85rem);
+		font-weight: 500;
+		line-height: 1.2;
+		margin-bottom: 0.65rem;
+		word-break: break-all;
+	}
+
+	.domain {
+		color: var(--dim);
+	}
+
+	.slug {
+		color: var(--text);
+		font-weight: 600;
+	}
+
+	.destination {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		color: var(--muted);
+		font-size: 0.88rem;
+		text-decoration: none;
+		max-width: 100%;
+		transition: color 0.15s;
+	}
+
+	.destination:hover {
+		color: var(--accent);
+	}
+
+	.destination span:last-child {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.dest-arrow {
+		flex-shrink: 0;
+		color: var(--dim);
+	}
+
+	/* ---------- KPIs ---------- */
+	.kpis {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0.6rem;
+		margin-bottom: 1rem;
+	}
+
+	.kpi {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		padding: 1rem 0.9rem;
+		border-radius: var(--radius);
+		background: var(--surface);
+		border: 1px solid var(--border);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.kpi-accent {
+		border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+		background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+	}
+
+	.kpi-value {
+		font-size: clamp(1.25rem, 3.5vw, 1.55rem);
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		line-height: 1;
+	}
+
+	.kpi-label {
+		color: var(--muted);
+		font-size: 0.72rem;
+	}
+
+	/* ---------- Panels ---------- */
+	.panel {
+		border-radius: var(--radius);
+		background: var(--surface);
+		border: 1px solid var(--border);
+		padding: 1.15rem 1.2rem 1.25rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.panel-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.4rem 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.panel-head h2 {
+		font-size: 0.9rem;
+		font-weight: 600;
+	}
+
+	.panel-meta {
+		color: var(--muted);
+		font-size: 0.75rem;
+	}
+
+	.panel-meta strong {
+		color: var(--text);
+		font-weight: 600;
+	}
+
+	.empty {
+		color: var(--muted);
+		font-size: 0.85rem;
+		padding: 1rem 0;
+		text-align: center;
+	}
+
+	/* ---------- Chart ---------- */
+	.chart {
+		display: flex;
+		align-items: stretch;
+		gap: 3px;
+		height: 168px;
+		width: 100%;
+	}
+
+	.chart-col {
+		flex: 1 1 0;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.35rem;
+		cursor: default;
+	}
+
+	.chart-bar-track {
+		flex: 1;
+		width: 100%;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+	}
+
+	.chart-bar {
+		width: 100%;
+		max-width: 14px;
+		min-height: 2px;
+		border-radius: 3px;
+		background: var(--dim);
+		transition: background 0.15s, height 0.2s ease;
+	}
+
+	.chart-col.has-clicks .chart-bar {
+		background: color-mix(in srgb, var(--accent) 60%, var(--dim));
+	}
+
+	.chart-col.is-today .chart-bar {
+		background: var(--accent);
+	}
+
+	.chart-col:hover .chart-bar {
+		background: #c4b5fd;
+	}
+
+	.chart-label {
+		height: 1rem;
+		font-size: 0.62rem;
+		color: var(--dim);
+		line-height: 1;
+		font-variant-numeric: tabular-nums;
+		user-select: none;
+	}
+
+	.chart-label:not(.is-visible) {
+		visibility: hidden;
+	}
+
+	.chart-col.is-today .chart-label {
+		color: var(--muted);
+	}
+
+	/* ---------- Meta ---------- */
+	.meta-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.1rem 1.25rem;
+	}
+
+	.meta-item {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		min-width: 0;
+	}
+
+	.meta-label {
+		color: var(--dim);
+		font-size: 0.68rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.meta-value {
+		color: var(--text);
+		font-size: 0.88rem;
+		word-break: break-all;
+	}
+
+	.meta-value.mono {
+		font-size: 0.82rem;
+	}
+
+	.dest-link {
+		color: var(--muted);
+		text-decoration: none;
+		transition: color 0.15s;
+	}
+
+	.dest-link:hover {
+		color: var(--accent);
+	}
+
+	/* ---------- Table ---------- */
+	.table-wrap {
+		overflow-x: auto;
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		font-variant-numeric: tabular-nums;
+	}
+
+	th {
+		text-align: left;
+		color: var(--dim);
+		font-size: 0.68rem;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		padding: 0 0.5rem 0.65rem 0;
+		border-bottom: 1px solid var(--border);
+	}
+
+	th.num {
+		text-align: right;
+	}
+
+	td {
+		padding: 0.55rem 0.5rem 0.55rem 0;
+		border-bottom: 1px solid var(--border);
+		font-size: 0.85rem;
+		vertical-align: middle;
+	}
+
+	tr:last-child td {
+		border-bottom: none;
+	}
+
+	tr.is-today td {
+		color: var(--text);
+	}
+
+	.day-name {
+		color: var(--muted);
+	}
+
+	tr.is-today .day-name {
+		color: var(--text);
+	}
+
+	.badge {
+		display: inline-block;
+		margin-left: 0.45rem;
+		padding: 0.1rem 0.4rem;
+		border-radius: 999px;
+		background: var(--accent-soft);
+		color: var(--accent);
+		font-size: 0.62rem;
+		font-weight: 600;
+		vertical-align: middle;
+	}
+
+	.num {
+		text-align: right;
+		font-weight: 600;
+		min-width: 3rem;
+	}
+
+	.bar-col {
+		width: 40%;
+		padding-right: 0 !important;
+	}
+
+	.mini-bar {
+		display: block;
+		height: 6px;
+		border-radius: 3px;
+		background: color-mix(in srgb, var(--accent) 70%, transparent);
+		max-width: 100%;
+	}
+
+	tr.is-today .mini-bar {
+		background: var(--accent);
+	}
+
+	footer {
+		margin-top: 2rem;
+		text-align: center;
+	}
+
+	footer a {
+		color: var(--dim);
+		text-decoration: none;
+		font-size: 0.82rem;
+		transition: color 0.15s;
+	}
+
+	footer a:hover {
+		color: var(--muted);
+	}
+
+	@media (max-width: 560px) {
+		main {
+			padding: 1.75rem 1rem 2.5rem;
+		}
+
+		.kpis {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.meta-grid {
+			grid-template-columns: 1fr;
+			gap: 0.9rem;
+		}
+
+		.bar-col {
+			width: 30%;
+		}
+	}
+</style>

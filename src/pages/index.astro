@@ -26,28 +26,49 @@ const prettyUrl = (url: string) => {
 			</p>
 		</header>
 
-		<div class="search-wrapper">
-			<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-				<circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
-				<path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-			</svg>
-			<input
-				id="search"
-				type="search"
-				aria-label="Buscar enlace"
-				placeholder="Buscar por nombre o destino..."
-				autocomplete="off"
-				spellcheck="false"
-				autofocus
-			/>
-			<kbd class="kbd">/</kbd>
+		<div class="toolbar">
+			<div class="search-wrapper">
+				<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+					<path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+				</svg>
+				<input
+					id="search"
+					type="search"
+					aria-label="Buscar enlace"
+					placeholder="Buscar por nombre o destino..."
+					autocomplete="off"
+					spellcheck="false"
+					autofocus
+				/>
+				<kbd class="kbd">/</kbd>
+			</div>
+
+			<div class="sort" role="group" aria-label="Ordenar enlaces">
+				<button type="button" class="sort-btn is-active" data-sort="alpha" aria-pressed="true">
+					A–Z
+				</button>
+				<button type="button" class="sort-btn" data-sort="clicks" aria-pressed="false">
+					Clicks
+				</button>
+				<button type="button" class="sort-btn" data-sort="created" aria-pressed="false">
+					Recientes
+				</button>
+			</div>
 		</div>
 
 		<section class="links" id="links-list">
-			{sortedLinks.map(({ slug, url }) => {
+			{sortedLinks.map(({ slug, url, created }) => {
 				const target = prettyUrl(url);
+				const createdAt = created ?? '1970-01-01';
 				return (
-					<div class="link-card" data-slug={slug} data-target={target}>
+					<div
+						class="link-card"
+						data-slug={slug}
+						data-target={target}
+						data-created={createdAt}
+						data-week="0"
+					>
 						<a
 							href={`/${slug}`}
 							class="link-main"
@@ -57,35 +78,43 @@ const prettyUrl = (url: string) => {
 							<span class="link-slug">
 								<span class="domain">midu.link/</span><span class="slug">{slug}</span>
 							</span>
-							<span class="link-target">{target}</span>
+							<span class="link-target">
+								<svg class="target-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+									<path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								<span class="target-url">{target}</span>
+							</span>
 						</a>
 
-						<div class="analytics" aria-label={`Estadísticas de midu.link/${slug}`} data-analytics={slug}>
-							<svg class="spark" viewBox="0 0 56 22" width="56" height="22" aria-hidden="true" preserveAspectRatio="none">
+						<a
+							href={`/stats/${slug}`}
+							class="analytics"
+							aria-label={`Ver analíticas de midu.link/${slug}`}
+							data-analytics={slug}
+						>
+							<svg class="spark" viewBox="0 0 70 28" width="70" height="28" aria-hidden="true" preserveAspectRatio="none">
 								{/* 7 placeholder bars — filled by client script */}
 								{[0, 1, 2, 3, 4, 5, 6].map((i) => (
-									<rect
-										class="spark-bar"
-										data-i={i}
-										x={i * 8}
-										y={18}
-										width="5"
-										height="2"
-										rx="1"
-									/>
+									<g class="spark-hit" data-i={i}>
+										{/* Invisible wider hit target for hover */}
+										<rect class="spark-hitarea" x={i * 10} y={0} width="10" height="28" />
+										<rect
+											class="spark-bar"
+											data-i={i}
+											x={i * 10 + 2}
+											y={24}
+											width="6"
+											height="2"
+											rx="1.5"
+										/>
+									</g>
 								))}
 							</svg>
-							<div class="stats">
-								<span class="stat" title="Clicks hoy (UTC)">
-									<span class="stat-value" data-today>—</span>
-									<span class="stat-label">hoy</span>
-								</span>
-								<span class="stat" title="Clicks últimos 7 días">
-									<span class="stat-value" data-week>—</span>
-									<span class="stat-label">7d</span>
-								</span>
-							</div>
-						</div>
+							<span class="stat" title="Clicks últimos 7 días">
+								<span class="stat-value" data-week>—</span>
+								<span class="stat-label">7d</span>
+							</span>
+						</a>
 
 						<button class="copy" type="button" data-slug={slug} aria-label={`Copiar midu.link/${slug}`}>
 							<svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -114,19 +143,27 @@ const prettyUrl = (url: string) => {
 </Layout>
 
 <script>
-	const search = document.getElementById('search') as HTMLInputElement;
-	const list = document.getElementById('links-list')!;
-	const count = document.getElementById('count')!;
-	const noResults = document.getElementById('no-results')!;
-	const queryEcho = document.getElementById('query-echo')!;
-	const cards = Array.from(list.querySelectorAll<HTMLElement>('.link-card'));
-	const total = cards.length;
+	import { $, $$ } from '../lib/dom';
+
+	const search = $<HTMLInputElement>('#search')!;
+	const list = $('#links-list')!;
+	const count = $('#count')!;
+	const noResults = $('#no-results')!;
+	const queryEcho = $('#query-echo')!;
+	const sortGroup = $('.sort')!;
+	const cards = () => $$<HTMLElement>('.link-card', list);
+	const total = cards().length;
+
+	type SortMode = 'alpha' | 'clicks' | 'created';
+	const SORT_KEY = 'midu.link.sort';
+	const validSort = (v: string | null): v is SortMode =>
+		v === 'alpha' || v === 'clicks' || v === 'created';
 
 	const runFilter = () => {
 		const query = search.value.trim().toLowerCase();
 		let visible = 0;
 
-		for (const card of cards) {
+		for (const card of cards()) {
 			const slug = card.dataset.slug!.toLowerCase();
 			const target = card.dataset.target!.toLowerCase();
 			const matches = !query || slug.includes(query) || target.includes(query);
@@ -139,14 +176,75 @@ const prettyUrl = (url: string) => {
 		noResults.hidden = visible > 0;
 	};
 
+	const applySort = (mode: SortMode) => {
+		const items = cards();
+		items.sort((a, b) => {
+			if (mode === 'clicks') {
+				const wa = Number(a.dataset.week) || 0;
+				const wb = Number(b.dataset.week) || 0;
+				if (wb !== wa) return wb - wa;
+				return a.dataset.slug!.localeCompare(b.dataset.slug!);
+			}
+			if (mode === 'created') {
+				const ca = a.dataset.created ?? '';
+				const cb = b.dataset.created ?? '';
+				if (cb !== ca) return cb.localeCompare(ca); // newest first
+				return a.dataset.slug!.localeCompare(b.dataset.slug!);
+			}
+			// alpha
+			return a.dataset.slug!.localeCompare(b.dataset.slug!);
+		});
+
+		const frag = document.createDocumentFragment();
+		for (const card of items) frag.appendChild(card);
+		list.appendChild(frag);
+		runFilter();
+	};
+
+	const setSort = (mode: SortMode, { persist = true } = {}) => {
+		for (const btn of $$<HTMLButtonElement>('.sort-btn', sortGroup)) {
+			const active = btn.dataset.sort === mode;
+			btn.classList.toggle('is-active', active);
+			btn.setAttribute('aria-pressed', String(active));
+		}
+		if (persist) {
+			try {
+				localStorage.setItem(SORT_KEY, mode);
+			} catch {
+				/* ignore */
+			}
+			const url = new URL(location.href);
+			if (mode === 'alpha') url.searchParams.delete('sort');
+			else url.searchParams.set('sort', mode);
+			history.replaceState(null, '', url);
+		}
+		applySort(mode);
+	};
+
+	sortGroup.addEventListener('click', (e) => {
+		const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.sort-btn');
+		if (!btn?.dataset.sort || !validSort(btn.dataset.sort)) return;
+		setSort(btn.dataset.sort);
+	});
+
 	search.addEventListener('input', runFilter);
 
 	// Prefill from ?q= (enables Google's sitelinks search box → this page)
-	const initialQuery = new URLSearchParams(location.search).get('q');
+	const params = new URLSearchParams(location.search);
+	const initialQuery = params.get('q');
 	if (initialQuery) {
 		search.value = initialQuery;
-		runFilter();
 	}
+
+	// Sort: URL > localStorage > alpha
+	const initialSort: SortMode = validSort(params.get('sort'))
+		? (params.get('sort') as SortMode)
+		: validSort(localStorage.getItem(SORT_KEY))
+			? (localStorage.getItem(SORT_KEY) as SortMode)
+			: 'alpha';
+	setSort(initialSort, { persist: false });
+	// Sync UI + filter after initial sort
+	runFilter();
 
 	// Keyboard: "/" focuses search, Escape clears it
 	document.addEventListener('keydown', (e) => {
@@ -176,7 +274,7 @@ const prettyUrl = (url: string) => {
 			return;
 		}
 
-		document.querySelectorAll('.copy.copied').forEach((el) => el.classList.remove('copied'));
+		for (const el of $$('.copy.copied')) el.classList.remove('copied');
 		clearTimeout(resetTimer);
 		btn.classList.add('copied');
 		resetTimer = setTimeout(() => btn.classList.remove('copied'), 1400);
@@ -186,9 +284,12 @@ const prettyUrl = (url: string) => {
 	type DayCount = { day: string; count: number };
 	type SlugStats = { days: DayCount[]; today: number; week: number };
 
-	const SPARK_H = 22;
+	const SPARK_H = 28;
 	const BAR_MIN = 2;
-	const BAR_MAX = 20;
+	const BAR_MAX = 26;
+
+	const WEEKDAYS = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+	const MONTHS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 
 	function formatCount(n: number): string {
 		if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, '')}M`;
@@ -197,27 +298,81 @@ const prettyUrl = (url: string) => {
 		return String(n);
 	}
 
+	function formatDayLabel(iso: string): string {
+		const d = new Date(`${iso}T12:00:00Z`);
+		if (Number.isNaN(d.getTime())) return iso;
+		return `${WEEKDAYS[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
+	}
+
+	// Shared floating tooltip for spark bars
+	const tip = document.createElement('div');
+	tip.className = 'spark-tooltip';
+	tip.hidden = true;
+	document.body.appendChild(tip);
+
+	let tipHide: ReturnType<typeof setTimeout> | undefined;
+
+	function showTip(anchor: Element, html: string) {
+		clearTimeout(tipHide);
+		tip.innerHTML = html;
+		tip.hidden = false;
+		const r = anchor.getBoundingClientRect();
+		const tw = tip.offsetWidth;
+		const th = tip.offsetHeight;
+		let left = r.left + r.width / 2 - tw / 2;
+		left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+		const top = r.top - th - 8 + scrollY;
+		tip.style.left = `${left}px`;
+		tip.style.top = `${top}px`;
+	}
+
+	function hideTip() {
+		tipHide = setTimeout(() => {
+			tip.hidden = true;
+		}, 40);
+	}
+
 	function paintSpark(root: HTMLElement, stats: SlugStats) {
 		const counts = stats.days.map((d) => d.count);
 		const max = Math.max(...counts, 1);
 
-		root.querySelectorAll<SVGRectElement>('.spark-bar').forEach((bar) => {
+		for (const bar of $$<SVGRectElement>('.spark-bar', root)) {
 			const i = Number(bar.dataset.i);
-			const value = counts[i] ?? 0;
+			const day = stats.days[i];
+			const value = day?.count ?? 0;
 			const h = value === 0 ? BAR_MIN : Math.max(BAR_MIN, Math.round((value / max) * BAR_MAX));
 			bar.setAttribute('y', String(SPARK_H - h));
 			bar.setAttribute('height', String(h));
 			bar.classList.toggle('is-today', i === counts.length - 1);
 			bar.classList.toggle('has-clicks', value > 0);
-		});
+		}
 
-		const todayEl = root.querySelector<HTMLElement>('[data-today]');
-		const weekEl = root.querySelector<HTMLElement>('[data-week]');
-		if (todayEl) todayEl.textContent = formatCount(stats.today);
+		for (const hit of $$<SVGGElement>('.spark-hit', root)) {
+			const i = Number(hit.dataset.i);
+			const day = stats.days[i];
+			if (!day) continue;
+			const label = formatDayLabel(day.day);
+			const clicks = day.count;
+			const isToday = i === stats.days.length - 1;
+
+			hit.addEventListener('pointerenter', () => {
+				$('.spark-bar', hit)!.classList.add('is-hover');
+				showTip(
+					hit,
+					`<strong>${formatCount(clicks)}</strong> click${clicks === 1 ? '' : 's'}` +
+						`<span>${label}${isToday ? ' · hoy' : ''}</span>`,
+				);
+			});
+			hit.addEventListener('pointerleave', () => {
+				$('.spark-bar', hit)?.classList.remove('is-hover');
+				hideTip();
+			});
+		}
+
+		const weekEl = $('[data-week]', root);
 		if (weekEl) weekEl.textContent = formatCount(stats.week);
 
 		root.classList.add('is-loaded');
-		root.title = `Hoy: ${stats.today} · 7 días: ${stats.week}`;
 	}
 
 	async function loadStats() {
@@ -226,17 +381,22 @@ const prettyUrl = (url: string) => {
 			if (!res.ok) return;
 			const data = (await res.json()) as Record<string, SlugStats>;
 
-			for (const card of cards) {
+			for (const card of cards()) {
 				const slug = card.dataset.slug!;
-				const panel = card.querySelector<HTMLElement>('[data-analytics]');
+				const panel = $<HTMLElement>('[data-analytics]', card);
 				if (!panel) continue;
 				const stats = data[slug] ?? {
 					days: Array.from({ length: 7 }, (_, i) => ({ day: String(i), count: 0 })),
 					today: 0,
 					week: 0,
 				};
+				card.dataset.week = String(stats.week);
 				paintSpark(panel, stats);
 			}
+
+			// Re-apply when sorting by clicks so numbers land in the right order
+			const active = $<HTMLButtonElement>('.sort-btn.is-active', sortGroup);
+			if (active?.dataset.sort === 'clicks') applySort('clicks');
 		} catch {
 			// Stats are progressive enhancement — ignore failures.
 		}
@@ -247,7 +407,7 @@ const prettyUrl = (url: string) => {
 
 <style>
 	main {
-		max-width: 860px;
+		max-width: 920px;
 		margin: 0 auto;
 		padding: 4rem 1.5rem 3rem;
 	}
@@ -305,21 +465,73 @@ const prettyUrl = (url: string) => {
 		font-weight: 600;
 	}
 
-	/* ---------- Search ---------- */
-	.search-wrapper {
+	/* ---------- Toolbar: search + sort ---------- */
+	.toolbar {
 		position: sticky;
 		top: 0.75rem;
 		z-index: 10;
 		display: flex;
+		flex-wrap: wrap;
+		align-items: stretch;
+		gap: 0.55rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.search-wrapper {
+		flex: 1 1 16rem;
+		min-width: 0;
+		display: flex;
 		align-items: center;
 		gap: 0.65rem;
 		padding: 0 0.9rem;
-		margin-bottom: 1.5rem;
 		border-radius: var(--radius);
 		background: rgba(16, 16, 16, 0.85);
 		border: 1px solid var(--border);
 		backdrop-filter: blur(12px);
 		transition: border-color 0.15s, box-shadow 0.15s;
+	}
+
+	.sort {
+		flex: 0 0 auto;
+		display: inline-flex;
+		align-items: center;
+		padding: 0.22rem;
+		border-radius: var(--radius);
+		background: rgba(16, 16, 16, 0.85);
+		border: 1px solid var(--border);
+		backdrop-filter: blur(12px);
+		gap: 0.15rem;
+	}
+
+	.sort-btn {
+		appearance: none;
+		border: none;
+		background: transparent;
+		color: var(--muted);
+		font-family: var(--mono);
+		font-size: 0.72rem;
+		font-weight: 500;
+		letter-spacing: 0.01em;
+		padding: 0.55rem 0.75rem;
+		border-radius: calc(var(--radius) - 4px);
+		cursor: pointer;
+		transition: color 0.15s, background 0.15s;
+		white-space: nowrap;
+	}
+
+	.sort-btn:hover {
+		color: var(--text);
+	}
+
+	.sort-btn.is-active {
+		color: var(--text);
+		background: var(--accent-soft);
+		box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+	}
+
+	.sort-btn:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 1px;
 	}
 
 	.search-wrapper:focus-within {
@@ -380,7 +592,7 @@ const prettyUrl = (url: string) => {
 	.links {
 		display: flex;
 		flex-direction: column;
-		gap: 0.4rem;
+		gap: 0.35rem;
 	}
 
 	.link-card {
@@ -389,7 +601,7 @@ const prettyUrl = (url: string) => {
 		border-radius: var(--radius);
 		background: var(--surface);
 		border: 1px solid var(--border);
-		transition: background 0.15s, border-color 0.15s, transform 0.15s;
+		transition: background 0.15s, border-color 0.15s;
 		content-visibility: auto;
 		contain-intrinsic-size: auto 64px;
 	}
@@ -407,18 +619,20 @@ const prettyUrl = (url: string) => {
 		flex: 1;
 		min-width: 0;
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 1rem;
-		padding: 0.9rem 0.5rem 0.9rem 1.15rem;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.2rem;
+		padding: 0.65rem 1rem 0.65rem 1.2rem;
 		text-decoration: none;
 		color: inherit;
 	}
 
 	.link-slug {
-		flex-shrink: 0;
-		font-size: 0.95rem;
+		font-size: 1rem;
+		line-height: 1.2;
 		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.domain {
@@ -427,7 +641,7 @@ const prettyUrl = (url: string) => {
 
 	.slug {
 		color: var(--text);
-		font-weight: 500;
+		font-weight: 600;
 	}
 
 	.link-card:hover .slug {
@@ -435,13 +649,37 @@ const prettyUrl = (url: string) => {
 	}
 
 	.link-target {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
 		min-width: 0;
 		color: var(--muted);
-		font-size: 0.78rem;
-		text-align: right;
+		font-size: 0.8rem;
+		line-height: 1.3;
+	}
+
+	.target-arrow {
+		flex-shrink: 0;
+		color: var(--dim);
+		opacity: 0.7;
+		transition: color 0.15s, opacity 0.15s, transform 0.15s;
+	}
+
+	.link-card:hover .target-arrow {
+		color: var(--accent);
+		opacity: 1;
+		transform: translateX(1px);
+	}
+
+	.target-url {
+		min-width: 0;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+	}
+
+	.link-card:hover .target-url {
+		color: color-mix(in srgb, var(--muted) 70%, var(--text));
 	}
 
 	/* ---------- Analytics ---------- */
@@ -449,25 +687,39 @@ const prettyUrl = (url: string) => {
 		flex-shrink: 0;
 		display: flex;
 		align-items: center;
-		gap: 0.65rem;
-		padding: 0 0.55rem 0 0.35rem;
+		gap: 0.7rem;
+		padding: 0 0.9rem 0 0.8rem;
 		border-left: 1px solid var(--border);
-		opacity: 0.45;
-		transition: opacity 0.2s;
+		opacity: 0.5;
+		transition: opacity 0.2s, background 0.15s;
 		font-variant-numeric: tabular-nums;
+		text-decoration: none;
+		color: inherit;
+		cursor: pointer;
 	}
 
 	.analytics.is-loaded {
 		opacity: 1;
 	}
 
+	.analytics:hover {
+		background: var(--accent-soft);
+	}
+
 	.spark {
 		display: block;
 		overflow: visible;
+		flex-shrink: 0;
+	}
+
+	.spark-hitarea {
+		fill: transparent;
+		pointer-events: all;
 	}
 
 	.spark-bar {
 		fill: var(--dim);
+		pointer-events: none;
 		transition: y 0.25s ease, height 0.25s ease, fill 0.15s;
 	}
 
@@ -479,37 +731,36 @@ const prettyUrl = (url: string) => {
 		fill: var(--accent);
 	}
 
-	.stats {
-		display: flex;
-		flex-direction: column;
-		gap: 0.1rem;
-		min-width: 2.6rem;
+	.spark-bar.is-hover {
+		fill: #c4b5fd;
 	}
 
 	.stat {
 		display: flex;
-		align-items: baseline;
-		justify-content: flex-end;
-		gap: 0.3ch;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.05rem;
 		line-height: 1.15;
+		min-width: 2.2rem;
 	}
 
 	.stat-value {
 		color: var(--text);
-		font-size: 0.72rem;
+		font-size: 0.95rem;
 		font-weight: 600;
+		letter-spacing: -0.01em;
 	}
 
 	.stat-label {
-		color: var(--dim);
-		font-size: 0.58rem;
+		color: var(--muted);
+		font-size: 0.65rem;
 		text-transform: lowercase;
 	}
 
 	/* ---------- Copy button ---------- */
 	.copy {
 		flex-shrink: 0;
-		width: 3rem;
+		width: 3.1rem;
 		display: grid;
 		place-items: center;
 		border: none;
@@ -585,29 +836,43 @@ const prettyUrl = (url: string) => {
 			padding: 2.5rem 1rem 2rem;
 		}
 
-		.link-main {
+		.toolbar {
 			flex-direction: column;
-			align-items: flex-start;
-			gap: 0.25rem;
-			padding: 0.85rem 0.5rem 0.85rem 1rem;
+			gap: 0.45rem;
+		}
+
+		.sort {
+			width: 100%;
+			justify-content: stretch;
+		}
+
+		.sort-btn {
+			flex: 1;
+			text-align: center;
+			padding: 0.5rem 0.4rem;
+			font-size: 0.7rem;
+		}
+
+		.link-main {
+			padding: 0.55rem 0.75rem 0.55rem 1rem;
+			gap: 0.15rem;
+		}
+
+		.link-slug {
+			font-size: 0.95rem;
 		}
 
 		.link-target {
-			text-align: left;
-			max-width: 100%;
+			font-size: 0.75rem;
 		}
 
 		.analytics {
-			flex-direction: column;
-			justify-content: center;
-			gap: 0.25rem;
-			padding: 0 0.4rem;
+			gap: 0.5rem;
+			padding: 0 0.65rem;
 		}
 
-		.stats {
-			flex-direction: row;
-			gap: 0.45rem;
-			min-width: 0;
+		.stat-value {
+			font-size: 0.85rem;
 		}
 
 		.kbd {
@@ -615,9 +880,45 @@ const prettyUrl = (url: string) => {
 		}
 	}
 
-	@media (max-width: 400px) {
+	@media (max-width: 420px) {
 		.spark {
 			display: none;
 		}
+	}
+</style>
+
+<style is:global>
+	.spark-tooltip {
+		position: absolute;
+		z-index: 50;
+		pointer-events: none;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.1rem;
+		padding: 0.4rem 0.6rem;
+		border-radius: 8px;
+		background: #1a1a1a;
+		border: 1px solid #2e2e2e;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+		color: #ededed;
+		font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: 0.72rem;
+		line-height: 1.25;
+		white-space: nowrap;
+	}
+
+	.spark-tooltip strong {
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: #c4b5fd;
+	}
+
+	.spark-tooltip span {
+		color: #8a8a8a;
+	}
+
+	.spark-tooltip[hidden] {
+		display: none;
 	}
 </style>

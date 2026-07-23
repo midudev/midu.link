@@ -1,806 +1,1007 @@
 [
   {
     "slug": "100python",
-    "url": "https://join.replit.com/python"
+    "url": "https://join.replit.com/python",
+    "created": "2026-02-16"
   },
   {
     "slug": "42",
-    "url": "https://www.eventbrite.es/e/entradas-impulsa-tu-futuro-tecnicas-para-desarrolladores-que-marcan-la-diferencia-906114662347?aff=oddtdtcreator"
+    "url": "https://www.eventbrite.es/e/entradas-impulsa-tu-futuro-tecnicas-para-desarrolladores-que-marcan-la-diferencia-906114662347?aff=oddtdtcreator",
+    "created": "2026-02-16"
   },
   {
     "slug": "ai",
-    "url": "https://youtube-smart-link.midudev.workers.dev/U9LMje"
+    "url": "https://youtube-smart-link.midudev.workers.dev/U9LMje",
+    "created": "2026-02-16"
   },
   {
     "slug": "ai-sandbox",
-    "url": "https://apify.com/apify/ai-code-sandbox?utm_source=midudev&utm_medium=social&utm_campaign=gtm-cam-073"
+    "url": "https://apify.com/apify/ai-code-sandbox?utm_source=midudev&utm_medium=social&utm_campaign=gtm-cam-073",
+    "created": "2026-07-14"
   },
   {
     "slug": "algo-js",
-    "url": "https://github.com/trekhleb/javascript-algorithms/blob/master/README.es-ES.md"
+    "url": "https://github.com/trekhleb/javascript-algorithms/blob/master/README.es-ES.md",
+    "created": "2026-02-16"
   },
   {
     "slug": "angular",
-    "url": "https://www.youtube.com/watch?v=f7unUpshmpA"
+    "url": "https://www.youtube.com/watch?v=f7unUpshmpA",
+    "created": "2026-02-16"
   },
   {
     "slug": "api",
-    "url": "https://rapidapi.com/hub?utm_source=midudev&utm_medium=DevRel&utm_campaign=DevRel"
+    "url": "https://rapidapi.com/hub?utm_source=midudev&utm_medium=DevRel&utm_campaign=DevRel",
+    "created": "2026-02-16"
   },
   {
     "slug": "apidog",
-    "url": "https://apidog.com/es/?utm_campaign=midudev"
-  },
-  {
-    "slug": "aprende-msft",
-    "url": "https://docs.microsoft.com/es-es/learn/student-hub/"
+    "url": "https://apidog.com/es/?utm_campaign=midudev",
+    "created": "2026-02-16"
   },
   {
     "slug": "apify-code",
-    "url": "https://apify.it/4vpYJog"
+    "url": "https://apify.it/4vpYJog",
+    "created": "2026-07-06"
+  },
+  {
+    "slug": "aprende-msft",
+    "url": "https://docs.microsoft.com/es-es/learn/student-hub/",
+    "created": "2026-02-16"
   },
   {
     "slug": "arc",
-    "url": "https://m.arc.dev/3mjfpME"
+    "url": "https://m.arc.dev/3mjfpME",
+    "created": "2026-02-16"
   },
   {
     "slug": "arc-encuesta-remoto",
-    "url": "https://arcdotdev.typeform.com/to/OhYHY5G6?utm_source=blast&utm_medium=email&utm_campaign=devsalary2022&utm_content=developer-segment"
+    "url": "https://arcdotdev.typeform.com/to/OhYHY5G6?utm_source=blast&utm_medium=email&utm_campaign=devsalary2022&utm_content=developer-segment",
+    "created": "2026-02-16"
   },
   {
     "slug": "astro",
-    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38q8ZBsl9-GPRNI1AIjkRIHZ"
+    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38q8ZBsl9-GPRNI1AIjkRIHZ",
+    "created": "2026-02-16"
   },
   {
     "slug": "autentia",
-    "url": "https://www.izertis.com/es/talento"
+    "url": "https://www.izertis.com/es/talento",
+    "created": "2026-02-16"
   },
   {
     "slug": "aws",
-    "url": "https://youtu.be/zQyrhjEAqLs"
+    "url": "https://youtu.be/zQyrhjEAqLs",
+    "created": "2026-02-16"
   },
   {
     "slug": "bbc",
-    "url": "https://www.bbc.co.uk/learningenglish/"
+    "url": "https://www.bbc.co.uk/learningenglish/",
+    "created": "2026-02-16"
   },
   {
     "slug": "bootcamp",
-    "url": "https://www.youtube.com/watch?v=wTpuKOhGfJE&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7"
+    "url": "https://www.youtube.com/watch?v=wTpuKOhGfJE&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7",
+    "created": "2026-02-16"
   },
   {
     "slug": "build",
-    "url": "https://developer.microsoft.com/es-es/reactor/events/25902/?wt.mc_id=1reg_25902_webpage_reactor"
+    "url": "https://developer.microsoft.com/es-es/reactor/events/25902/?wt.mc_id=1reg_25902_webpage_reactor",
+    "created": "2026-02-16"
   },
   {
     "slug": "cabify",
-    "url": "https://cabify.careers/es/"
+    "url": "https://cabify.careers/es/",
+    "created": "2026-02-16"
   },
   {
     "slug": "camiseta",
-    "url": "https://www.redbubble.com/es/i/camiseta/MiduFest-de-midu-dev/142737019.IJ6L0.XYZ"
+    "url": "https://www.redbubble.com/es/i/camiseta/MiduFest-de-midu-dev/142737019.IJ6L0.XYZ",
+    "created": "2026-02-16"
   },
   {
     "slug": "carlosble",
-    "url": "https://leanmind.es/es/blog/codigo-sostenible-en-miduconf-2022/"
+    "url": "https://leanmind.es/es/blog/codigo-sostenible-en-miduconf-2022/",
+    "created": "2026-02-16"
   },
   {
     "slug": "cert-ms",
-    "url": "https://learn.microsoft.com/es-es/training/challenges?id=150aae80-e46b-4a07-894a-5247fcdfcbad&WT.mc_id=cloudskillschallenge_150aae80-e46b-4a07-894a-5247fcdfcbad"
+    "url": "https://learn.microsoft.com/es-es/training/challenges?id=150aae80-e46b-4a07-894a-5247fcdfcbad&WT.mc_id=cloudskillschallenge_150aae80-e46b-4a07-894a-5247fcdfcbad",
+    "created": "2026-02-16"
   },
   {
     "slug": "certificado-sql",
-    "url": "https://datacamp.pxf.io/Oezn5r"
+    "url": "https://datacamp.pxf.io/Oezn5r",
+    "created": "2026-02-16"
   },
   {
     "slug": "cisco",
-    "url": "https://www.netacad.com/es/catalogs/learn/programming?skill=python%2Cbasic-python-programming"
+    "url": "https://www.netacad.com/es/catalogs/learn/programming?skill=python%2Cbasic-python-programming",
+    "created": "2026-02-16"
   },
   {
     "slug": "cleanjs",
-    "url": "https://github.com/devictoribero/clean-code-javascript?tab=readme-ov-fil"
+    "url": "https://github.com/devictoribero/clean-code-javascript?tab=readme-ov-fil",
+    "created": "2026-02-16"
   },
   {
     "slug": "clerk",
-    "url": "https://go.clerk.com/midu-live"
+    "url": "https://go.clerk.com/midu-live",
+    "created": "2026-02-16"
   },
   {
     "slug": "click",
-    "url": "https://mucho.click"
+    "url": "https://mucho.click",
+    "created": "2026-07-08"
   },
   {
     "slug": "cloudflare",
-    "url": "https://www.youtube.com/watch?v=I2mv4456l74"
+    "url": "https://www.youtube.com/watch?v=I2mv4456l74",
+    "created": "2026-02-16"
   },
   {
     "slug": "code-apple-scroll",
-    "url": "https://codi.link"
+    "url": "https://codi.link",
+    "created": "2026-02-16"
   },
   {
     "slug": "codely",
-    "url": "https://codely.com/pro/midudev"
+    "url": "https://codely.com/pro/midudev",
+    "created": "2026-02-16"
   },
   {
     "slug": "codely-bf",
-    "url": "https://codely.com/blackfriday?utm_source=twitter&utm_medium=social&utm_campaign=black_friday-23&utm_content=midu"
+    "url": "https://codely.com/blackfriday?utm_source=twitter&utm_medium=social&utm_campaign=black_friday-23&utm_content=midu",
+    "created": "2026-02-16"
   },
   {
     "slug": "codelyi",
-    "url": "https://codely.com/blackfriday?utm_source=instagram&utm_medium=social&utm_campaign=black_friday-23&utm_content=midu"
+    "url": "https://codely.com/blackfriday?utm_source=instagram&utm_medium=social&utm_campaign=black_friday-23&utm_content=midu",
+    "created": "2026-02-16"
   },
   {
     "slug": "codelyt",
-    "url": "https://codely.com/blackfriday?utm_source=twitter&utm_medium=social&utm_campaign=black_friday-23&utm_content=midu"
+    "url": "https://codely.com/blackfriday?utm_source=twitter&utm_medium=social&utm_campaign=black_friday-23&utm_content=midu",
+    "created": "2026-02-16"
   },
   {
     "slug": "codemotion",
-    "url": "https://events.hubilo.com/workshop-fest-spain/register?utm_source=community&utm_campaign=WKSH_ESP_CODEMOTION_2023_AUTUMN&utm_medium=referral&utm_content=Midudev"
+    "url": "https://events.hubilo.com/workshop-fest-spain/register?utm_source=community&utm_campaign=WKSH_ESP_CODEMOTION_2023_AUTUMN&utm_medium=referral&utm_content=Midudev",
+    "created": "2026-02-16"
   },
   {
     "slug": "connect",
-    "url": "https://connect.keepcoding.io/?utm_source=paid&utm_medium=rrss&utm_campaign=MIDUDEV&utm_id=MIDUDEV"
+    "url": "https://connect.keepcoding.io/?utm_source=paid&utm_medium=rrss&utm_campaign=MIDUDEV&utm_id=MIDUDEV",
+    "created": "2026-02-16"
   },
   {
     "slug": "connectors-store",
-    "url": "https://apify.com/store/collections/mcp-connectors?utm_source=midudev&utm_medium=social&utm_campaign=gtm-cam-073"
+    "url": "https://apify.com/store/collections/mcp-connectors?utm_source=midudev&utm_medium=social&utm_campaign=gtm-cam-073",
+    "created": "2026-07-14"
   },
   {
     "slug": "coursera",
-    "url": "https://imp.i384100.net/c/2662387/3789356/14726"
+    "url": "https://imp.i384100.net/c/2662387/3789356/14726",
+    "created": "2026-02-16"
   },
   {
     "slug": "cs50ai",
-    "url": "https://www.edx.org/es/course/cs50s-introduction-to-artificial-intelligence-with-python"
+    "url": "https://www.edx.org/es/course/cs50s-introduction-to-artificial-intelligence-with-python",
+    "created": "2026-02-16"
   },
   {
     "slug": "css",
-    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38q7l8gV4IVCz_pjUeyD99_j"
+    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38q7l8gV4IVCz_pjUeyD99_j",
+    "created": "2026-02-16"
   },
   {
     "slug": "css-tooltip",
-    "url": "https://kushagra.dev/lab/hint/"
+    "url": "https://kushagra.dev/lab/hint/",
+    "created": "2026-02-16"
   },
   {
     "slug": "cubepath",
-    "url": "https://my.cubepath.com/register?ref=CUBEHACKATHON2026"
+    "url": "https://my.cubepath.com/register?ref=CUBEHACKATHON2026",
+    "created": "2026-03-18"
   },
   {
     "slug": "curso-google-ia",
-    "url": "https://www.coursera.org/professional-certificates/google-ai?irgwc=1&afsrc=1&utm_medium=partners&utm_source=impact&utm_campaign=2662387&utm_content=b2c&utm_campaignid=midudev&utm_term=14726_TS_1164545_"
+    "url": "https://www.coursera.org/professional-certificates/google-ai?irgwc=1&afsrc=1&utm_medium=partners&utm_source=impact&utm_campaign=2662387&utm_content=b2c&utm_campaignid=midudev&utm_term=14726_TS_1164545_",
+    "created": "2026-02-16"
   },
   {
     "slug": "curso-react",
-    "url": "https://github.com/midudev/aprendiendo-react"
+    "url": "https://github.com/midudev/aprendiendo-react",
+    "created": "2026-02-16"
   },
   {
     "slug": "curso-smart",
-    "url": "https://spr.ly/6006vAUUO"
+    "url": "https://spr.ly/6006vAUUO",
+    "created": "2026-02-16"
   },
   {
     "slug": "curso-testing",
-    "url": "https://web.dev/learn/testing/welcome"
+    "url": "https://web.dev/learn/testing/welcome",
+    "created": "2026-02-16"
   },
   {
     "slug": "curso-tizen",
-    "url": "https://europe-samsung.com/smsdev/Noticias/Detalle/da_el_salto_al_diseno_de_apps_para_smart_tv_con_nuestra_nueva_edicion_del_curso_tizen/148725ec-e6d8-48a6-a482-b5e8aee6cca9"
+    "url": "https://europe-samsung.com/smsdev/Noticias/Detalle/da_el_salto_al_diseno_de_apps_para_smart_tv_con_nuestra_nueva_edicion_del_curso_tizen/148725ec-e6d8-48a6-a482-b5e8aee6cca9",
+    "created": "2026-02-16"
   },
   {
     "slug": "cursos",
-    "url": "https://x.com/midudev/status/1803810081852551533"
+    "url": "https://x.com/midudev/status/1803810081852551533",
+    "created": "2026-02-16"
   },
   {
     "slug": "cv",
-    "url": "https://delacruzdev.notion.site/Apply-to-tech-companies-with-this-CV-template-fd977e7e715d4445a6ba1878a500e327"
+    "url": "https://delacruzdev.notion.site/Apply-to-tech-companies-with-this-CV-template-fd977e7e715d4445a6ba1878a500e327",
+    "created": "2026-02-16"
   },
   {
     "slug": "cvp",
-    "url": "https://docs.google.com/document/d/12WyXqF_4-FmKPH2a9VpBTrvrH38o43cD/copy"
+    "url": "https://docs.google.com/document/d/12WyXqF_4-FmKPH2a9VpBTrvrH38o43cD/copy",
+    "created": "2026-02-16"
   },
   {
     "slug": "cvt",
-    "url": "https://docs.google.com/document/d/1_zB6eWfH00beu8cONeY1mZKEHOQbLDi4/edit?usp=sharing&ouid=115683092888388788010&rtpof=true&sd=true"
+    "url": "https://docs.google.com/document/d/1_zB6eWfH00beu8cONeY1mZKEHOQbLDi4/edit?usp=sharing&ouid=115683092888388788010&rtpof=true&sd=true",
+    "created": "2026-02-16"
   },
   {
     "slug": "dana",
-    "url": "https://lateuaterra.com/donations/apoya-los-comercios-locales-afectados-por-la-dana/"
+    "url": "https://lateuaterra.com/donations/apoya-los-comercios-locales-afectados-por-la-dana/",
+    "created": "2026-02-16"
   },
   {
     "slug": "datacamp",
-    "url": "https://datacamp.pxf.io/m4ErJ1"
+    "url": "https://datacamp.pxf.io/m4ErJ1",
+    "created": "2026-02-16"
   },
   {
     "slug": "datacamp-ig",
-    "url": "https://datacamp.pxf.io/yZbEPW"
+    "url": "https://datacamp.pxf.io/yZbEPW",
+    "created": "2026-05-22"
   },
   {
     "slug": "decodo",
-    "url": "https://visit.decodo.com/B5Pgv0"
+    "url": "https://visit.decodo.com/B5Pgv0",
+    "created": "2026-05-19"
   },
   {
     "slug": "demo-back-to-top",
-    "url": "https://codi.link"
+    "url": "https://codi.link",
+    "created": "2026-02-16"
   },
   {
     "slug": "descargar-pdf",
-    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "created": "2026-02-16"
   },
   {
     "slug": "directory",
-    "url": "https://www.twitch.tv/directory"
-  },
-  {
-    "slug": "dondominio",
-    "url": "https://www.dondominio.com/es/?_x-c=649"
+    "url": "https://www.twitch.tv/directory",
+    "created": "2026-02-16"
   },
   {
     "slug": "docker",
-    "url": "https://www.youtube.com/live/wZnddhLrmiM"
+    "url": "https://www.youtube.com/live/wZnddhLrmiM",
+    "created": "2026-07-02"
+  },
+  {
+    "slug": "dondominio",
+    "url": "https://www.dondominio.com/es/?_x-c=649",
+    "created": "2026-02-16"
   },
   {
     "slug": "eloquent",
-    "url": "https://eloquent-javascript-es.vercel.app/"
+    "url": "https://eloquent-javascript-es.vercel.app/",
+    "created": "2026-02-16"
   },
   {
     "slug": "elsacupon",
-    "url": "https://elsaspeak.com/inf/midudev/"
+    "url": "https://elsaspeak.com/inf/midudev/",
+    "created": "2026-02-16"
   },
   {
     "slug": "elsagratis",
-    "url": "https://elsaspeak.com/es/?shortlink=a7lemmx4&c=AFF_midudev&pid=AFF_midudev"
+    "url": "https://elsaspeak.com/es/?shortlink=a7lemmx4&c=AFF_midudev&pid=AFF_midudev",
+    "created": "2026-02-16"
   },
   {
     "slug": "eng1",
-    "url": "https://www.cambridgeenglish.org/learning-english/activities-for-learners/"
+    "url": "https://www.cambridgeenglish.org/learning-english/activities-for-learners/",
+    "created": "2026-02-16"
   },
   {
     "slug": "eng2",
-    "url": "https://www.engvid.com/"
+    "url": "https://www.engvid.com/",
+    "created": "2026-02-16"
   },
   {
     "slug": "esim",
-    "url": "http://rwrd.io/5xbkx15"
+    "url": "http://rwrd.io/5xbkx15",
+    "created": "2026-02-16"
   },
   {
     "slug": "exercism",
-    "url": "https://exercism.org/"
+    "url": "https://exercism.org/",
+    "created": "2026-02-16"
   },
   {
     "slug": "falcon",
-    "url": "https://vdo.ninja/?director=midudevlivestream&password=falcon&showdirector"
+    "url": "https://vdo.ninja/?director=midudevlivestream&password=falcon&showdirector",
+    "created": "2026-02-16"
   },
   {
     "slug": "flexbox",
-    "url": "https://www.youtube.com/watch?v=PSwlAuRbv_A&t=19s"
+    "url": "https://www.youtube.com/watch?v=PSwlAuRbv_A&t=19s",
+    "created": "2026-02-16"
   },
   {
     "slug": "geekom",
-    "url": "https://www.geekom.es/geekom-a9-max-mini-pc/?mtm_campaign=ka9max-noe"
+    "url": "https://www.geekom.es/geekom-a9-max-mini-pc/?mtm_campaign=ka9max-noe",
+    "created": "2026-02-16"
   },
   {
     "slug": "geekom-a6",
-    "url": "https://www.geekom.es/geekom-a6-mini-pc/?mtm_campaign=a6-diwu-ge"
+    "url": "https://www.geekom.es/geekom-a6-mini-pc/?mtm_campaign=a6-diwu-ge",
+    "created": "2026-02-16"
   },
   {
     "slug": "geekom-az",
-    "url": "https://www.amazon.es/dp/B0DRP2CPR1?maas=maas_adg_6258CF3660B0FEC43E9D93635D2710D5_afap_abs&ref_=nav_signin&tag=maas"
+    "url": "https://www.amazon.es/dp/B0DRP2CPR1?maas=maas_adg_6258CF3660B0FEC43E9D93635D2710D5_afap_abs&ref_=nav_signin&tag=maas",
+    "created": "2026-02-16"
   },
   {
     "slug": "gh-actions",
-    "url": "https://www.youtube.com/watch?v=sIhm4YOMK6Q"
+    "url": "https://www.youtube.com/watch?v=sIhm4YOMK6Q",
+    "created": "2026-02-16"
   },
   {
     "slug": "git",
-    "url": "https://www.youtube.com/watch?v=niPExbK8lSw"
+    "url": "https://www.youtube.com/watch?v=niPExbK8lSw",
+    "created": "2026-02-16"
   },
   {
     "slug": "gitpdf",
-    "url": "https://training.github.com/downloads/es_ES/github-git-cheat-sheet.pdf"
+    "url": "https://training.github.com/downloads/es_ES/github-git-cheat-sheet.pdf",
+    "created": "2026-02-16"
   },
   {
     "slug": "google-certificado",
-    "url": "https://cloud.google.com/innovators/getcertified"
+    "url": "https://cloud.google.com/innovators/getcertified",
+    "created": "2026-02-16"
   },
   {
     "slug": "graphql",
-    "url": "https://www.youtube.com/watch?v=KRV46iZ844s&list=PLV8x_i1fqBw3wHa7HOle0MMAcRjfViWwC"
+    "url": "https://www.youtube.com/watch?v=KRV46iZ844s&list=PLV8x_i1fqBw3wHa7HOle0MMAcRjfViWwC",
+    "created": "2026-02-16"
   },
   {
     "slug": "grid",
-    "url": "https://www.youtube.com/watch?v=iTjkiI8QQsM"
+    "url": "https://www.youtube.com/watch?v=iTjkiI8QQsM",
+    "created": "2026-02-16"
   },
   {
     "slug": "grid-trucos",
-    "url": "https://www.paradigmadigital.com/assets/cms/cheat_sheet_flexbox_6fb013edd1.pdf"
+    "url": "https://www.paradigmadigital.com/assets/cms/cheat_sheet_flexbox_6fb013edd1.pdf",
+    "created": "2026-02-16"
   },
   {
     "slug": "guia",
-    "url": "https://github.com/DevCaress/guia-entrevistas-de-programacion"
+    "url": "https://github.com/DevCaress/guia-entrevistas-de-programacion",
+    "created": "2026-02-16"
   },
   {
     "slug": "guianode",
-    "url": "https://github.com/goldbergyoni/nodebestpractices/blob/spanish-translation/README.spanish.md"
-  },
-  {
-    "slug": "html",
-    "url": "https://www.youtube.com/watch?v=3nYLTiY5skU"
+    "url": "https://github.com/goldbergyoni/nodebestpractices/blob/spanish-translation/README.spanish.md",
+    "created": "2026-02-16"
   },
   {
     "slug": "hostinger",
-    "url": "https://www.hostinger.com/es/servidor-vps?utm_medium=affiliate&utm_source=aff202972&utm_campaign=954&session=1029ba1775acbab70c58011d099dfd"
+    "url": "https://www.hostinger.com/es/servidor-vps?utm_medium=affiliate&utm_source=aff202972&utm_campaign=954&session=1029ba1775acbab70c58011d099dfd",
+    "created": "2026-05-19"
+  },
+  {
+    "slug": "html",
+    "url": "https://www.youtube.com/watch?v=3nYLTiY5skU",
+    "created": "2026-02-16"
   },
   {
     "slug": "ia",
-    "url": "https://dashboard.cohere.ai/welcome/register?utm_source=influencer&utm_medium=social&utm_campaign=midudev"
+    "url": "https://dashboard.cohere.ai/welcome/register?utm_source=influencer&utm_medium=social&utm_campaign=midudev",
+    "created": "2026-02-16"
   },
   {
     "slug": "ignite",
-    "url": "https://ignite.microsoft.com/home?wt.mc_ID=ignite2022_az_fld_latam_soc_pd_Influencers_SP"
+    "url": "https://ignite.microsoft.com/home?wt.mc_ID=ignite2022_az_fld_latam_soc_pd_Influencers_SP",
+    "created": "2026-02-16"
   },
   {
     "slug": "infojobs",
-    "url": "https://www.infojobs.net/sevilla/programador-web-para-velada-vi/of-ia56eb7e9cb4921866babab7c6f9e1d"
+    "url": "https://www.infojobs.net/sevilla/programador-web-para-velada-vi/of-ia56eb7e9cb4921866babab7c6f9e1d",
+    "created": "2026-02-16"
   },
   {
     "slug": "ingles",
-    "url": "https://www.curso-ingles.com/"
+    "url": "https://www.curso-ingles.com/",
+    "created": "2026-02-16"
   },
   {
     "slug": "ingles-a2",
-    "url": "https://www.freecodecamp.org/learn/a2-english-for-developers/"
+    "url": "https://www.freecodecamp.org/learn/a2-english-for-developers/",
+    "created": "2026-02-16"
   },
   {
     "slug": "instagram",
-    "url": "https://www.instagram.com/midu.dev/"
+    "url": "https://www.instagram.com/midu.dev/",
+    "created": "2026-02-16"
   },
   {
     "slug": "js",
-    "url": "https://aprendejavascript.dev/"
+    "url": "https://aprendejavascript.dev/",
+    "created": "2026-02-16"
   },
   {
     "slug": "js30",
-    "url": "https://github.com/Asabeneh/30-Days-Of-JavaScript/tree/master/Spanish"
+    "url": "https://github.com/Asabeneh/30-Days-Of-JavaScript/tree/master/Spanish",
+    "created": "2026-02-16"
   },
   {
     "slug": "keepcoding",
-    "url": "https://keepcoding.io/nuestros-bootcamps/?utm_campaign=MIDUCONF24&utm_source=twitch&utm_medium=paidsocial&utm_term=MIDUCONF24&utm_content=TWITCH"
+    "url": "https://keepcoding.io/nuestros-bootcamps/?utm_campaign=MIDUCONF24&utm_source=twitch&utm_medium=paidsocial&utm_term=MIDUCONF24&utm_content=TWITCH",
+    "created": "2026-02-16"
   },
   {
     "slug": "king",
-    "url": "https://twitter.com/midudev/status/1610635988786610179"
+    "url": "https://twitter.com/midudev/status/1610635988786610179",
+    "created": "2026-02-16"
   },
   {
     "slug": "leanmind",
-    "url": "https://leanmind.es/es/"
+    "url": "https://leanmind.es/es/",
+    "created": "2026-02-16"
   },
   {
     "slug": "lemon",
-    "url": "https://l.lemon.io/midudev"
+    "url": "https://l.lemon.io/midudev",
+    "created": "2026-02-16"
   },
   {
     "slug": "lemoncode",
-    "url": "https://lemoncode.net/master-frontend#inicio-banner"
+    "url": "https://lemoncode.net/master-frontend#inicio-banner",
+    "created": "2026-02-16"
   },
   {
     "slug": "libernovo",
-    "url": "https://es.libernovo.com/?ref=midudev"
+    "url": "https://es.libernovo.com/?ref=midudev",
+    "created": "2026-02-16"
   },
   {
     "slug": "libro",
-    "url": "https://amzn.to/3JPtQ6L"
+    "url": "https://amzn.to/3JPtQ6L",
+    "created": "2026-02-16"
   },
   {
     "slug": "libro-digital",
-    "url": "https://leanpub.com/aprendiendo-git"
+    "url": "https://leanpub.com/aprendiendo-git",
+    "created": "2026-02-16"
   },
   {
     "slug": "libro-latam",
-    "url": "https://www.amazon.com/-/es/Miguel-%C3%81ngel-Dur%C3%A1n-Garc%C3%ADa/dp/B0D2LPMG6F"
+    "url": "https://www.amazon.com/-/es/Miguel-%C3%81ngel-Dur%C3%A1n-Garc%C3%ADa/dp/B0D2LPMG6F",
+    "created": "2026-02-16"
   },
   {
     "slug": "libro-mx",
-    "url": "https://www.amazon.com.mx/Aprendiendo-Git-GitHub-pr%C3%A1cticas-estrategias/dp/B0D2LPMG6F"
+    "url": "https://www.amazon.com.mx/Aprendiendo-Git-GitHub-pr%C3%A1cticas-estrategias/dp/B0D2LPMG6F",
+    "created": "2026-02-16"
   },
   {
     "slug": "libro-python",
-    "url": "https://softlibre.unizar.es/manuales/aplicaciones/python/aprendepython_2023.pdf"
+    "url": "https://softlibre.unizar.es/manuales/aplicaciones/python/aprendepython_2023.pdf",
+    "created": "2026-02-16"
   },
   {
     "slug": "libro-react",
-    "url": "https://leanpub.com/react-preguntas-tipicas"
+    "url": "https://leanpub.com/react-preguntas-tipicas",
+    "created": "2026-02-16"
   },
   {
     "slug": "limonada",
-    "url": "https://midu.dev/checkout/iniciar-pago?priceId=price_1ROKrGAZltcMyd8wCBMVm4es&coupon=O9hP8zyw"
+    "url": "https://midu.dev/checkout/iniciar-pago?priceId=price_1ROKrGAZltcMyd8wCBMVm4es&coupon=O9hP8zyw",
+    "created": "2026-02-16"
   },
   {
     "slug": "linkedin",
-    "url": "https://opportunity.linkedin.com/es-es/skills-for-in-demand-jobs"
+    "url": "https://opportunity.linkedin.com/es-es/skills-for-in-demand-jobs",
+    "created": "2026-02-16"
   },
   {
     "slug": "logitech",
-    "url": "https://www.amazon.es/stores/page/672B25A0-40D3-40C8-BBE1-24010200BC7C"
-  },
-  {
-    "slug": "lumo",
-    "url": "https://www.proton.me/lumo/midudev"
+    "url": "https://www.amazon.es/stores/page/672B25A0-40D3-40C8-BBE1-24010200BC7C",
+    "created": "2026-02-16"
   },
   {
     "slug": "lolalolita",
-    "url": "https://www.infojobs.net/madrid/programador-para-lola-lolita-land/of-i02543d6ddb41118fee5e2e1a17857b"
+    "url": "https://www.infojobs.net/madrid/programador-para-lola-lolita-land/of-i02543d6ddb41118fee5e2e1a17857b",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "lumo",
+    "url": "https://www.proton.me/lumo/midudev",
+    "created": "2026-07-06"
   },
   {
     "slug": "majo",
-    "url": "https://losapuntesdemajo.vercel.app/"
+    "url": "https://losapuntesdemajo.vercel.app/",
+    "created": "2026-02-16"
   },
   {
     "slug": "malt",
-    "url": "https://www.malt.es/signup?utm_source=event&utm_medium=Influencers&utm_campaign=ES_freelancer_all_community_midudev-sponsor&utm_content=create-profile-page"
+    "url": "https://www.malt.es/signup?utm_source=event&utm_medium=Influencers&utm_campaign=ES_freelancer_all_community_midudev-sponsor&utm_content=create-profile-page",
+    "created": "2026-02-16"
   },
   {
     "slug": "malt-sorteo",
-    "url": "https://forms.gle/AHxcJpK1EA8j2pET6"
+    "url": "https://forms.gle/AHxcJpK1EA8j2pET6",
+    "created": "2026-02-16"
   },
   {
     "slug": "manfred",
-    "url": "https://www.getmanfred.com/developer-career-report?utm_source=twitch&utm_medium=social&utm_campaign=tech-career-report"
+    "url": "https://www.getmanfred.com/developer-career-report?utm_source=twitch&utm_medium=social&utm_campaign=tech-career-report",
+    "created": "2026-02-16"
   },
   {
     "slug": "manus",
-    "url": "https://manus.im/redeem?c=M2D6K3P1"
+    "url": "https://manus.im/redeem?c=M2D6K3P1",
+    "created": "2026-05-19"
   },
   {
     "slug": "mcp",
-    "url": "https://www.youtube.com/watch?v=wnHczxwukYY"
+    "url": "https://www.youtube.com/watch?v=wnHczxwukYY",
+    "created": "2026-02-16"
   },
   {
     "slug": "mcp-connector",
-    "url": "https://apify.it/4aMzxjx"
+    "url": "https://apify.it/4aMzxjx",
+    "created": "2026-07-06"
   },
   {
     "slug": "mcp-connectors",
-    "url": "https://blog.apify.com/announcing-mcp-connectors/?utm_source=midudev&utm_medium=social&utm_campaign=gtm-cam-073"
+    "url": "https://blog.apify.com/announcing-mcp-connectors/?utm_source=midudev&utm_medium=social&utm_campaign=gtm-cam-073",
+    "created": "2026-07-14"
   },
   {
     "slug": "me-apunto",
-    "url": "https://tally.so/r/wkEe1M"
+    "url": "https://tally.so/r/wkEe1M",
+    "created": "2026-02-16"
   },
   {
     "slug": "mel",
-    "url": "https://www.melgeek.com/?ref=midudev"
+    "url": "https://www.melgeek.com/?ref=midudev",
+    "created": "2026-02-16"
   },
   {
     "slug": "microsoft",
-    "url": "https://aka.ms/MSIgniteXL"
+    "url": "https://aka.ms/MSIgniteXL",
+    "created": "2026-02-16"
   },
   {
     "slug": "minimax",
-    "url": "https://platform.minimax.io/subscribe/coding-plan?code=GrqisSqnhf&source=link"
+    "url": "https://platform.minimax.io/subscribe/coding-plan?code=GrqisSqnhf&source=link",
+    "created": "2026-05-26"
   },
   {
     "slug": "ms-mcp",
-    "url": "https://developer.microsoft.com/es-es/reactor/series/S-1567/"
+    "url": "https://developer.microsoft.com/es-es/reactor/series/S-1567/",
+    "created": "2026-02-16"
   },
   {
     "slug": "ms-python",
-    "url": "https://aka.ms/pythonagentes/serie"
+    "url": "https://aka.ms/pythonagentes/serie",
+    "created": "2026-02-16"
   },
   {
     "slug": "msbuild",
-    "url": "https://build.microsoft.com/home?wt.mc_ID=msbuild26_aimar_fld_latam_np_inf_MiduDev"
+    "url": "https://build.microsoft.com/home?wt.mc_ID=msbuild26_aimar_fld_latam_np_inf_MiduDev",
+    "created": "2026-02-16"
   },
   {
     "slug": "mspython",
-    "url": "https://imp.i384100.net/7aBaNY"
+    "url": "https://imp.i384100.net/7aBaNY",
+    "created": "2026-02-16"
   },
   {
     "slug": "mwc",
-    "url": "https://f6jng.share-eu1.hsforms.com/2iKSNyOGgRkO5mXtxhY1_Gw"
+    "url": "https://f6jng.share-eu1.hsforms.com/2iKSNyOGgRkO5mXtxhY1_Gw",
+    "created": "2026-02-16"
   },
   {
     "slug": "n26",
-    "url": "https://n26.com/es-es/affiliate-miguelangelduran?irgwc=1&utm_source=ira&utm_medium=influencer&utm_campaign=2960987&utm_term=6217853"
+    "url": "https://n26.com/es-es/affiliate-miguelangelduran?irgwc=1&utm_source=ira&utm_medium=influencer&utm_campaign=2960987&utm_term=6217853",
+    "created": "2026-02-16"
   },
   {
     "slug": "naranjada",
-    "url": "https://midu.dev/checkout/iniciar-pago?priceId=price_1ROKrGAZltcMyd8wCBMVm4es&coupon=ZFP1EkIQ"
+    "url": "https://midu.dev/checkout/iniciar-pago?priceId=price_1ROKrGAZltcMyd8wCBMVm4es&coupon=ZFP1EkIQ",
+    "created": "2026-02-16"
   },
   {
     "slug": "nation",
-    "url": "https://survey.developernation.net/name/dn32/branch/main/?member_id=midudev&locale=es&utm_medium=partners&utm_source=twitch&utm_campaign=dn32_twitch_mention"
+    "url": "https://survey.developernation.net/name/dn32/branch/main/?member_id=midudev&locale=es&utm_medium=partners&utm_source=twitch&utm_campaign=dn32_twitch_mention",
+    "created": "2026-02-16"
   },
   {
     "slug": "next",
-    "url": "https://www.youtube.com/watch?v=jMy4pVZMyLM&list=PLUofhDIg_38poFpsV-xAbWUbW1urNmY_I"
+    "url": "https://www.youtube.com/watch?v=jMy4pVZMyLM&list=PLUofhDIg_38poFpsV-xAbWUbW1urNmY_I",
+    "created": "2026-02-16"
   },
   {
     "slug": "nextjs",
-    "url": "https://www.youtube.com/watch?v=2jxc8DMzt0I&list=PLV8x_i1fqBw1VR86y4C72xMGJ8ifjBwJ6"
+    "url": "https://www.youtube.com/watch?v=2jxc8DMzt0I&list=PLV8x_i1fqBw1VR86y4C72xMGJ8ifjBwJ6",
+    "created": "2026-02-16"
   },
   {
     "slug": "node",
-    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38qm2oPOV-IRTTEKyrVBBaU7"
+    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38qm2oPOV-IRTTEKyrVBBaU7",
+    "created": "2026-02-16"
   },
   {
     "slug": "ntt",
-    "url": "https://careers.emeal.nttdata.com/s/offer/a1J2p000009xWENEA2/frontendbackend-developer?language=es"
+    "url": "https://careers.emeal.nttdata.com/s/offer/a1J2p000009xWENEA2/frontendbackend-developer?language=es",
+    "created": "2026-02-16"
   },
   {
     "slug": "nvidia",
-    "url": "https://v0-nvidia-free-courses.vercel.app"
-  },
-  {
-    "slug": "open",
-    "url": "https://fullstackopen.com/es/"
+    "url": "https://v0-nvidia-free-courses.vercel.app",
+    "created": "2026-02-16"
   },
   {
     "slug": "omnipro",
-    "url": "https://eu.libernovo.com/products/libernovo-omni-pro-dynamic-ergonomic-chair?ref=midu"
+    "url": "https://eu.libernovo.com/products/libernovo-omni-pro-dynamic-ergonomic-chair?ref=midu",
+    "created": "2026-06-15"
   },
   {
     "slug": "omnise",
-    "url": "https://eu.libernovo.com/products/libernovo-omni-se-dynamic-ergonomic-chair?ref=midu"
+    "url": "https://eu.libernovo.com/products/libernovo-omni-se-dynamic-ergonomic-chair?ref=midu",
+    "created": "2026-06-15"
+  },
+  {
+    "slug": "open",
+    "url": "https://fullstackopen.com/es/",
+    "created": "2026-02-16"
   },
   {
     "slug": "opencode",
-    "url": "https://youtube-smart-link.midudev.workers.dev/gHWFof"
+    "url": "https://youtube-smart-link.midudev.workers.dev/gHWFof",
+    "created": "2026-05-06"
   },
   {
     "slug": "paradigma",
-    "url": "https://eventos.paradigmadigital.com/paradigma-open-space-registro"
+    "url": "https://eventos.paradigmadigital.com/paradigma-open-space-registro",
+    "created": "2026-02-16"
   },
   {
     "slug": "pathofdev",
-    "url": "https://europe-samsung.com/smsdev/Noticias/Detalle/path_of_the_dev_el_futuro_de_la_sede_esta_en_tus_manos/d37775aa-f81f-4667-a87a-31508a1f5d70"
+    "url": "https://europe-samsung.com/smsdev/Noticias/Detalle/path_of_the_dev_el_futuro_de_la_sede_esta_en_tus_manos/d37775aa-f81f-4667-a87a-31508a1f5d70",
+    "created": "2026-02-16"
   },
   {
     "slug": "php",
-    "url": "https://www.youtube.com/watch?v=BcGAPkjt_IE&list=PLUofhDIg_38rCmybY4E_bmGvUHaSw7-oc"
+    "url": "https://www.youtube.com/watch?v=BcGAPkjt_IE&list=PLUofhDIg_38rCmybY4E_bmGvUHaSw7-oc",
+    "created": "2026-02-16"
   },
   {
     "slug": "practicar",
-    "url": "https://www.frontendpractice.com/"
+    "url": "https://www.frontendpractice.com/",
+    "created": "2026-02-16"
   },
   {
     "slug": "preguntas-javascript",
-    "url": "https://github.com/lydiahallie/javascript-questions/blob/master/es-ES/README-ES.md"
-  },
-  {
-    "slug": "proyectos-2024",
-    "url": "https://midu.dev/proyectos2024.png"
+    "url": "https://github.com/lydiahallie/javascript-questions/blob/master/es-ES/README-ES.md",
+    "created": "2026-02-16"
   },
   {
     "slug": "proton",
-    "url": "https://www.proton.me/lumo/midudev"
+    "url": "https://www.proton.me/lumo/midudev",
+    "created": "2026-07-06"
+  },
+  {
+    "slug": "proyectos-2024",
+    "url": "https://midu.dev/proyectos2024.png",
+    "created": "2026-02-16"
   },
   {
     "slug": "public-apis",
-    "url": "https://github.com/public-apis/public-apis"
+    "url": "https://github.com/public-apis/public-apis",
+    "created": "2026-02-16"
   },
   {
     "slug": "pylatino",
-    "url": "https://codeinplace.stanford.edu/pylatino-publico/join/pylatino-25?r=midudev&utm_source=midudev&utm_medium=website&utm_campaign=midudev"
+    "url": "https://codeinplace.stanford.edu/pylatino-publico/join/pylatino-25?r=midudev&utm_source=midudev&utm_medium=website&utm_campaign=midudev",
+    "created": "2026-02-16"
   },
   {
     "slug": "python",
-    "url": "https://www.youtube.com/watch?v=TkN2i-_4N4g"
+    "url": "https://www.youtube.com/watch?v=TkN2i-_4N4g",
+    "created": "2026-02-16"
   },
   {
     "slug": "rapidapi",
-    "url": "https://rapidapi.com/hub?utm_source=midudev&utm_medium=DevRel&utm_campaign=DevRel"
+    "url": "https://rapidapi.com/hub?utm_source=midudev&utm_medium=DevRel&utm_campaign=DevRel",
+    "created": "2026-02-16"
   },
   {
     "slug": "rapidapix",
-    "url": "https://marketplace.visualstudio.com/items?itemName=RapidAPI.vscode-rapidapi-client&utm_source=midudev&utm_medium=DevRel&utm_campaign=DevRel"
+    "url": "https://marketplace.visualstudio.com/items?itemName=RapidAPI.vscode-rapidapi-client&utm_source=midudev&utm_medium=DevRel&utm_campaign=DevRel",
+    "created": "2026-02-16"
   },
   {
     "slug": "react",
-    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38q4D0xNWp7FEHOTcZhjWJ29"
+    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38q4D0xNWp7FEHOTcZhjWJ29",
+    "created": "2026-02-16"
   },
   {
     "slug": "react-advanced",
-    "url": "https://ti.to/gitnation/react-advanced-remote-only-2021/discount/MidudevDiscount"
+    "url": "https://ti.to/gitnation/react-advanced-remote-only-2021/discount/MidudevDiscount",
+    "created": "2026-02-16"
   },
   {
     "slug": "react-summit",
-    "url": "https://gleam.io/3SlPD/react-summit"
+    "url": "https://gleam.io/3SlPD/react-summit",
+    "created": "2026-02-16"
   },
   {
     "slug": "regexpdf",
-    "url": "https://images.datacamp.com/image/upload/v1665049611/Marketing/Blog/Regular_Expressions_Cheat_Sheet.pdf"
+    "url": "https://images.datacamp.com/image/upload/v1665049611/Marketing/Blog/Regular_Expressions_Cheat_Sheet.pdf",
+    "created": "2026-02-16"
   },
   {
     "slug": "roadmap2024",
-    "url": "https://midu.dev/roadmap2024.png"
+    "url": "https://midu.dev/roadmap2024.png",
+    "created": "2026-02-16"
   },
   {
     "slug": "run",
-    "url": "https://tuga-shop.com/halfmarathonbcn"
+    "url": "https://tuga-shop.com/halfmarathonbcn",
+    "created": "2026-02-16"
   },
   {
     "slug": "rust",
-    "url": "https://learn.microsoft.com/es-es/training/paths/rust-first-steps/"
+    "url": "https://learn.microsoft.com/es-es/training/paths/rust-first-steps/",
+    "created": "2026-02-16"
   },
   {
     "slug": "ruta-sql",
-    "url": "https://datacamp.pxf.io/nXgNj9"
+    "url": "https://datacamp.pxf.io/nXgNj9",
+    "created": "2026-02-16"
   },
   {
     "slug": "salarios",
-    "url": "https://forms.gle/LiphJUAuqVrfF9kK9"
+    "url": "https://forms.gle/LiphJUAuqVrfF9kK9",
+    "created": "2026-02-16"
   },
   {
     "slug": "samsung",
-    "url": "https://spr.ly/60004PY7g"
+    "url": "https://spr.ly/60004PY7g",
+    "created": "2026-02-16"
   },
   {
     "slug": "scrimba",
-    "url": "https://scrimba.com/landingpage?via=midudev-captions"
+    "url": "https://scrimba.com/landingpage?via=midudev-captions",
+    "created": "2026-02-16"
   },
   {
     "slug": "shadowcss",
-    "url": "https://www.joshwcomeau.com/shadow-palette"
+    "url": "https://www.joshwcomeau.com/shadow-palette",
+    "created": "2026-02-16"
   },
   {
     "slug": "silla",
-    "url": "https://eu.libernovo.com/products/libernovo-omni-pro-dynamic-ergonomic-chair?ref=midu"
+    "url": "https://eu.libernovo.com/products/libernovo-omni-pro-dynamic-ergonomic-chair?ref=midu",
+    "created": "2026-02-16"
   },
   {
     "slug": "slashdata",
-    "url": "https://www.developereconomics.net/es?member_id=midudev&locale=es&utm_source=twitch"
+    "url": "https://www.developereconomics.net/es?member_id=midudev&locale=es&utm_source=twitch",
+    "created": "2026-02-16"
   },
   {
     "slug": "slashdataig",
-    "url": "https://developereconomics.net?member_id=midudev&lang=es&locale=es&utm_source=ig"
+    "url": "https://developereconomics.net?member_id=midudev&lang=es&locale=es&utm_source=ig",
+    "created": "2026-02-16"
   },
   {
     "slug": "slashdot",
-    "url": "https://developereconomics.net?member_id=midudev&lang=es&locale=es&utm_source=twitch"
+    "url": "https://developereconomics.net?member_id=midudev&lang=es&locale=es&utm_source=twitch",
+    "created": "2026-02-16"
   },
   {
     "slug": "slashdot-ig",
-    "url": "https://developereconomics.net?member_id=midudev&lang=es&locale=es&utm_source=ig"
+    "url": "https://developereconomics.net?member_id=midudev&lang=es&locale=es&utm_source=ig",
+    "created": "2026-02-16"
   },
   {
     "slug": "smarttv",
-    "url": "https://www.europe-samsung.com/smsdev/Formacion/Detalle/nuevo_curso_diseno_para_apps_tizen_para_smart_tv/eba2651e-bce7-4b44-aa9f-5e5c07a0eba4"
+    "url": "https://www.europe-samsung.com/smsdev/Formacion/Detalle/nuevo_curso_diseno_para_apps_tizen_para_smart_tv/eba2651e-bce7-4b44-aa9f-5e5c07a0eba4",
+    "created": "2026-02-16"
   },
   {
     "slug": "so",
-    "url": "https://stackoverflow.az1.qualtrics.com/jfe/form/SV_czLVsbnGnF4Q04e?utm_source=midudev&utm_medium=midudev&utm_campaign=dev-survey-2023&utm_content=take-the-survey"
+    "url": "https://stackoverflow.az1.qualtrics.com/jfe/form/SV_czLVsbnGnF4Q04e?utm_source=midudev&utm_medium=midudev&utm_campaign=dev-survey-2023&utm_content=take-the-survey",
+    "created": "2026-02-16"
   },
   {
     "slug": "softtek",
-    "url": "https://softtek.csod.com/ux/ats/careersite/2/home?c=softtek&country=es&lang=en-US"
+    "url": "https://softtek.csod.com/ux/ats/careersite/2/home?c=softtek&country=es&lang=en-US",
+    "created": "2026-02-16"
   },
   {
     "slug": "software-architect",
-    "url": "https://user-images.githubusercontent.com/6892666/65896069-834eb700-e37a-11e9-95be-7ae2300d5d50.png"
+    "url": "https://user-images.githubusercontent.com/6892666/65896069-834eb700-e37a-11e9-95be-7ae2300d5d50.png",
+    "created": "2026-02-16"
   },
   {
     "slug": "sostenible",
-    "url": "https://savvily.company.site/"
-  },
-  {
-    "slug": "sql",
-    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38qg8LANkItqY-0sYw7CTDui"
-  },
-  {
-    "slug": "sql-pdf",
-    "url": "https://drive.google.com/file/d/1sGn1aiE6gvGdakA52jjtXmN7TfogYrTB/view"
-  },
-  {
-    "slug": "sqlpdf",
-    "url": "https://learnsql.com/blog/sql-basics-cheat-sheet/sql-basics-cheat-sheet-a3.pdf"
-  },
-  {
-    "slug": "svelte",
-    "url": "https://www.youtube.com/watch?v=Xsxm8_BI63s&list=PLV8x_i1fqBw2QScggh0pw2ATSJg_WHqUN"
-  },
-  {
-    "slug": "tailwind",
-    "url": "https://www.youtube.com/watch?v=h5HQVHTpeHs"
-  },
-  {
-    "slug": "talent2026",
-    "url": "https://landing.mobileworldcapital.com/talent-arena-2026-evento-zaragoza"
-  },
-  {
-    "slug": "talently",
-    "url": "https://talently.tech/go/"
-  },
-  {
-    "slug": "taza",
-    "url": "https://www.redbubble.com/es/i/taza/MiduFest-de-midu-dev/142737019.9Q0AD"
-  },
-  {
-    "slug": "tdd",
-    "url": "https://www.youtube.com/watch?v=_t9l2TwGioc"
-  },
-  {
-    "slug": "teclado",
-    "url": "https://www.keychron.com/?utm_source=Twitch&utm_medium=twitch&utm_campaign=midudev"
-  },
-  {
-    "slug": "terminal",
-    "url": "https://warp.dev/?utm_campaign=warp_ai_launch&utm_source=twitch_midudev"
-  },
-  {
-    "slug": "threads-css",
-    "url": "https://codi.link"
-  },
-  {
-    "slug": "tizen",
-    "url": "https://spr.ly/6006vAUUO"
-  },
-  {
-    "slug": "todo",
-    "url": "https://docs.google.com/spreadsheets/d/1T8tGFAacyUiZRVFMS64GyhouBgCYUj_txuzHGM2NLT4/edit?gid=441694592#gid=441694592"
-  },
-  {
-    "slug": "trae",
-    "url": "https://www.trae.ai/?utm_source=influencer&utm_medium=YouTube&utm_campaign=midulive"
-  },
-  {
-    "slug": "triviai",
-    "url": "https://www.europe-samsung.com/smsdev/Forms/Index"
-  },
-  {
-    "slug": "ts",
-    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38pNCZe9ptj72exbFjzyePxT"
-  },
-  {
-    "slug": "tu-chatgpt",
-    "url": "https://www.youtube.com/watch?v=MNXuG23HH_w&t=3s"
-  },
-  {
-    "slug": "tuga",
-    "url": "https://tuga-shop.com/halfmarathonbcn"
-  },
-  {
-    "slug": "typescript",
-    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38pNCZe9ptj72exbFjzyePxT"
-  },
-  {
-    "slug": "UrIls",
-    "url": "https://www.amazon.es/dp/B0DRP2CPR1?maas=maas_adg_6258CF3660B0FEC43E9D93635D2710D5_afap_abs&ref_=aa_maas&tag=maas"
-  },
-  {
-    "slug": "uptime",
-    "url": "https://uptimerobot.com/?utm_source=youtube&utm_medium=video&utm_campaign=Midudev2026&utm_content=June"
-  },
-  {
-    "slug": "velada",
-    "url": "https://www.infojobs.net/madrid/programador-para-velada-4/of-i14436bb760436ca85d8c5911a67994"
-  },
-  {
-    "slug": "vota",
-    "url": "https://a.cstmapp.com/voteme/974258/712577253?lc=es-es"
-  },
-  {
-    "slug": "vps",
-    "url": "https://www.hostinger.com/es/servidor-vps?utm_medium=affiliate&utm_source=aff202972&utm_campaign=954&session=1029ba1775acbab70c58011d099dfd"
-  },
-  {
-    "slug": "warp",
-    "url": "https://app.warp.dev/referral/79ZEM2"
-  },
-  {
-    "slug": "websecurity",
-    "url": "https://www.youtube.com/playlist?list=PL1y1iaEtjSYiiSGVlL1cHsXN_kvJOOhu-"
-  },
-  {
-    "slug": "windsurf",
-    "url": "https://wind.surf/miduconf"
-  },
-  {
-    "slug": "xbox",
-    "url": "https://forms.office.com/pages/responsepage.aspx?id=melOhjjFoES93QRJ3mLfbWMGemVrppZKtHR8tFIYMBBUM1QzRUZPQlZRUVdaVUpZMDY4UE5TRkZXQi4u"
-  },
-  {
-    "slug": "youtube",
-    "url": "https://www.youtube.com/channel/UC8LeXCWOalN8SxlrPcG-PaQ"
+    "url": "https://savvily.company.site/",
+    "created": "2026-02-16"
   },
   {
     "slug": "spiderman",
-    "url": "https://www.infojobs.net/madrid/programador-web-la-landing-spider-man-bran-new-day-con-infojobs/of-i0a9c84e757491cbdeaa026ee3e7eea"
+    "url": "https://www.infojobs.net/madrid/programador-web-la-landing-spider-man-bran-new-day-con-infojobs/of-i0a9c84e757491cbdeaa026ee3e7eea",
+    "created": "2026-07-13"
+  },
+  {
+    "slug": "sql",
+    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38qg8LANkItqY-0sYw7CTDui",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "sql-pdf",
+    "url": "https://drive.google.com/file/d/1sGn1aiE6gvGdakA52jjtXmN7TfogYrTB/view",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "sqlpdf",
+    "url": "https://learnsql.com/blog/sql-basics-cheat-sheet/sql-basics-cheat-sheet-a3.pdf",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "svelte",
+    "url": "https://www.youtube.com/watch?v=Xsxm8_BI63s&list=PLV8x_i1fqBw2QScggh0pw2ATSJg_WHqUN",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "tailwind",
+    "url": "https://www.youtube.com/watch?v=h5HQVHTpeHs",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "talent2026",
+    "url": "https://landing.mobileworldcapital.com/talent-arena-2026-evento-zaragoza",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "talently",
+    "url": "https://talently.tech/go/",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "taza",
+    "url": "https://www.redbubble.com/es/i/taza/MiduFest-de-midu-dev/142737019.9Q0AD",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "tdd",
+    "url": "https://www.youtube.com/watch?v=_t9l2TwGioc",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "teclado",
+    "url": "https://www.keychron.com/?utm_source=Twitch&utm_medium=twitch&utm_campaign=midudev",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "terminal",
+    "url": "https://warp.dev/?utm_campaign=warp_ai_launch&utm_source=twitch_midudev",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "threads-css",
+    "url": "https://codi.link",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "tizen",
+    "url": "https://spr.ly/6006vAUUO",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "todo",
+    "url": "https://docs.google.com/spreadsheets/d/1T8tGFAacyUiZRVFMS64GyhouBgCYUj_txuzHGM2NLT4/edit?gid=441694592#gid=441694592",
+    "created": "2026-05-05"
+  },
+  {
+    "slug": "trae",
+    "url": "https://www.trae.ai/?utm_source=influencer&utm_medium=YouTube&utm_campaign=midulive",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "triviai",
+    "url": "https://www.europe-samsung.com/smsdev/Forms/Index",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "ts",
+    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38pNCZe9ptj72exbFjzyePxT",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "tu-chatgpt",
+    "url": "https://www.youtube.com/watch?v=MNXuG23HH_w&t=3s",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "tuga",
+    "url": "https://tuga-shop.com/halfmarathonbcn",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "typescript",
+    "url": "https://www.youtube.com/playlist?list=PLUofhDIg_38pNCZe9ptj72exbFjzyePxT",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "uptime",
+    "url": "https://uptimerobot.com/?utm_source=youtube&utm_medium=video&utm_campaign=Midudev2026&utm_content=June",
+    "created": "2026-06-29"
+  },
+  {
+    "slug": "UrIls",
+    "url": "https://www.amazon.es/dp/B0DRP2CPR1?maas=maas_adg_6258CF3660B0FEC43E9D93635D2710D5_afap_abs&ref_=aa_maas&tag=maas",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "velada",
+    "url": "https://www.infojobs.net/madrid/programador-para-velada-4/of-i14436bb760436ca85d8c5911a67994",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "vota",
+    "url": "https://a.cstmapp.com/voteme/974258/712577253?lc=es-es",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "vps",
+    "url": "https://www.hostinger.com/es/servidor-vps?utm_medium=affiliate&utm_source=aff202972&utm_campaign=954&session=1029ba1775acbab70c58011d099dfd",
+    "created": "2026-05-04"
+  },
+  {
+    "slug": "warp",
+    "url": "https://app.warp.dev/referral/79ZEM2",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "websecurity",
+    "url": "https://www.youtube.com/playlist?list=PL1y1iaEtjSYiiSGVlL1cHsXN_kvJOOhu-",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "windsurf",
+    "url": "https://wind.surf/miduconf",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "xbox",
+    "url": "https://forms.office.com/pages/responsepage.aspx?id=melOhjjFoES93QRJ3mLfbWMGemVrppZKtHR8tFIYMBBUM1QzRUZPQlZRUVdaVUpZMDY4UE5TRkZXQi4u",
+    "created": "2026-02-16"
+  },
+  {
+    "slug": "youtube",
+    "url": "https://www.youtube.com/channel/UC8LeXCWOalN8SxlrPcG-PaQ",
+    "created": "2026-02-16"
   }
 ]
