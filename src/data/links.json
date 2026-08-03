@@ -456,7 +456,7 @@
   },
   {
     "slug": "kimi",
-    "url": "https://www.kimi.com/activities/invite/share?scenario=invite&from=share_poster&invitation_code=P2XF4B",
+    "url": "https://platform.kimi.ai?track_id=track-00f8cdbb1ddc45edb6f3f10a8e3b4d20",
     "created": "2026-07-30"
   },
   {
@@ -683,6 +683,11 @@
     "slug": "opencode",
     "url": "https://youtube-smart-link.midudev.workers.dev/gHWFof",
     "created": "2026-05-06"
+  },
+  {
+    "slug": "orca",
+    "url": "https://www.orcarouter.ai/register?aff=mgO2",
+    "created": "2026-07-30"
   },
   {
     "slug": "paradigma",
