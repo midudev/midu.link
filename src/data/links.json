@@ -456,8 +456,13 @@
   },
   {
     "slug": "kimi",
-    "url": "https://platform.kimi.ai?track_id=track-00f8cdbb1ddc45edb6f3f10a8e3b4d20",
+    "url": "https://kimi-bot.com/activities/invite/share?scenario=invite&from=share_poster&invitation_code=P2XF4B",
     "created": "2026-07-30"
+  },
+  {
+    "slug": "kimiapi",
+    "url": "https://platform.kimi.ai?track_id=track-00f8cdbb1ddc45edb6f3f10a8e3b4d20",
+    "created": "2026-08-04"
   },
   {
     "slug": "king",
