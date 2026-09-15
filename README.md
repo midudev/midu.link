@@ -21,6 +21,7 @@ Acortador de URLs de [midudev](https://midu.dev). Construido con [Astro](https:/
 │   │   └── Layout.astro
 │   └── pages/
 │       ├── index.astro        # Homepage con sparklines
+│       ├── aws-nerdearla.astro # Landing especial (ruta estática, sin redirect)
 │       └── api/
 │           ├── stats.ts       # JSON de clicks (hoy + 7 días)
 │           └── track.ts       # POST interno: incrementa contador
@@ -37,6 +38,10 @@ Los enlaces se definen en `src/data/links.json`. Cada entrada tiene un `slug` y 
 ```
 
 El **middleware** resuelve el slug en memoria y responde `302` de inmediato. En paralelo (via `waitUntil` + `POST /api/track`) se incrementa el contador diario en Turso — el redirect **nunca** espera a la base de datos. La homepage pinta un mini gráfico de 7 días + contadores de hoy y de la semana.
+
+## Landings especiales
+
+Algunos slugs no redirigen: son páginas propias. Basta con crear `src/pages/<slug>.astro` — en Astro las rutas estáticas tienen prioridad sobre `[slug].ts`, y en Vercel el `handle: filesystem` sirve el HTML prerenderizado antes de llegar a la función. Ejemplo: `midu.link/aws-nerdearla`.
 
 ## Variables de entorno
 

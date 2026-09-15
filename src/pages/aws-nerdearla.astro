@@ -1,0 +1,890 @@
+---
+/**
+ * Landing especial: sesión de Midu en el stand de AWS en Nerdearla 2026.
+ * Ruta estática → gana sobre el redirect dinámico de `[slug].ts`.
+ * Todo (HTML + CSS + JS) vive en este archivo; sin frameworks ni backend.
+ */
+
+const REGISTER_URL = 'https://bit.ly/46WF8l6';
+
+const EVENT = {
+	title: 'Lo que construí con Strands — sesión de Midu en Nerdearla 2026',
+	shortTitle: 'Lo que construí con Strands',
+	startUTC: '2026-09-25T15:15:00Z',
+	endUTC: '2026-09-25T15:45:00Z',
+	location: 'Silent Theatre del stand de AWS, Nerdearla, Ciudad Cultural Konex, Sarmiento 3131, Buenos Aires, Argentina',
+	description: [
+		'Sesión de 30 minutos de Midu (@midudev) junto a AWS: un proyecto real construido con Strands, el framework open source de AWS para crear agentes de IA. Cómo lo hice paso a paso, demo en directo y preguntas.',
+		'',
+		'Lugar: Silent Theatre del stand de AWS, dentro de Nerdearla. Ciudad Cultural Konex, Sarmiento 3131, Buenos Aires, Argentina. Se escucha con auriculares inalámbricos que reparten en el stand.',
+		'',
+		'Aforo limitado. Acceso por orden de llegada: llega con antelación. No hay registro para la sesión, solo necesitas estar registrado en Nerdearla (gratis).',
+		`Regístrate en Nerdearla: ${REGISTER_URL}`,
+	].join('\n'),
+};
+
+const googleCalendarUrl = (() => {
+	const params = new URLSearchParams({
+		action: 'TEMPLATE',
+		text: EVENT.title,
+		dates: '20260925T151500Z/20260925T154500Z',
+		details: EVENT.description,
+		location: EVENT.location,
+		ctz: 'America/Argentina/Buenos_Aires',
+	});
+	return `https://calendar.google.com/calendar/render?${params.toString()}`;
+})();
+
+const outlookParams = new URLSearchParams({
+	path: '/calendar/action/compose',
+	rru: 'addevent',
+	subject: EVENT.title,
+	startdt: EVENT.startUTC,
+	enddt: EVENT.endUTC,
+	body: EVENT.description,
+	location: EVENT.location,
+});
+const outlookLiveUrl = `https://outlook.live.com/calendar/0/deeplink/compose?${outlookParams.toString()}`;
+const outlookOfficeUrl = `https://outlook.office.com/calendar/0/deeplink/compose?${outlookParams.toString()}`;
+
+const calendarOptions = [
+	{ label: 'Google Calendar', href: googleCalendarUrl },
+	{ label: 'Apple Calendar (.ics)', ics: true },
+	{ label: 'Outlook.com', href: outlookLiveUrl },
+	{ label: 'Outlook 365', href: outlookOfficeUrl },
+	{ label: 'Otro calendario (.ics)', ics: true },
+];
+
+const pageTitle = 'Lo que construí con Strands · Midu en Nerdearla 2026';
+const pageDescription =
+	'Viernes 25 de septiembre de 2026, 12:15 (Buenos Aires). Sesión de 30 min de Midu en el Silent Theatre del stand de AWS en Nerdearla: un proyecto real con Strands, demo en directo y preguntas. Aforo limitado, entrada gratis con registro en Nerdearla.';
+const canonical = new URL('/aws-nerdearla', Astro.site ?? 'https://midu.link').href;
+const ogImage = new URL('/og/aws-nerdearla.png', Astro.site ?? 'https://midu.link').href;
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Event',
+	name: EVENT.shortTitle,
+	description: pageDescription,
+	startDate: '2026-09-25T12:15:00-03:00',
+	endDate: '2026-09-25T12:45:00-03:00',
+	eventStatus: 'https://schema.org/EventScheduled',
+	eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+	inLanguage: 'es',
+	isAccessibleForFree: true,
+	url: canonical,
+	image: ogImage,
+	location: {
+		'@type': 'Place',
+		name: 'Silent Theatre del stand de AWS · Nerdearla · Ciudad Cultural Konex',
+		address: {
+			'@type': 'PostalAddress',
+			streetAddress: 'Sarmiento 3131',
+			addressLocality: 'Buenos Aires',
+			addressCountry: 'AR',
+		},
+	},
+	performer: { '@type': 'Person', name: 'Miguel Ángel Durán (midudev)', url: 'https://midu.dev' },
+	organizer: { '@type': 'Organization', name: 'AWS', url: 'https://aws.amazon.com' },
+	superEvent: {
+		'@type': 'Event',
+		name: 'Nerdearla Argentina 2026',
+		startDate: '2026-09-22',
+		endDate: '2026-09-26',
+		url: REGISTER_URL,
+	},
+	offers: { '@type': 'Offer', price: '0', priceCurrency: 'ARS', url: REGISTER_URL, availability: 'https://schema.org/LimitedAvailability' },
+};
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<title>{pageTitle}</title>
+		<meta name="description" content={pageDescription} />
+		<meta name="author" content="midudev" />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+		<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+		<link rel="canonical" href={canonical} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="event" />
+		<meta property="og:site_name" content="midu.link" />
+		<meta property="og:locale" content="es_ES" />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDescription} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Lo que construí con Strands. Midu en el stand de AWS, Nerdearla 2026. Viernes 25 de septiembre, 12:15 Buenos Aires." />
+		<meta property="event:start_time" content={EVENT.startUTC} />
+		<meta property="event:end_time" content={EVENT.endUTC} />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@midudev" />
+		<meta name="twitter:creator" content="@midudev" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={pageDescription} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:label1" content="Cuándo" />
+		<meta name="twitter:data1" content="Vie 25 sep 2026 · 12:15 (Buenos Aires)" />
+		<meta name="twitter:label2" content="Dónde" />
+		<meta name="twitter:data2" content="Stand de AWS · Nerdearla · Konex" />
+
+		<link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/fonts/GeistPixel-Square.woff2" as="font" type="font/woff2" crossorigin />
+
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+	</head>
+
+	<body>
+		<a class="skip" href="#contenido">Saltar al contenido</a>
+
+		<header class="top">
+			<a class="brand" href="/" aria-label="Ir a midu.link">midu.link</a>
+			<div class="logos" aria-label="Organizadores">
+				<img src="/img/aws.svg" alt="Logo de AWS" width="64" height="24" loading="lazy" decoding="async" />
+				<span class="logos__x" aria-hidden="true">×</span>
+				<img src="/img/nerdearla.svg" alt="Logo de Nerdearla" width="96" height="24" loading="lazy" decoding="async" />
+			</div>
+		</header>
+
+		<main id="contenido">
+			<!-- 1. Hero -->
+			<section class="hero">
+				<p class="eyebrow">Sesión con AWS · Nerdearla 2026</p>
+				<h1>Lo que construí con Strands</h1>
+				<p class="lead">
+					30 minutos. Un proyecto real hecho con <strong>Strands</strong>, el framework open source de AWS para crear
+					agentes de IA. Te enseño cómo lo construí desde mi portátil y respondo tus preguntas.
+				</p>
+
+				<dl class="facts">
+					<div class="fact">
+						<dt>Cuándo</dt>
+						<dd>
+							<time datetime="2026-09-25T12:15:00-03:00" class="when">Viernes 25 de septiembre · 12:15–12:45</time>
+							<span class="tz">hora de Buenos Aires (ART, UTC−3)</span>
+							<span class="tz tz--alt">17:15 Madrid · 10:15 CDMX</span>
+						</dd>
+					</div>
+					<div class="fact">
+						<dt>Dónde</dt>
+						<dd>
+							<span class="where">Silent Theatre del stand de AWS</span>
+							<span class="tz">Nerdearla · Ciudad Cultural Konex · Sarmiento 3131, Buenos Aires</span>
+						</dd>
+					</div>
+				</dl>
+
+				<div class="cta">
+					<details class="menu js-menu">
+						<summary class="btn btn--primary" aria-haspopup="menu" aria-controls="menu-hero">Me apunto</summary>
+						<ul class="menu__list" id="menu-hero" role="menu" aria-label="Añadir a tu calendario">
+							{calendarOptions.map((o) => (
+								<li role="none">
+									{o.ics ? (
+										<button type="button" role="menuitem" class="menu__item js-download-ics">{o.label}</button>
+									) : (
+										<a role="menuitem" class="menu__item" href={o.href} target="_blank" rel="noopener noreferrer">{o.label}</a>
+									)}
+								</li>
+							))}
+						</ul>
+					</details>
+					<a class="btn btn--ghost" href={REGISTER_URL} target="_blank" rel="noopener noreferrer">
+						Regístrate en Nerdearla (gratis)
+					</a>
+				</div>
+				<p class="cta__hint">Elige tu calendario y guarda la sesión para que no se te olvide.</p>
+			</section>
+
+			<!-- 6. Cuenta atrás -->
+			<section class="countdown" aria-labelledby="countdown-title">
+				<h2 id="countdown-title" class="section-title">Empieza en</h2>
+				<div class="countdown__grid js-countdown" role="timer" aria-live="off">
+					<div class="countdown__cell"><span class="countdown__num" data-unit="days">--</span><span class="countdown__label">días</span></div>
+					<div class="countdown__cell"><span class="countdown__num" data-unit="hours">--</span><span class="countdown__label">horas</span></div>
+					<div class="countdown__cell"><span class="countdown__num" data-unit="minutes">--</span><span class="countdown__label">min</span></div>
+					<div class="countdown__cell"><span class="countdown__num" data-unit="seconds">--</span><span class="countdown__label">seg</span></div>
+				</div>
+				<p class="countdown__status js-countdown-status" aria-live="polite"></p>
+			</section>
+
+			<!-- 2. Qué vas a ver -->
+			<section aria-labelledby="que-title">
+				<h2 id="que-title" class="section-title">Qué vas a ver</h2>
+				<ol class="list">
+					<li><strong>El proyecto real.</strong> Lo que construí con Strands, funcionando, sin slides de relleno.</li>
+					<li><strong>Cómo se hizo.</strong> Paso a paso: agentes, herramientas y decisiones, desde mi portátil.</li>
+					<li><strong>Demo en directo.</strong> Código y ejecución en vivo, con lo bueno y lo que falla.</li>
+					<li><strong>Preguntas.</strong> Trae las tuyas: hay tiempo reservado al final.</li>
+				</ol>
+				<p class="note">Sin premios ni requisitos. Es puramente informativo.</p>
+			</section>
+
+			<!-- 3. Cómo llegar / detalles -->
+			<section aria-labelledby="como-title">
+				<h2 id="como-title" class="section-title">Cómo llegar y detalles</h2>
+				<ul class="list">
+					<li>
+						<strong>Dirección.</strong> Ciudad Cultural Konex, Sarmiento 3131, Buenos Aires, Argentina.
+						<a href="https://maps.google.com/?q=Ciudad+Cultural+Konex,+Sarmiento+3131,+Buenos+Aires" target="_blank" rel="noopener noreferrer">Ver en el mapa</a>
+					</li>
+					<li><strong>Stand de AWS.</strong> La sesión es en su Silent Theatre, dentro del recinto de Nerdearla.</li>
+					<li><strong>Silent theatre.</strong> Se escucha por auriculares inalámbricos que reparten en el stand.</li>
+					<li><strong>Aforo limitado.</strong> Acceso por orden de llegada. Llega con antelación.</li>
+					<li><strong>Sin registro para la sesión.</strong> Solo necesitas estar registrado en Nerdearla, que es gratis.</li>
+				</ul>
+				<p class="note">
+					Nerdearla Argentina 2026, 13ª edición · 22–26 de septiembre. Los días presenciales en Konex son 24, 25 y 26.
+				</p>
+			</section>
+
+			<!-- 4. Sobre Midu -->
+			<section aria-labelledby="midu-title">
+				<h2 id="midu-title" class="section-title">Sobre Midu</h2>
+				<p>
+					Miguel Ángel Durán, creador de contenido de desarrollo web en español.
+					<a href="https://youtube.com/@midudev" target="_blank" rel="noopener noreferrer">YouTube</a>,
+					<a href="https://twitch.tv/midudev" target="_blank" rel="noopener noreferrer">Twitch</a> y
+					<a href="https://x.com/midudev" target="_blank" rel="noopener noreferrer">X</a>: @midudev.
+				</p>
+			</section>
+
+			<!-- 5. Cierre -->
+			<section class="closing" aria-labelledby="cierre-title">
+				<h2 id="cierre-title" class="section-title">Nos vemos en el stand de AWS</h2>
+				<p class="lead">Viernes 25 de septiembre, 12:15 (Buenos Aires). Guárdalo para que no se te olvide.</p>
+				<div class="cta">
+					<details class="menu js-menu">
+						<summary class="btn btn--primary" aria-haspopup="menu" aria-controls="menu-cierre">Me apunto</summary>
+						<ul class="menu__list" id="menu-cierre" role="menu" aria-label="Añadir a tu calendario">
+							{calendarOptions.map((o) => (
+								<li role="none">
+									{o.ics ? (
+										<button type="button" role="menuitem" class="menu__item js-download-ics">{o.label}</button>
+									) : (
+										<a role="menuitem" class="menu__item" href={o.href} target="_blank" rel="noopener noreferrer">{o.label}</a>
+									)}
+								</li>
+							))}
+						</ul>
+					</details>
+					<a class="btn btn--ghost" href={REGISTER_URL} target="_blank" rel="noopener noreferrer">
+						Regístrate en Nerdearla (gratis)
+					</a>
+				</div>
+				<p class="cta__hint">Elige tu calendario y guarda la sesión para que no se te olvide.</p>
+			</section>
+		</main>
+
+		<footer class="foot">
+			<p>Sesión organizada junto a AWS · <a href="/">midu.link</a></p>
+		</footer>
+
+		<script define:vars={{ EVENT, REGISTER_URL }}>
+			// ---------- .ics (generado en cliente, fechas en UTC) ----------
+			const icsEscape = (s) => String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+
+			// RFC 5545: líneas de máx. 75 octetos, continuación con espacio.
+			const fold = (line) => {
+				const bytes = new TextEncoder().encode(line);
+				if (bytes.length <= 75) return line;
+				const out = [];
+				let chunk = '';
+				let size = 0;
+				for (const ch of line) {
+					const len = new TextEncoder().encode(ch).length;
+					if (size + len > (out.length ? 74 : 75)) {
+						out.push(chunk);
+						chunk = '';
+						size = 0;
+					}
+					chunk += ch;
+					size += len;
+				}
+				if (chunk) out.push(chunk);
+				return out.join('\r\n ');
+			};
+
+			const toIcsDate = (iso) => iso.replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+			const uid = 'aws-nerdearla-2026-strands@midu.link';
+
+			const buildIcs = () => {
+				const lines = [
+					'BEGIN:VCALENDAR',
+					'VERSION:2.0',
+					'PRODID:-//midu.link//aws-nerdearla//ES',
+					'CALSCALE:GREGORIAN',
+					'METHOD:PUBLISH',
+					'BEGIN:VEVENT',
+					`UID:${uid}`,
+					`DTSTAMP:${toIcsDate(new Date().toISOString())}`,
+					`DTSTART:${toIcsDate(EVENT.startUTC)}`,
+					`DTEND:${toIcsDate(EVENT.endUTC)}`,
+					`SUMMARY:${icsEscape(EVENT.title)}`,
+					`DESCRIPTION:${icsEscape(EVENT.description)}`,
+					`LOCATION:${icsEscape(EVENT.location)}`,
+					`URL:${window.location.origin}/aws-nerdearla`,
+					'STATUS:CONFIRMED',
+					'TRANSP:OPAQUE',
+					'BEGIN:VALARM',
+					'ACTION:DISPLAY',
+					`DESCRIPTION:${icsEscape('Empieza en 30 min: ' + EVENT.shortTitle)}`,
+					'TRIGGER:-PT30M',
+					'END:VALARM',
+					'END:VEVENT',
+					'END:VCALENDAR',
+				];
+				return lines.map(fold).join('\r\n') + '\r\n';
+			};
+
+			const downloadIcs = () => {
+				const blob = new Blob([buildIcs()], { type: 'text/calendar;charset=utf-8' });
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = 'midu-strands-nerdearla-2026.ics';
+				a.rel = 'noopener';
+				document.body.appendChild(a);
+				a.click();
+				a.remove();
+				setTimeout(() => URL.revokeObjectURL(url), 10_000);
+			};
+
+			const menus = Array.from(document.querySelectorAll('.js-menu'));
+			const closeMenus = (except) => {
+				for (const m of menus) if (m !== except) m.open = false;
+			};
+
+			for (const menu of menus) {
+				menu.addEventListener('toggle', () => {
+					if (menu.open) closeMenus(menu);
+				});
+			}
+
+			document.addEventListener('click', (e) => {
+				if (!menus.some((m) => m.contains(e.target))) closeMenus();
+			});
+
+			document.addEventListener('keydown', (e) => {
+				if (e.key !== 'Escape') return;
+				const open = menus.find((m) => m.open);
+				if (open) {
+					open.open = false;
+					open.querySelector('summary')?.focus();
+				}
+			});
+
+			for (const btn of document.querySelectorAll('.js-download-ics')) {
+				btn.addEventListener('click', () => {
+					downloadIcs();
+					closeMenus();
+				});
+			}
+
+			// ---------- Cuenta atrás (instante absoluto; equivale a 12:15 en Buenos Aires) ----------
+			const start = Date.parse(EVENT.startUTC);
+			const end = Date.parse(EVENT.endUTC);
+			const grid = document.querySelector('.js-countdown');
+			const status = document.querySelector('.js-countdown-status');
+			const cells = Object.fromEntries(
+				Array.from(grid.querySelectorAll('[data-unit]')).map((el) => [el.dataset.unit, el]),
+			);
+			const pad = (n) => String(n).padStart(2, '0');
+
+			const tick = () => {
+				const now = Date.now();
+				if (now >= end) {
+					grid.hidden = true;
+					status.textContent = 'La sesión ya terminó. ¡Gracias por venir!';
+					return false;
+				}
+				if (now >= start) {
+					grid.hidden = true;
+					status.textContent = 'La sesión está en marcha ahora mismo en el Silent Theatre del stand de AWS.';
+					return true;
+				}
+				let diff = Math.floor((start - now) / 1000);
+				const days = Math.floor(diff / 86400);
+				diff -= days * 86400;
+				const hours = Math.floor(diff / 3600);
+				diff -= hours * 3600;
+				const minutes = Math.floor(diff / 60);
+				const seconds = diff - minutes * 60;
+				cells.days.textContent = String(days);
+				cells.hours.textContent = pad(hours);
+				cells.minutes.textContent = pad(minutes);
+				cells.seconds.textContent = pad(seconds);
+				return true;
+			};
+
+			if (tick()) {
+				const id = setInterval(() => {
+					if (!tick()) clearInterval(id);
+				}, 1000);
+			}
+
+			// ---------- Logos: ocultar placeholder si aún no hay archivo ----------
+			for (const img of document.querySelectorAll('.logos img')) {
+				img.addEventListener('error', () => {
+					img.hidden = true;
+					const x = img.parentElement?.querySelector('.logos__x');
+					if (x) x.hidden = true;
+				});
+			}
+		</script>
+	</body>
+</html>
+
+<style is:global>
+	@font-face {
+		font-family: 'Geist';
+		src: url('/fonts/Geist-Variable.woff2') format('woff2');
+		font-weight: 100 900;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: 'Geist Pixel';
+		src: url('/fonts/GeistPixel-Square.woff2') format('woff2');
+		font-weight: 400;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	/* Una sola tinta de acento. Oscuro por defecto; claro con prefers-color-scheme. */
+	:root {
+		color-scheme: dark;
+		--bg: #0a0a0a;
+		--text: #ededed;
+		--muted: #9a9a9a;
+		--border: #262626;
+		--accent: #ff9900;
+		--accent-ink: #0a0a0a;
+		--focus: #ffffff;
+		--sans: 'Geist', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+		--pixel: 'Geist Pixel', ui-monospace, SFMono-Regular, Menlo, monospace;
+		--maxw: 42rem;
+	}
+
+	@media (prefers-color-scheme: light) {
+		:root {
+			color-scheme: light;
+			--bg: #fafafa;
+			--text: #111111;
+			--muted: #5c5c5c;
+			--border: #dcdcdc;
+			--accent: #b45309;
+			--accent-ink: #ffffff;
+			--focus: #111111;
+		}
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html {
+		font-family: var(--sans);
+		background: var(--bg);
+		color: var(--text);
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		font-size: 100%;
+		line-height: 1.55;
+	}
+
+	body {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	::selection {
+		background: var(--accent);
+		color: var(--accent-ink);
+	}
+
+	a {
+		color: var(--text);
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+		text-decoration-thickness: 1px;
+		text-decoration-color: var(--muted);
+	}
+
+	a:hover {
+		text-decoration-color: var(--accent);
+	}
+
+	:is(a, button):focus-visible {
+		outline: 2px solid var(--focus);
+		outline-offset: 3px;
+		border-radius: 2px;
+	}
+
+	.skip {
+		position: absolute;
+		left: 1rem;
+		top: -100%;
+		background: var(--bg);
+		padding: 0.5rem 0.75rem;
+		z-index: 10;
+	}
+
+	.skip:focus {
+		top: 1rem;
+	}
+
+	.top,
+	main,
+	.foot {
+		width: 100%;
+		max-width: var(--maxw);
+		margin-inline: auto;
+		padding-inline: 1.25rem;
+	}
+
+	.top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-block: 1.25rem;
+	}
+
+	.brand {
+		font-family: var(--pixel);
+		font-size: 0.95rem;
+		text-decoration: none;
+		color: var(--muted);
+	}
+
+	.brand:hover {
+		color: var(--text);
+	}
+
+	.logos {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		color: var(--muted);
+	}
+
+	.logos img {
+		height: 24px;
+		width: auto;
+		max-width: 8rem;
+		object-fit: contain;
+	}
+
+	main {
+		flex: 1;
+		padding-block: 2rem 4rem;
+		display: flex;
+		flex-direction: column;
+		gap: 4rem;
+	}
+
+	.eyebrow {
+		font-family: var(--pixel);
+		font-size: 0.85rem;
+		color: var(--accent);
+		letter-spacing: 0.02em;
+		margin-bottom: 1rem;
+	}
+
+	h1 {
+		font-family: var(--pixel);
+		font-weight: 400;
+		font-size: clamp(2rem, 8vw, 3.5rem);
+		line-height: 1.05;
+		letter-spacing: -0.01em;
+		text-wrap: balance;
+	}
+
+	.lead {
+		font-size: 1.125rem;
+		max-width: 36rem;
+		margin-top: 1.25rem;
+		color: var(--text);
+		text-wrap: pretty;
+	}
+
+	.lead strong {
+		font-weight: 600;
+	}
+
+	.facts {
+		margin-top: 2.25rem;
+		display: grid;
+		gap: 1.25rem;
+		border-top: 1px solid var(--border);
+		padding-top: 1.5rem;
+	}
+
+	.fact dt {
+		font-family: var(--pixel);
+		font-size: 0.8rem;
+		color: var(--muted);
+		margin-bottom: 0.25rem;
+	}
+
+	.fact dd {
+		display: grid;
+		gap: 0.15rem;
+	}
+
+	.when,
+	.where {
+		font-size: 1.25rem;
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	.when {
+		color: var(--accent);
+	}
+
+	.tz {
+		color: var(--muted);
+		font-size: 0.95rem;
+	}
+
+	.tz--alt {
+		font-size: 0.85rem;
+	}
+
+	.cta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		margin-top: 2rem;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 3.25rem;
+		padding: 0.85rem 1.5rem;
+		font: inherit;
+		font-family: var(--pixel);
+		font-size: 1.05rem;
+		text-decoration: none;
+		border: 1px solid var(--text);
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+	}
+
+	.btn--primary {
+		background: var(--accent);
+		color: var(--accent-ink);
+		border-color: var(--accent);
+		font-size: 1.2rem;
+	}
+
+	.btn--primary:hover:not(:disabled) {
+		filter: brightness(1.08);
+	}
+
+	.btn--primary:disabled {
+		cursor: default;
+		opacity: 0.9;
+	}
+
+	.btn--ghost {
+		background: transparent;
+		color: var(--text);
+	}
+
+	.btn--ghost:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+
+	.menu {
+		position: relative;
+	}
+
+	.menu > summary {
+		list-style: none;
+		user-select: none;
+	}
+
+	.menu > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.menu__list {
+		position: absolute;
+		top: calc(100% + 0.5rem);
+		left: 0;
+		z-index: 5;
+		min-width: 100%;
+		width: max-content;
+		list-style: none;
+		background: var(--bg);
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		padding: 0.35rem;
+		display: grid;
+		gap: 0.1rem;
+	}
+
+	.menu__item {
+		display: block;
+		width: 100%;
+		text-align: left;
+		padding: 0.65rem 0.9rem;
+		font: inherit;
+		font-size: 0.95rem;
+		color: var(--text);
+		background: transparent;
+		border: 0;
+		border-radius: 3px;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.menu__item:hover {
+		background: var(--border);
+	}
+
+	.menu__item:focus-visible {
+		outline: 2px solid var(--focus);
+		outline-offset: -2px;
+	}
+
+	.cta__hint {
+		margin-top: 0.75rem;
+		font-size: 0.9rem;
+		color: var(--muted);
+	}
+
+	.section-title {
+		font-family: var(--pixel);
+		font-weight: 400;
+		font-size: 1.15rem;
+		margin-bottom: 1rem;
+		color: var(--text);
+	}
+
+	.list {
+		display: grid;
+		gap: 0.75rem;
+		padding-left: 1.25rem;
+		max-width: 36rem;
+	}
+
+	.list li::marker {
+		color: var(--accent);
+		font-family: var(--pixel);
+	}
+
+	.list strong {
+		font-weight: 600;
+	}
+
+	.note {
+		margin-top: 1.25rem;
+		color: var(--muted);
+		font-size: 0.95rem;
+		max-width: 36rem;
+	}
+
+	.countdown__grid {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 0.5rem;
+		max-width: 28rem;
+	}
+
+	.countdown__cell {
+		display: grid;
+		gap: 0.25rem;
+		text-align: center;
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		padding: 0.9rem 0.25rem;
+	}
+
+	.countdown__num {
+		font-family: var(--pixel);
+		font-size: clamp(1.5rem, 6vw, 2.25rem);
+		line-height: 1;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.countdown__label {
+		font-size: 0.8rem;
+		color: var(--muted);
+	}
+
+	.countdown__status {
+		color: var(--accent);
+		font-weight: 600;
+	}
+
+	.countdown__status:empty {
+		display: none;
+	}
+
+	.closing {
+		border-top: 1px solid var(--border);
+		padding-top: 3rem;
+	}
+
+	.closing .lead {
+		margin-top: 0.5rem;
+	}
+
+	.foot {
+		padding-block: 1.5rem 2.5rem;
+		color: var(--muted);
+		font-size: 0.85rem;
+		border-top: 1px solid var(--border);
+	}
+
+	@media (min-width: 40rem) {
+		.top,
+		main,
+		.foot {
+			padding-inline: 2rem;
+		}
+
+		main {
+			padding-block: 3.5rem 5rem;
+			gap: 5rem;
+		}
+
+		.cta {
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+
+		.facts {
+			grid-template-columns: 1fr 1fr;
+			gap: 2rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		* {
+			transition: none !important;
+		}
+	}
+</style>
