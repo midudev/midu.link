@@ -141,6 +141,7 @@ const jsonLd = {
 		<meta name="description" content={pageDescription} />
 		<meta name="author" content="midudev" />
 		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="color-scheme" content="dark light" />
 		<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
 		<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
 		<link rel="canonical" href={canonical} />
@@ -176,22 +177,23 @@ const jsonLd = {
 
 	<body>
 		<a class="skip" href="#contenido">Saltar al contenido</a>
+		<div class="visually-hidden" id="ics-status" role="status" aria-live="polite"></div>
 
 		<header class="top">
-			<img class="avatar" src="/midudev.jpg" alt="midudev" width="40" height="40" decoding="async" fetchpriority="high" />
-			<div class="logos" aria-label="Organizadores">
-				<img class="logos__aws" src="/aws.webp" alt="Logo de AWS" width="40" height="40" decoding="async" fetchpriority="high" />
+			<img class="avatar" src="/midudev.jpg" alt="Miguel Ángel Durán, midudev" width="40" height="40" decoding="async" fetchpriority="high" />
+			<div class="logos" role="group" aria-label="Organizadores">
+				<img class="logos__aws" src="/aws.webp" alt="AWS" width="40" height="40" decoding="async" fetchpriority="high" />
 				<span class="logos__x" aria-hidden="true">×</span>
-				<img class="logos__nerd" src="/nerdearla.webp" alt="Logo de Nerdearla" width="32" height="40" decoding="async" />
+				<img class="logos__nerd" src="/nerdearla.webp" alt="Nerdearla" width="32" height="40" decoding="async" />
 			</div>
 		</header>
 
-		<main id="contenido">
+		<main id="contenido" tabindex="-1">
 			<!-- 1. Hero -->
-			<section class="hero">
-				<img class="hero__logo" src="/aws.webp" alt="AWS" width="160" height="160" decoding="async" fetchpriority="high" />
+			<section class="hero" aria-labelledby="titulo">
+				<img class="hero__logo" src="/aws.webp" alt="" width="160" height="160" decoding="async" fetchpriority="high" />
 				<p class="eyebrow">Sesión con AWS · Nerdearla 2026</p>
-				<h1>Aprende a crear agentes de IA desde cero</h1>
+				<h1 id="titulo">Aprende a crear agentes de IA desde cero</h1>
 				<p class="lead">
 					30 minutos. Un proyecto real hecho con <strong>Strands</strong>, el framework open source de AWS para crear
 					agentes de IA. Te enseño cómo lo construí desde mi portátil y respondo tus preguntas.
@@ -201,13 +203,13 @@ const jsonLd = {
 					<div class="fact">
 						<dt>Cuándo</dt>
 						<dd>
-							<time datetime="2026-09-25T12:15:00-03:00" class="when">Viernes 25 de septiembre · 12:15–12:45</time>
+							<time datetime="2026-09-25T12:15:00-03:00" class="when">Viernes 25 de septiembre <span class="visually-hidden">de 2026 </span>· 12:15–12:45<span class="visually-hidden">, hora de Buenos Aires</span></time>
 						</dd>
 					</div>
 					<div class="fact">
 						<dt>Dónde</dt>
 						<dd>
-							<span class="where">Silent Theatre del stand de AWS</span>
+							<span class="where"><span lang="en">Silent Theatre</span> del stand de AWS</span>
 							<span class="tz">Nerdearla · Ciudad Cultural Konex · Sarmiento 3131, Buenos Aires</span>
 						</dd>
 					</div>
@@ -215,14 +217,20 @@ const jsonLd = {
 
 				<div class="cta">
 					<details class="menu js-menu">
-						<summary class="btn btn--primary" aria-haspopup="menu" aria-controls="menu-hero">Me apunto</summary>
-						<ul class="menu__list" id="menu-hero" role="menu" aria-label="Añadir a tu calendario">
+						<summary class="btn btn--primary">
+							Me apunto
+							<span class="visually-hidden">. Añadir la sesión a tu calendario</span>
+						</summary>
+						<ul class="menu__list" aria-label="Calendarios">
 							{calendarOptions.map((o) => (
-								<li role="none">
+								<li>
 									{o.ics ? (
-										<button type="button" role="menuitem" class="menu__item js-download-ics">{o.label}</button>
+										<button type="button" class="menu__item js-download-ics">{o.label}</button>
 									) : (
-										<a role="menuitem" class="menu__item" href={o.href} target="_blank" rel="noopener noreferrer">{o.label}</a>
+										<a class="menu__item" href={o.href} target="_blank" rel="noopener noreferrer">
+											{o.label}
+											<span class="visually-hidden"> (se abre en una pestaña nueva)</span>
+										</a>
 									)}
 								</li>
 							))}
@@ -230,6 +238,7 @@ const jsonLd = {
 					</details>
 					<a class="btn btn--ghost" href={REGISTER_URL} target="_blank" rel="noopener noreferrer">
 						Regístrate en Nerdearla (gratis)
+						<span class="visually-hidden"> (se abre en una pestaña nueva)</span>
 					</a>
 				</div>
 				<p class="cta__hint">Elige tu calendario y guarda la sesión para que no se te olvide.</p>
@@ -238,13 +247,17 @@ const jsonLd = {
 			<!-- 6. Cuenta atrás -->
 			<section class="countdown" aria-labelledby="countdown-title">
 				<h2 id="countdown-title" class="section-title">Empieza en</h2>
-				<div class="countdown__grid js-countdown" role="timer" aria-live="off">
+				<p class="visually-hidden">La sesión es el viernes 25 de septiembre de 2026 a las 12:15, hora de Buenos Aires.</p>
+				<div class="countdown__grid js-countdown" aria-hidden="true">
 					<div class="countdown__cell"><span class="countdown__num" data-unit="days">--</span><span class="countdown__label">días</span></div>
 					<div class="countdown__cell"><span class="countdown__num" data-unit="hours">--</span><span class="countdown__label">horas</span></div>
 					<div class="countdown__cell"><span class="countdown__num" data-unit="minutes">--</span><span class="countdown__label">min</span></div>
 					<div class="countdown__cell"><span class="countdown__num" data-unit="seconds">--</span><span class="countdown__label">seg</span></div>
 				</div>
-				<p class="countdown__status js-countdown-status" aria-live="polite"></p>
+				<p class="countdown__status js-countdown-status" role="status"></p>
+				<noscript>
+					<p>Viernes 25 de septiembre de 2026, 12:15 (Buenos Aires).</p>
+				</noscript>
 			</section>
 
 			<!-- 2. Qué vas a ver -->
@@ -265,10 +278,10 @@ const jsonLd = {
 				<ul class="list">
 					<li>
 						<strong>Dirección.</strong> Ciudad Cultural Konex, Sarmiento 3131, Buenos Aires, Argentina.
-						<a href="https://maps.google.com/?q=Ciudad+Cultural+Konex,+Sarmiento+3131,+Buenos+Aires" target="_blank" rel="noopener noreferrer">Ver en el mapa</a>
+						<a href="https://maps.google.com/?q=Ciudad+Cultural+Konex,+Sarmiento+3131,+Buenos+Aires" target="_blank" rel="noopener noreferrer">Ver en el mapa<span class="visually-hidden"> de Ciudad Cultural Konex (se abre en una pestaña nueva)</span></a>
 					</li>
 					<li><strong>Stand de AWS.</strong> La sesión es en su Silent Theatre, dentro del recinto de Nerdearla.</li>
-					<li><strong>Silent theatre.</strong> Se escucha por auriculares inalámbricos que reparten en el stand.</li>
+					<li><strong><span lang="en">Silent theatre</span>.</strong> Se escucha por auriculares inalámbricos que reparten en el stand.</li>
 					<li><strong>Aforo limitado.</strong> Acceso por orden de llegada. Llega con antelación.</li>
 					<li><strong>Sin registro para la sesión.</strong> Solo necesitas estar registrado en Nerdearla, que es gratis.</li>
 				</ul>
@@ -282,9 +295,9 @@ const jsonLd = {
 				<h2 id="midu-title" class="section-title">Sobre Midu</h2>
 				<p>
 					Miguel Ángel Durán, creador de contenido de desarrollo web en español.
-					<a href="https://youtube.com/@midudev" target="_blank" rel="noopener noreferrer">YouTube</a>,
-					<a href="https://twitch.tv/midudev" target="_blank" rel="noopener noreferrer">Twitch</a> y
-					<a href="https://x.com/midudev" target="_blank" rel="noopener noreferrer">X</a>: @midudev.
+					<a href="https://youtube.com/@midudev" target="_blank" rel="noopener noreferrer">YouTube<span class="visually-hidden"> de midudev (se abre en una pestaña nueva)</span></a>,
+					<a href="https://twitch.tv/midudev" target="_blank" rel="noopener noreferrer">Twitch<span class="visually-hidden"> de midudev (se abre en una pestaña nueva)</span></a> y
+					<a href="https://x.com/midudev" target="_blank" rel="noopener noreferrer">X<span class="visually-hidden"> de midudev (se abre en una pestaña nueva)</span></a>: @midudev.
 				</p>
 			</section>
 
@@ -294,14 +307,20 @@ const jsonLd = {
 				<p class="lead">Viernes 25 de septiembre, 12:15 (Buenos Aires). Guárdalo para que no se te olvide.</p>
 				<div class="cta">
 					<details class="menu js-menu">
-						<summary class="btn btn--primary" aria-haspopup="menu" aria-controls="menu-cierre">Me apunto</summary>
-						<ul class="menu__list" id="menu-cierre" role="menu" aria-label="Añadir a tu calendario">
+						<summary class="btn btn--primary">
+							Me apunto
+							<span class="visually-hidden">. Añadir la sesión a tu calendario</span>
+						</summary>
+						<ul class="menu__list" aria-label="Calendarios">
 							{calendarOptions.map((o) => (
-								<li role="none">
+								<li>
 									{o.ics ? (
-										<button type="button" role="menuitem" class="menu__item js-download-ics">{o.label}</button>
+										<button type="button" class="menu__item js-download-ics">{o.label}</button>
 									) : (
-										<a role="menuitem" class="menu__item" href={o.href} target="_blank" rel="noopener noreferrer">{o.label}</a>
+										<a class="menu__item" href={o.href} target="_blank" rel="noopener noreferrer">
+											{o.label}
+											<span class="visually-hidden"> (se abre en una pestaña nueva)</span>
+										</a>
 									)}
 								</li>
 							))}
@@ -309,6 +328,7 @@ const jsonLd = {
 					</details>
 					<a class="btn btn--ghost" href={REGISTER_URL} target="_blank" rel="noopener noreferrer">
 						Regístrate en Nerdearla (gratis)
+						<span class="visually-hidden"> (se abre en una pestaña nueva)</span>
 					</a>
 				</div>
 				<p class="cta__hint">Elige tu calendario y guarda la sesión para que no se te olvide.</p>
@@ -316,7 +336,7 @@ const jsonLd = {
 		</main>
 
 		<footer class="foot">
-			<p>Sesión organizada junto a AWS · <a href="/">midu.link</a></p>
+			<p>Sesión organizada junto a AWS · <a href="/">midu.link<span class="visually-hidden">, ir al inicio</span></a></p>
 		</footer>
 
 		<script define:vars={{ EVENT, REGISTER_URL }}>
@@ -413,10 +433,17 @@ const jsonLd = {
 				}
 			});
 
+			const icsStatus = document.getElementById('ics-status');
 			for (const btn of document.querySelectorAll('.js-download-ics')) {
 				btn.addEventListener('click', () => {
+					const menu = btn.closest('.js-menu');
 					downloadIcs();
 					closeMenus();
+					menu?.querySelector('summary')?.focus();
+					if (icsStatus) {
+						icsStatus.textContent = '';
+						icsStatus.textContent = 'Archivo de calendario descargado.';
+					}
 				});
 			}
 
@@ -534,23 +561,45 @@ const jsonLd = {
 		text-decoration-color: var(--accent);
 	}
 
-	:is(a, button):focus-visible {
+	:is(a, button, summary):focus-visible {
 		outline: 2px solid var(--focus);
 		outline-offset: 3px;
 		border-radius: 2px;
 	}
 
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
+	}
+
 	.skip {
 		position: absolute;
-		left: 1rem;
-		top: -100%;
+		inset-inline-start: 1rem;
+		top: 0;
+		z-index: 100;
+		transform: translateY(-150%);
+		padding: 0.65rem 1rem;
 		background: var(--bg);
-		padding: 0.5rem 0.75rem;
-		z-index: 10;
+		color: var(--text);
+		border: 2px solid var(--focus);
+		border-radius: 4px;
+		text-decoration: none;
+		transition: transform 120ms ease;
 	}
 
 	.skip:focus {
-		top: 1rem;
+		transform: translateY(1rem);
+	}
+
+	main:focus {
+		outline: none;
 	}
 
 	.top,
@@ -640,7 +689,7 @@ const jsonLd = {
 		font-family: var(--pixel);
 		font-weight: 400;
 		font-size: clamp(2rem, 8vw, 3.5rem);
-		line-height: 1.05;
+		line-height: 1.15;
 		letter-spacing: -0.01em;
 		text-wrap: balance;
 	}
@@ -667,7 +716,7 @@ const jsonLd = {
 
 	.fact dt {
 		font-family: var(--pixel);
-		font-size: 0.8rem;
+		font-size: 0.875rem;
 		color: var(--muted);
 		margin-bottom: 0.25rem;
 	}
@@ -774,8 +823,9 @@ const jsonLd = {
 	.menu__item {
 		display: block;
 		width: 100%;
+		min-height: 2.75rem;
 		text-align: left;
-		padding: 0.65rem 0.9rem;
+		padding: 0.7rem 0.9rem;
 		font: inherit;
 		font-size: 0.95rem;
 		color: var(--text);
@@ -909,8 +959,60 @@ const jsonLd = {
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		* {
+		*,
+		*::before,
+		*::after {
+			animation: none !important;
 			transition: none !important;
+			scroll-behavior: auto !important;
+		}
+	}
+
+	@media (prefers-contrast: more) {
+		:root {
+			--muted: #d0d0d0;
+			--border: #8a8a8a;
+			--accent: #ffb43c;
+		}
+
+		@media (prefers-color-scheme: light) {
+			:root {
+				--muted: #3d3d3d;
+				--border: #5c5c5c;
+				--accent: #8a3b00;
+			}
+		}
+	}
+
+	@media (forced-colors: active) {
+		.btn,
+		.btn--ghost,
+		.menu__list,
+		.countdown__cell {
+			border: 1px solid ButtonText;
+		}
+
+		.btn--primary {
+			background: Highlight;
+			color: HighlightText;
+			border-color: Highlight;
+			forced-color-adjust: none;
+		}
+
+		.btn--primary:hover:not(:disabled) {
+			filter: none;
+		}
+
+		.when,
+		.eyebrow,
+		.list li::marker,
+		.countdown__status {
+			color: Highlight;
+			forced-color-adjust: none;
+		}
+
+		img {
+			forced-color-adjust: none;
 		}
 	}
 </style>
