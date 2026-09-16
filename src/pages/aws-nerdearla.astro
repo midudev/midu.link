@@ -102,6 +102,40 @@ const jsonLd = {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/png" href="/aws.png" />
+		<link
+			rel="preload"
+			href="/fonts/geist-pixel-latin.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+			fetchpriority="high"
+		/>
+		<link
+			rel="preload"
+			href="/fonts/geist-latin.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+			fetchpriority="high"
+		/>
+		<style is:inline>
+			@font-face {
+				font-family: 'Geist Pixel';
+				src: url('/fonts/geist-pixel-latin.woff2') format('woff2');
+				font-weight: 400;
+				font-style: normal;
+				font-display: optional;
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+			}
+			@font-face {
+				font-family: 'Geist';
+				src: url('/fonts/geist-latin.woff2') format('woff2');
+				font-weight: 400 600;
+				font-style: normal;
+				font-display: optional;
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+			}
+		</style>
 
 		<title>{pageTitle}</title>
 		<meta name="description" content={pageDescription} />
@@ -137,9 +171,6 @@ const jsonLd = {
 		<meta name="twitter:label2" content="Dónde" />
 		<meta name="twitter:data2" content="Stand de AWS · Nerdearla · Konex" />
 
-		<link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
-		<link rel="preload" href="/fonts/GeistPixel-Square.woff2" as="font" type="font/woff2" crossorigin />
-
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
 	</head>
 
@@ -147,11 +178,11 @@ const jsonLd = {
 		<a class="skip" href="#contenido">Saltar al contenido</a>
 
 		<header class="top">
-			<a class="brand" href="/" aria-label="Ir a midu.link">midu.link</a>
+			<img class="avatar" src="/midudev.jpg" alt="midudev" width="40" height="40" decoding="async" fetchpriority="high" />
 			<div class="logos" aria-label="Organizadores">
-				<img class="logos__aws" src="/aws.png" alt="Logo de AWS" width="40" height="40" decoding="async" />
+				<img class="logos__aws" src="/aws.png" alt="Logo de AWS" width="40" height="40" decoding="async" fetchpriority="high" />
 				<span class="logos__x" aria-hidden="true">×</span>
-				<img src="/img/nerdearla.svg" alt="Logo de Nerdearla" width="96" height="24" loading="lazy" decoding="async" />
+				<img class="logos__nerd" src="/nerdearla.png" alt="Logo de Nerdearla" width="32" height="40" decoding="async" />
 			</div>
 		</header>
 
@@ -430,36 +461,11 @@ const jsonLd = {
 					if (!tick()) clearInterval(id);
 				}, 1000);
 			}
-
-			// ---------- Logos: ocultar placeholder si aún no hay archivo ----------
-			for (const img of document.querySelectorAll('.logos img')) {
-				img.addEventListener('error', () => {
-					img.hidden = true;
-					const x = img.parentElement?.querySelector('.logos__x');
-					if (x) x.hidden = true;
-				});
-			}
 		</script>
 	</body>
 </html>
 
 <style is:global>
-	@font-face {
-		font-family: 'Geist';
-		src: url('/fonts/Geist-Variable.woff2') format('woff2');
-		font-weight: 100 900;
-		font-style: normal;
-		font-display: swap;
-	}
-
-	@font-face {
-		font-family: 'Geist Pixel';
-		src: url('/fonts/GeistPixel-Square.woff2') format('woff2');
-		font-weight: 400;
-		font-style: normal;
-		font-display: swap;
-	}
-
 	/* Una sola tinta de acento. Oscuro por defecto; claro con prefers-color-scheme. */
 	:root {
 		color-scheme: dark;
@@ -502,6 +508,7 @@ const jsonLd = {
 		text-rendering: optimizeLegibility;
 		font-size: 100%;
 		line-height: 1.55;
+		font-synthesis: none;
 	}
 
 	body {
@@ -560,39 +567,48 @@ const jsonLd = {
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
+		min-height: calc(2.5rem + 40px);
 		padding-block: 1.25rem;
 	}
 
-	.brand {
-		font-family: var(--pixel);
-		font-size: 0.95rem;
-		text-decoration: none;
-		color: var(--muted);
-	}
-
-	.brand:hover {
-		color: var(--text);
+	.avatar {
+		display: block;
+		flex: none;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		object-fit: cover;
+		aspect-ratio: 1;
 	}
 
 	.logos {
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		flex: none;
+		gap: 0.6rem;
+		height: 40px;
 		color: var(--muted);
 	}
 
-	.logos img {
-		height: 24px;
-		width: auto;
-		max-width: 8rem;
-		object-fit: contain;
-	}
-
-	.logos img.logos__aws {
-		height: 40px;
+	.logos__aws {
+		display: block;
 		width: 40px;
+		height: 40px;
 		border-radius: 8px;
 		object-fit: cover;
+		aspect-ratio: 1;
+	}
+
+	.logos__x {
+		font-size: 0.95rem;
+		line-height: 1;
+	}
+
+	.logos__nerd {
+		display: block;
+		height: 40px;
+		width: auto;
+		object-fit: contain;
 	}
 
 	main {
