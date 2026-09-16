@@ -8,8 +8,7 @@
 const REGISTER_URL = 'https://bit.ly/46WF8l6';
 
 const EVENT = {
-	title: 'Aprende a crear agentes de IA desde cero — sesión de Midu en Nerdearla 2026',
-	shortTitle: 'Aprende a crear agentes de IA desde cero',
+	title: 'Taller midudev en Nerdearla - AWS Strands SDK',
 	startUTC: '2026-09-25T15:15:00Z',
 	endUTC: '2026-09-25T15:45:00Z',
 	location: 'Silent Theatre del stand de AWS, Nerdearla, Ciudad Cultural Konex, Sarmiento 3131, Buenos Aires, Argentina',
@@ -64,7 +63,7 @@ const ogImage = new URL('/og/aws-nerdearla.png', Astro.site ?? 'https://midu.lin
 const jsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'Event',
-	name: EVENT.shortTitle,
+	name: EVENT.title,
 	description: pageDescription,
 	startDate: '2026-09-25T12:15:00-03:00',
 	endDate: '2026-09-25T12:45:00-03:00',
@@ -102,7 +101,7 @@ const jsonLd = {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/aws.png" />
 
 		<title>{pageTitle}</title>
 		<meta name="description" content={pageDescription} />
@@ -337,7 +336,7 @@ const jsonLd = {
 					'TRANSP:OPAQUE',
 					'BEGIN:VALARM',
 					'ACTION:DISPLAY',
-					`DESCRIPTION:${icsEscape('Empieza en 30 min: ' + EVENT.shortTitle)}`,
+					`DESCRIPTION:${icsEscape('Empieza en 30 min: ' + EVENT.title)}`,
 					'TRIGGER:-PT30M',
 					'END:VALARM',
 					'END:VEVENT',
