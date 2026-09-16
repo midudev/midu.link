@@ -150,7 +150,7 @@ const jsonLd = {
 		<header class="top">
 			<a class="brand" href="/" aria-label="Ir a midu.link">midu.link</a>
 			<div class="logos" aria-label="Organizadores">
-				<img src="/img/aws.svg" alt="Logo de AWS" width="64" height="24" loading="lazy" decoding="async" />
+				<img class="logos__aws" src="/aws.png" alt="Logo de AWS" width="40" height="40" decoding="async" />
 				<span class="logos__x" aria-hidden="true">×</span>
 				<img src="/img/nerdearla.svg" alt="Logo de Nerdearla" width="96" height="24" loading="lazy" decoding="async" />
 			</div>
@@ -159,6 +159,7 @@ const jsonLd = {
 		<main id="contenido">
 			<!-- 1. Hero -->
 			<section class="hero">
+				<img class="hero__logo" src="/aws.png" alt="AWS" width="160" height="160" decoding="async" fetchpriority="high" />
 				<p class="eyebrow">Sesión con AWS · Nerdearla 2026</p>
 				<h1>Lo que construí con Strands</h1>
 				<p class="lead">
@@ -171,8 +172,6 @@ const jsonLd = {
 						<dt>Cuándo</dt>
 						<dd>
 							<time datetime="2026-09-25T12:15:00-03:00" class="when">Viernes 25 de septiembre · 12:15–12:45</time>
-							<span class="tz">hora de Buenos Aires (ART, UTC−3)</span>
-							<span class="tz tz--alt">17:15 Madrid · 10:15 CDMX</span>
 						</dd>
 					</div>
 					<div class="fact">
@@ -590,12 +589,28 @@ const jsonLd = {
 		object-fit: contain;
 	}
 
+	.logos img.logos__aws {
+		height: 40px;
+		width: 40px;
+		border-radius: 8px;
+		object-fit: cover;
+	}
+
 	main {
 		flex: 1;
 		padding-block: 2rem 4rem;
 		display: flex;
 		flex-direction: column;
 		gap: 4rem;
+	}
+
+	.hero__logo {
+		display: block;
+		width: 6.5rem;
+		height: 6.5rem;
+		border-radius: 1rem;
+		object-fit: cover;
+		margin-bottom: 1.5rem;
 	}
 
 	.eyebrow {
@@ -661,10 +676,6 @@ const jsonLd = {
 	.tz {
 		color: var(--muted);
 		font-size: 0.95rem;
-	}
-
-	.tz--alt {
-		font-size: 0.85rem;
 	}
 
 	.cta {
