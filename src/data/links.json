@@ -120,6 +120,11 @@
     "created": "2026-02-16"
   },
   {
+    "slug": "challenge",
+    "url": "https://sdc26-centinela-web.midudev.workers.dev/",
+    "created": "2026-09-29"
+  },
+  {
     "slug": "cisco",
     "url": "https://www.netacad.com/es/catalogs/learn/programming?skill=python%2Cbasic-python-programming",
     "created": "2026-02-16"
