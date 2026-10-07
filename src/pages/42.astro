@@ -1,0 +1,904 @@
+---
+/**
+ * Landing minimalista a pantalla dividida:
+ * 1) Charla de Midu el 13 de octubre a las 17:00h en 42 Barcelona.
+ * 2) Curso gratuito Piscine Discovery Python del 13 al 16 de octubre en 42 Barcelona.
+ * Ruta estática `/42` → gana sobre el redirect dinámico de `[slug].ts`.
+ */
+
+const PYTHON_COURSE_URL =
+	'https://www.eventbrite.es/e/piscine-discovery-python-42-barcelona-tickets-1997851006140?aff=oddtdtcreator';
+
+const TALK_EVENT = {
+	title: 'Charla de midudev en 42 Barcelona',
+	startUTC: '2026-10-13T15:00:00Z',
+	endUTC: '2026-10-13T16:30:00Z',
+	location: "42 Barcelona, Parc Tecnològic de Barcelona Activa, Carrer d'Albert Einstein, 11, 08042 Barcelona",
+	description: [
+		'Charla presencial de Miguel Ángel Durán (@midudev) en el campus de 42 Barcelona.',
+		'',
+		'Cuándo: Martes 13 de octubre de 2026 a las 17:00h (hora de Barcelona).',
+		"Dónde: 42 Barcelona · Parc Tecnològic de Barcelona Activa, Carrer d'Albert Einstein, 11, 08042 Barcelona.",
+		'',
+		'Además, del 13 al 16 de octubre se celebra el curso intensivo y gratuito Piscine Discovery Python en 42 Barcelona:',
+		PYTHON_COURSE_URL,
+		'',
+		'Más info: https://midu.link/42',
+	].join('\n'),
+};
+
+const googleCalendarUrl = (() => {
+	const params = new URLSearchParams({
+		action: 'TEMPLATE',
+		text: TALK_EVENT.title,
+		dates: '20261013T150000Z/20261013T163000Z',
+		details: TALK_EVENT.description,
+		location: TALK_EVENT.location,
+		ctz: 'Europe/Madrid',
+	});
+	return `https://calendar.google.com/calendar/render?${params.toString()}`;
+})();
+
+const outlookParams = new URLSearchParams({
+	path: '/calendar/action/compose',
+	rru: 'addevent',
+	subject: TALK_EVENT.title,
+	startdt: TALK_EVENT.startUTC,
+	enddt: TALK_EVENT.endUTC,
+	body: TALK_EVENT.description,
+	location: TALK_EVENT.location,
+});
+const outlookLiveUrl = `https://outlook.live.com/calendar/0/deeplink/compose?${outlookParams.toString()}`;
+const outlookOfficeUrl = `https://outlook.office.com/calendar/0/deeplink/compose?${outlookParams.toString()}`;
+
+const calendarOptions = [
+	{ label: 'Google Calendar', href: googleCalendarUrl },
+	{ label: 'Apple Calendar (.ics)', ics: true },
+	{ label: 'Outlook.com', href: outlookLiveUrl },
+	{ label: 'Outlook 365', href: outlookOfficeUrl },
+	{ label: 'Otro calendario (.ics)', ics: true },
+];
+
+const pageTitle = 'midudev en 42 Barcelona · Charla (13 oct, 17h) y Curso de Python';
+const pageDescription =
+	'Charla de midudev el martes 13 de octubre a las 17:00h en 42 Barcelona y curso intensivo gratuito Piscine Discovery Python del 13 al 16 de octubre.';
+const canonical = new URL('/42', Astro.site ?? 'https://midu.link').href;
+const ogImage = new URL('/og.png', Astro.site ?? 'https://midu.link').href;
+
+const jsonLd = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'Event',
+		name: TALK_EVENT.title,
+		description: 'Charla presencial de Miguel Ángel Durán (@midudev) en 42 Barcelona.',
+		startDate: '2026-10-13T17:00:00+02:00',
+		endDate: '2026-10-13T18:30:00+02:00',
+		eventStatus: 'https://schema.org/EventScheduled',
+		eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+		inLanguage: 'es',
+		isAccessibleForFree: true,
+		url: canonical,
+		image: ogImage,
+		location: {
+			'@type': 'Place',
+			name: '42 Barcelona',
+			address: {
+				'@type': 'PostalAddress',
+				streetAddress: "Carrer d'Albert Einstein, 11",
+				postalCode: '08042',
+				addressLocality: 'Barcelona',
+				addressCountry: 'ES',
+			},
+		},
+		performer: { '@type': 'Person', name: 'Miguel Ángel Durán (midudev)', url: 'https://midu.dev' },
+		organizer: { '@type': 'Organization', name: '42 Barcelona · Fundación Telefónica', url: 'https://www.42barcelona.com' },
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'EducationEvent',
+		name: 'Piscine Discovery Python · 42 Barcelona',
+		description: 'Curso intensivo y gratuito de Python en 42 Barcelona del 13 al 16 de octubre.',
+		startDate: '2026-10-13T09:42:00+02:00',
+		endDate: '2026-10-16T15:00:00+02:00',
+		eventStatus: 'https://schema.org/EventScheduled',
+		eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+		inLanguage: 'es',
+		isAccessibleForFree: true,
+		url: PYTHON_COURSE_URL,
+		location: {
+			'@type': 'Place',
+			name: '42 Barcelona',
+			address: {
+				'@type': 'PostalAddress',
+				streetAddress: "Carrer d'Albert Einstein, 11",
+				postalCode: '08042',
+				addressLocality: 'Barcelona',
+				addressCountry: 'ES',
+			},
+		},
+		organizer: { '@type': 'Organization', name: '42 Barcelona · Fundación Telefónica', url: 'https://www.42barcelona.com' },
+	},
+];
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/42.svg" />
+		<link
+			rel="preload"
+			href="/fonts/GeistPixel-Square.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+			fetchpriority="high"
+		/>
+		<link
+			rel="preload"
+			href="/fonts/GeistMono-Variable.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+			fetchpriority="high"
+		/>
+		<style is:inline>
+			@font-face {
+				font-family: 'Geist Pixel';
+				src: url('/fonts/GeistPixel-Square.woff2') format('woff2');
+				font-weight: 400;
+				font-style: normal;
+				font-display: swap;
+			}
+			@font-face {
+				font-family: 'Geist Mono';
+				src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+				font-weight: 100 900;
+				font-style: normal;
+				font-display: swap;
+			}
+		</style>
+
+		<title>{pageTitle}</title>
+		<meta name="description" content={pageDescription} />
+		<meta name="author" content="midudev" />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="color-scheme" content="dark light" />
+		<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+		<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+		<link rel="canonical" href={canonical} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="event" />
+		<meta property="og:site_name" content="midu.link" />
+		<meta property="og:locale" content="es_ES" />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDescription} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={pageTitle} />
+		<meta property="event:start_time" content={TALK_EVENT.startUTC} />
+		<meta property="event:end_time" content={TALK_EVENT.endUTC} />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@midudev" />
+		<meta name="twitter:creator" content="@midudev" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={pageDescription} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:label1" content="Charla midudev" />
+		<meta name="twitter:data1" content="13 oct · 17:00h · 42 Barcelona" />
+		<meta name="twitter:label2" content="Curso Python" />
+		<meta name="twitter:data2" content="13 al 16 de octubre · Gratis" />
+
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+	</head>
+
+	<body>
+		<a class="skip" href="#contenido">Saltar al contenido</a>
+		<div class="visually-hidden" id="ics-status" role="status" aria-live="polite"></div>
+
+		<header class="top">
+			<a class="brand-midu" href="https://midu.dev" target="_blank" rel="noopener noreferrer">
+				<img
+					class="avatar"
+					src="/midudev.jpg"
+					alt="Miguel Ángel Durán (midudev)"
+					width="36"
+					height="36"
+					decoding="async"
+					fetchpriority="high"
+				/>
+				<span>@midudev</span>
+			</a>
+
+			<span class="top__x" aria-hidden="true">×</span>
+
+			<a class="brand-42" href="https://www.42barcelona.com" target="_blank" rel="noopener noreferrer" aria-label="42 Barcelona Fundación Telefónica">
+				<img
+					class="logo-42"
+					src="/42-barcelona.svg"
+					alt="42 Barcelona Fundación Telefónica"
+					width="144"
+					height="40"
+					decoding="async"
+					fetchpriority="high"
+				/>
+			</a>
+		</header>
+
+		<main id="contenido" class="split" tabindex="-1">
+			<!-- Mitad 1: Charla de Midu -->
+			<section class="pane pane--talk" aria-labelledby="talk-title">
+				<div class="pane__inner">
+					<img
+						class="pane__icon pane__icon--avatar"
+						src="/midudev.jpg"
+						alt=""
+						width="56"
+						height="56"
+						decoding="async"
+						fetchpriority="high"
+					/>
+					<p class="eyebrow">01 // CHARLA PRESENCIAL</p>
+					<h1 id="talk-title">Charla midudev en 42 Barcelona</h1>
+					<p class="summary">
+						Nos vemos en persona en el campus de 42 Barcelona. Entrada libre hasta completar aforo.
+					</p>
+
+					<dl class="facts">
+						<div class="fact">
+							<dt>Fecha y hora</dt>
+							<dd>
+								<time datetime="2026-10-13T17:00:00+02:00" class="highlight">
+									13 de octubre · 17:00h
+								</time>
+							</dd>
+						</div>
+						<div class="fact">
+							<dt>Lugar</dt>
+							<dd>
+								<span>42 Barcelona</span>
+								<span class="muted">Carrer d'Albert Einstein, 11 · Barcelona</span>
+							</dd>
+						</div>
+					</dl>
+
+					<div class="cta">
+						<details class="menu js-menu">
+							<summary class="btn btn--primary">
+								Guardar en el calendario
+								<span class="btn__chevron" aria-hidden="true">▾</span>
+							</summary>
+							<ul class="menu__list" aria-label="Opciones de calendario">
+								{calendarOptions.map((o) => (
+									<li>
+										{o.ics ? (
+											<button type="button" class="menu__item js-download-ics">
+												{o.label}
+											</button>
+										) : (
+											<a class="menu__item" href={o.href} target="_blank" rel="noopener noreferrer">
+												{o.label}
+												<span class="visually-hidden"> (se abre en una pestaña nueva)</span>
+											</a>
+										)}
+									</li>
+								))}
+							</ul>
+						</details>
+					</div>
+				</div>
+			</section>
+
+			<!-- Mitad 2: Curso de Python -->
+			<section class="pane pane--course" aria-labelledby="course-title">
+				<div class="pane__inner">
+					<svg
+						class="pane__icon pane__icon--python"
+						viewBox="0 0 256 255"
+						width="56"
+						height="56"
+						aria-hidden="true"
+						focusable="false"
+					>
+						<defs>
+							<linearGradient id="py-blue" x1="12.959%" y1="12.039%" x2="79.639%" y2="78.201%">
+								<stop offset="0%" stop-color="#387EB8" />
+								<stop offset="100%" stop-color="#366994" />
+							</linearGradient>
+							<linearGradient id="py-yellow" x1="19.128%" y1="20.579%" x2="90.742%" y2="88.429%">
+								<stop offset="0%" stop-color="#FFE052" />
+								<stop offset="100%" stop-color="#FFC331" />
+							</linearGradient>
+						</defs>
+						<path
+							fill="url(#py-blue)"
+							d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z"
+						/>
+						<path
+							fill="url(#py-yellow)"
+							d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z"
+						/>
+					</svg>
+					<p class="eyebrow">02 // CURSO PRESENCIAL GRATUITO</p>
+					<h2 id="course-title">Curso de Python</h2>
+					<p class="summary">
+						<strong>Piscine Discovery Python</strong> en 42 Barcelona. 4 días prácticos para aprender desde cero con la metodología de 42.
+					</p>
+
+					<dl class="facts">
+						<div class="fact">
+							<dt>Fechas</dt>
+							<dd>
+								<time datetime="2026-10-13" class="highlight">
+									Del 13 al 16 de octubre
+								</time>
+							</dd>
+						</div>
+						<div class="fact">
+							<dt>Formato</dt>
+							<dd>
+								<span>Presencial en 42 Barcelona</span>
+								<span class="muted">09:42–15:00h · Gratis y sin requisitos previos</span>
+							</dd>
+						</div>
+					</dl>
+
+					<div class="cta">
+						<a
+							class="btn btn--secondary"
+							href={PYTHON_COURSE_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Apuntarme al curso de Python
+							<span aria-hidden="true">→</span>
+							<span class="visually-hidden"> en Eventbrite (se abre en una pestaña nueva)</span>
+						</a>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer class="foot">
+			<span>42 Barcelona × midudev</span>
+			<a href="/">midu.link</a>
+		</footer>
+
+		<script define:vars={{ TALK_EVENT }}>
+			const icsEscape = (s) =>
+				String(s)
+					.replace(/\\/g, '\\\\')
+					.replace(/;/g, '\\;')
+					.replace(/,/g, '\\,')
+					.replace(/\r?\n/g, '\\n');
+
+			const fold = (line) => {
+				const bytes = new TextEncoder().encode(line);
+				if (bytes.length <= 75) return line;
+				const out = [];
+				let chunk = '';
+				let size = 0;
+				for (const ch of line) {
+					const len = new TextEncoder().encode(ch).length;
+					if (size + len > (out.length ? 74 : 75)) {
+						out.push(chunk);
+						chunk = '';
+						size = 0;
+					}
+					chunk += ch;
+					size += len;
+				}
+				if (chunk) out.push(chunk);
+				return out.join('\r\n ');
+			};
+
+			const toIcsDate = (iso) => iso.replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+			const uid = 'charla-midudev-42-barcelona-2026@midu.link';
+
+			const buildIcs = () => {
+				const lines = [
+					'BEGIN:VCALENDAR',
+					'VERSION:2.0',
+					'PRODID:-//midu.link//42-barcelona//ES',
+					'CALSCALE:GREGORIAN',
+					'METHOD:PUBLISH',
+					'BEGIN:VEVENT',
+					`UID:${uid}`,
+					`DTSTAMP:${toIcsDate(new Date().toISOString())}`,
+					`DTSTART:${toIcsDate(TALK_EVENT.startUTC)}`,
+					`DTEND:${toIcsDate(TALK_EVENT.endUTC)}`,
+					`SUMMARY:${icsEscape(TALK_EVENT.title)}`,
+					`DESCRIPTION:${icsEscape(TALK_EVENT.description)}`,
+					`LOCATION:${icsEscape(TALK_EVENT.location)}`,
+					`URL:${window.location.origin}/42`,
+					'STATUS:CONFIRMED',
+					'TRANSP:OPAQUE',
+					'BEGIN:VALARM',
+					'ACTION:DISPLAY',
+					`DESCRIPTION:${icsEscape('Empieza en 30 min: ' + TALK_EVENT.title)}`,
+					'TRIGGER:-PT30M',
+					'END:VALARM',
+					'END:VEVENT',
+					'END:VCALENDAR',
+				];
+				return lines.map(fold).join('\r\n') + '\r\n';
+			};
+
+			const downloadIcs = () => {
+				const blob = new Blob([buildIcs()], { type: 'text/calendar;charset=utf-8' });
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = 'charla-midudev-42-barcelona.ics';
+				a.rel = 'noopener';
+				document.body.appendChild(a);
+				a.click();
+				a.remove();
+				setTimeout(() => URL.revokeObjectURL(url), 10_000);
+			};
+
+			const menus = Array.from(document.querySelectorAll('.js-menu'));
+			const closeMenus = (except) => {
+				for (const m of menus) if (m !== except) m.open = false;
+			};
+
+			for (const menu of menus) {
+				menu.addEventListener('toggle', () => {
+					if (menu.open) closeMenus(menu);
+				});
+			}
+
+			document.addEventListener('click', (e) => {
+				if (!menus.some((m) => m.contains(e.target))) closeMenus();
+			});
+
+			document.addEventListener('keydown', (e) => {
+				if (e.key !== 'Escape') return;
+				const open = menus.find((m) => m.open);
+				if (open) {
+					open.open = false;
+					open.querySelector('summary')?.focus();
+				}
+			});
+
+			const icsStatus = document.getElementById('ics-status');
+			for (const btn of document.querySelectorAll('.js-download-ics')) {
+				btn.addEventListener('click', () => {
+					const menu = btn.closest('.js-menu');
+					downloadIcs();
+					closeMenus();
+					menu?.querySelector('summary')?.focus();
+					if (icsStatus) {
+						icsStatus.textContent = '';
+						icsStatus.textContent = 'Archivo de calendario descargado.';
+					}
+				});
+			}
+		</script>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		color-scheme: dark;
+		--bg: #0a0a0a;
+		--surface: #111111;
+		--text: #ededed;
+		--muted: #8a8a8a;
+		--border: #222222;
+		--accent: #00babc;
+		--accent-ink: #061010;
+		--focus: #ffffff;
+		--mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+		--pixel: 'Geist Pixel', var(--mono);
+	}
+
+	@media (prefers-color-scheme: light) {
+		:root {
+			color-scheme: light;
+			--bg: #fafafa;
+			--surface: #f0f0f0;
+			--text: #111111;
+			--muted: #5c5c5c;
+			--border: #dddddd;
+			--accent: #008b8d;
+			--accent-ink: #ffffff;
+			--focus: #111111;
+		}
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html {
+		font-family: var(--mono);
+		background: var(--bg);
+		color: var(--text);
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		font-size: 100%;
+		line-height: 1.5;
+		font-synthesis: none;
+	}
+
+	body {
+		min-height: 100dvh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	::selection {
+		background: var(--accent);
+		color: var(--accent-ink);
+	}
+
+	:is(a, button, summary):focus-visible {
+		outline: 2px solid var(--focus);
+		outline-offset: 3px;
+		border-radius: 2px;
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.skip {
+		position: absolute;
+		inset-inline-start: 1rem;
+		top: 0;
+		z-index: 100;
+		transform: translateY(-150%);
+		padding: 0.65rem 1rem;
+		background: var(--bg);
+		color: var(--text);
+		border: 2px solid var(--focus);
+		border-radius: 4px;
+		text-decoration: none;
+		transition: transform 120ms ease;
+	}
+
+	.skip:focus {
+		transform: translateY(1rem);
+	}
+
+	main:focus {
+		outline: none;
+	}
+
+	/* Header */
+	.top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 1.5rem;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.brand-midu {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		text-decoration: none;
+		color: var(--text);
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.brand-midu:hover {
+		color: var(--accent);
+	}
+
+	.avatar {
+		display: block;
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 1px solid var(--border);
+	}
+
+	.top__x {
+		color: var(--muted);
+		font-size: 0.9rem;
+		user-select: none;
+	}
+
+	.brand-42 {
+		display: inline-flex;
+		align-items: center;
+		text-decoration: none;
+		color: var(--text);
+	}
+
+	.logo-42 {
+		display: block;
+		height: 34px;
+		width: auto;
+	}
+
+	/* Split Viewport Layout:
+	   - Mobile: 2 mitades apiladas en vertical (una encima de la otra)
+	   - Desktop: 2 mitades en columnas verticales (50% / 50% del viewport) */
+	.split {
+		flex: 1;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr;
+		width: 100%;
+	}
+
+	.pane {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 2.5rem 1.5rem;
+	}
+
+	.pane--talk {
+		border-bottom: 1px solid var(--border);
+	}
+
+	.pane__inner {
+		width: 100%;
+		max-width: 30rem;
+		margin-inline: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.pane__icon {
+		display: block;
+		width: 3.5rem;
+		height: 3.5rem;
+		flex: none;
+	}
+
+	.pane__icon--avatar {
+		border-radius: 50%;
+		object-fit: cover;
+		border: 1px solid var(--border);
+	}
+
+	.eyebrow {
+		font-family: var(--pixel);
+		font-size: 0.85rem;
+		color: var(--accent);
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	h1,
+	h2 {
+		font-family: var(--pixel);
+		font-weight: 400;
+		font-size: clamp(1.85rem, 4.5vw, 2.85rem);
+		line-height: 1.12;
+		letter-spacing: -0.01em;
+		text-wrap: balance;
+	}
+
+	.summary {
+		font-size: 0.95rem;
+		color: var(--muted);
+		line-height: 1.6;
+		text-wrap: pretty;
+	}
+
+	.summary strong {
+		color: var(--text);
+		font-weight: 600;
+	}
+
+	.facts {
+		display: grid;
+		gap: 1rem;
+		padding-block: 1.15rem;
+		border-block: 1px solid var(--border);
+	}
+
+	.fact {
+		display: grid;
+		gap: 0.2rem;
+	}
+
+	.fact dt {
+		font-family: var(--pixel);
+		font-size: 0.78rem;
+		color: var(--muted);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.fact dd {
+		display: grid;
+		gap: 0.15rem;
+		font-size: 0.98rem;
+		font-weight: 500;
+	}
+
+	.highlight {
+		font-size: 1.15rem;
+		font-weight: 600;
+		color: var(--accent);
+	}
+
+	.muted {
+		font-size: 0.85rem;
+		font-weight: 400;
+		color: var(--muted);
+	}
+
+	/* Buttons & Calendar Menu */
+	.cta {
+		margin-top: 0.25rem;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+		width: 100%;
+		min-height: 3.25rem;
+		padding: 0.85rem 1.25rem;
+		font-family: var(--pixel);
+		font-size: 1.05rem;
+		text-decoration: none;
+		border-radius: 4px;
+		border: 1px solid var(--text);
+		cursor: pointer;
+		transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease, filter 120ms ease;
+	}
+
+	.btn--primary {
+		background: var(--accent);
+		color: var(--accent-ink);
+		border-color: var(--accent);
+	}
+
+	.btn--primary:hover {
+		filter: brightness(1.08);
+	}
+
+	.btn--secondary {
+		background: var(--text);
+		color: var(--bg);
+		border-color: var(--text);
+	}
+
+	.btn--secondary:hover {
+		background: transparent;
+		color: var(--text);
+	}
+
+	.btn__chevron {
+		font-family: var(--mono);
+		font-size: 0.85rem;
+		line-height: 1;
+	}
+
+	.menu {
+		position: relative;
+		width: 100%;
+	}
+
+	.menu > summary {
+		list-style: none;
+		user-select: none;
+	}
+
+	.menu > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.menu__list {
+		position: absolute;
+		bottom: calc(100% + 0.5rem);
+		left: 0;
+		z-index: 20;
+		width: 100%;
+		list-style: none;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		padding: 0.35rem;
+		display: grid;
+		gap: 0.15rem;
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+	}
+
+	.menu__item {
+		display: block;
+		width: 100%;
+		min-height: 2.5rem;
+		text-align: left;
+		padding: 0.6rem 0.85rem;
+		font-family: var(--mono);
+		font-size: 0.88rem;
+		color: var(--text);
+		background: transparent;
+		border: 0;
+		border-radius: 3px;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.menu__item:hover {
+		background: var(--border);
+	}
+
+	.foot {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.85rem 1.5rem;
+		border-top: 1px solid var(--border);
+		font-size: 0.8rem;
+		color: var(--muted);
+	}
+
+	.foot a {
+		color: var(--text);
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	.foot a:hover {
+		color: var(--accent);
+	}
+
+	@media (min-width: 52rem) {
+		.top,
+		.foot {
+			padding-inline: 2.5rem;
+		}
+
+		.logo-42 {
+			height: 40px;
+		}
+
+		.split {
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr;
+		}
+
+		.pane {
+			padding: 3.5rem 3rem;
+		}
+
+		.pane--talk {
+			border-bottom: 0;
+			border-right: 1px solid var(--border);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation: none !important;
+			transition: none !important;
+			scroll-behavior: auto !important;
+		}
+	}
+</style>
