@@ -489,6 +489,21 @@ const jsonLd = {
 					if (!tick()) clearInterval(id);
 				}, 1000);
 			}
+
+			// Registrar visita en las analíticas de midu.link
+			try {
+				const payload = JSON.stringify({ slug: 'aws-nerdearla' });
+				if (navigator.sendBeacon) {
+					navigator.sendBeacon('/api/track', new Blob([payload], { type: 'application/json' }));
+				} else {
+					fetch('/api/track', {
+						method: 'POST',
+						headers: { 'content-type': 'application/json' },
+						body: payload,
+						keepalive: true,
+					}).catch(() => {});
+				}
+			} catch {}
 		</script>
 	</body>
 </html>

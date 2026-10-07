@@ -2,11 +2,11 @@
 export const prerender = false;
 
 import Layout from '../../layouts/Layout.astro';
-import { linksBySlug } from '../../lib/links';
+import { trackableBySlug } from '../../lib/links';
 import { getSlugAnalytics, lastNDays } from '../../lib/db';
 
 const slug = Astro.params.slug ?? '';
-const destination = linksBySlug.get(slug);
+const destination = trackableBySlug.get(slug);
 
 if (!slug || !destination) {
 	return Astro.redirect('/');

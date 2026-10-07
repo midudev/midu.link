@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import links from '../data/links.json';
+import { specialLandings } from '../lib/links';
 
 const sortedLinks = [...links].sort((a, b) => a.slug.localeCompare(b.slug));
 
@@ -22,7 +23,7 @@ const prettyUrl = (url: string) => {
 				Acortador de URLs de <a href="https://midu.dev" target="_blank" rel="noopener noreferrer">midudev</a>
 			</p>
 			<p class="count">
-				<span id="count">{links.length}</span> enlaces disponibles
+				<span id="count">{links.length + specialLandings.length}</span> enlaces disponibles
 			</p>
 		</header>
 
@@ -56,6 +57,79 @@ const prettyUrl = (url: string) => {
 				</button>
 			</div>
 		</div>
+
+		<section class="special-section" id="special-section" aria-labelledby="special-heading">
+			<div class="section-header">
+				<h2 id="special-heading" class="section-title">Landings especiales</h2>
+			</div>
+			<div class="links" id="special-list">
+				{specialLandings.map(({ slug, label, created }) => (
+					<div
+						class="link-card link-card--landing"
+						data-slug={slug}
+						data-target={label}
+						data-created={created}
+						data-week="0"
+					>
+						<a
+							href={`/${slug}`}
+							class="link-main"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<span class="link-slug">
+								<span class="domain">midu.link/</span><span class="slug">{slug}</span>
+								<span class="landing-badge">Landing</span>
+							</span>
+							<span class="link-target">
+								<svg class="target-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+									<path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								<span class="target-url">{label}</span>
+							</span>
+						</a>
+
+						<a
+							href={`/stats/${slug}`}
+							class="analytics"
+							aria-label={`Ver analíticas de midu.link/${slug}`}
+							data-analytics={slug}
+						>
+							<svg class="spark" viewBox="0 0 70 28" width="70" height="28" aria-hidden="true" preserveAspectRatio="none">
+								{[0, 1, 2, 3, 4, 5, 6].map((i) => (
+									<g class="spark-hit" data-i={i}>
+										<rect class="spark-hitarea" x={i * 10} y={0} width="10" height="28" />
+										<rect
+											class="spark-bar"
+											data-i={i}
+											x={i * 10 + 2}
+											y={24}
+											width="6"
+											height="2"
+											rx="1.5"
+										/>
+									</g>
+								))}
+							</svg>
+							<span class="stat" title="Clicks últimos 7 días">
+								<span class="stat-value" data-week>—</span>
+								<span class="stat-label">7d</span>
+							</span>
+						</a>
+
+						<button class="copy" type="button" data-slug={slug} aria-label={`Copiar midu.link/${slug}`}>
+							<svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+								<rect x="9" y="9" width="11" height="11" rx="2.5" stroke="currentColor" stroke-width="2" />
+								<path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+							</svg>
+							<svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+								<path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</button>
+					</div>
+				))}
+			</div>
+		</section>
 
 		<section class="links" id="links-list">
 			{sortedLinks.map(({ slug, url, created }) => {
@@ -147,12 +221,14 @@ const prettyUrl = (url: string) => {
 
 	const search = $<HTMLInputElement>('#search')!;
 	const list = $('#links-list')!;
+	const specialSection = $('#special-section')!;
+	const specialList = $('#special-list')!;
 	const count = $('#count')!;
 	const noResults = $('#no-results')!;
 	const queryEcho = $('#query-echo')!;
 	const sortGroup = $('.sort')!;
-	const cards = () => $$<HTMLElement>('.link-card', list);
-	const total = cards().length;
+	const allCards = () => $$<HTMLElement>('.link-card');
+	const total = allCards().length;
 
 	type SortMode = 'alpha' | 'clicks' | 'created';
 	const SORT_KEY = 'midu.link.sort';
@@ -162,22 +238,27 @@ const prettyUrl = (url: string) => {
 	const runFilter = () => {
 		const query = search.value.trim().toLowerCase();
 		let visible = 0;
+		let visibleSpecial = 0;
 
-		for (const card of cards()) {
+		for (const card of allCards()) {
 			const slug = card.dataset.slug!.toLowerCase();
 			const target = card.dataset.target!.toLowerCase();
 			const matches = !query || slug.includes(query) || target.includes(query);
 			card.hidden = !matches;
-			if (matches) visible++;
+			if (matches) {
+				visible++;
+				if (specialList.contains(card)) visibleSpecial++;
+			}
 		}
 
+		specialSection.hidden = visibleSpecial === 0;
 		count.textContent = String(query ? visible : total);
 		queryEcho.textContent = query ? `"${query}"` : '';
 		noResults.hidden = visible > 0;
 	};
 
-	const applySort = (mode: SortMode) => {
-		const items = cards();
+	const sortContainer = (container: HTMLElement, mode: SortMode) => {
+		const items = $$<HTMLElement>('.link-card', container);
 		items.sort((a, b) => {
 			if (mode === 'clicks') {
 				const wa = Number(a.dataset.week) || 0;
@@ -197,7 +278,12 @@ const prettyUrl = (url: string) => {
 
 		const frag = document.createDocumentFragment();
 		for (const card of items) frag.appendChild(card);
-		list.appendChild(frag);
+		container.appendChild(frag);
+	};
+
+	const applySort = (mode: SortMode) => {
+		sortContainer(specialList, mode);
+		sortContainer(list, mode);
 		runFilter();
 	};
 
@@ -262,7 +348,7 @@ const prettyUrl = (url: string) => {
 
 	// Copy midu.link/<slug> to clipboard
 	let resetTimer: ReturnType<typeof setTimeout>;
-	list.addEventListener('click', async (e) => {
+	document.addEventListener('click', async (e) => {
 		const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.copy');
 		if (!btn) return;
 		e.preventDefault();
@@ -381,7 +467,7 @@ const prettyUrl = (url: string) => {
 			if (!res.ok) return;
 			const data = (await res.json()) as Record<string, SlugStats>;
 
-			for (const card of cards()) {
+			for (const card of allCards()) {
 				const slug = card.dataset.slug!;
 				const panel = $<HTMLElement>('[data-analytics]', card);
 				if (!panel) continue;
@@ -586,6 +672,62 @@ const prettyUrl = (url: string) => {
 
 	.search-wrapper:focus-within .kbd {
 		opacity: 0;
+	}
+
+	/* ---------- Special Landings ---------- */
+	.special-section {
+		margin-bottom: 1.35rem;
+	}
+
+	.special-section[hidden] {
+		display: none;
+	}
+
+	.section-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 0.45rem;
+		padding: 0 0.25rem;
+	}
+
+	.section-title {
+		font-family: var(--pixel);
+		font-size: 0.78rem;
+		font-weight: 400;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--accent);
+	}
+
+	.link-card--landing {
+		border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+		background: linear-gradient(
+			90deg,
+			color-mix(in srgb, var(--accent) 5%, var(--surface)),
+			var(--surface) 60%
+		);
+	}
+
+	.link-card--landing:hover {
+		border-color: color-mix(in srgb, var(--accent) 55%, var(--border-hover));
+	}
+
+	.landing-badge {
+		display: inline-flex;
+		align-items: center;
+		margin-left: 0.5rem;
+		padding: 0.1rem 0.45rem;
+		border-radius: 999px;
+		background: var(--accent-soft);
+		border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+		color: var(--accent);
+		font-family: var(--mono);
+		font-size: 0.65rem;
+		font-weight: 600;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		vertical-align: middle;
 	}
 
 	/* ---------- Links ---------- */

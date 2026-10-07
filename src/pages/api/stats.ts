@@ -1,12 +1,11 @@
 import type { APIRoute } from 'astro';
 import { getStats } from '../../lib/db';
-import { allLinks } from '../../lib/links';
+import { allTrackableSlugs } from '../../lib/links';
 
 export const prerender = false;
 
 export const GET: APIRoute = async () => {
-	const slugs = allLinks.map((l) => l.slug);
-	const stats = await getStats(slugs);
+	const stats = await getStats(allTrackableSlugs);
 
 	return new Response(JSON.stringify(stats), {
 		status: 200,

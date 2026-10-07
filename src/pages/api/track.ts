@@ -1,12 +1,13 @@
 import type { APIRoute } from 'astro';
-import { linksBySlug } from '../../lib/links';
+import { trackableBySlug } from '../../lib/links';
 import { recordClick } from '../../lib/db';
 
 export const prerender = false;
 
 /**
  * Internal click collector. Invoked in the background from middleware via
- * waitUntil(fetch) so the 302 never waits on Turso.
+ * waitUntil(fetch) so the 302 never waits on Turso, and via sendBeacon on
+ * special landing pages.
  */
 export const POST: APIRoute = async ({ request }) => {
 	let slug: string | undefined;
@@ -18,7 +19,7 @@ export const POST: APIRoute = async ({ request }) => {
 		return new Response(null, { status: 400 });
 	}
 
-	if (!slug || !linksBySlug.has(slug)) {
+	if (!slug || !trackableBySlug.has(slug)) {
 		return new Response(null, { status: 404 });
 	}
 
