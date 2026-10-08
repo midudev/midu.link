@@ -235,17 +235,19 @@ const jsonLd = [
 			<!-- Mitad 1: Charla de Midu -->
 			<section class="pane pane--talk" aria-labelledby="talk-title">
 				<div class="pane__inner">
-					<img
-						class="pane__icon pane__icon--avatar"
-						src="/midudev.jpg"
-						alt=""
-						width="56"
-						height="56"
-						decoding="async"
-						fetchpriority="high"
-					/>
-					<p class="eyebrow">01 // CHARLA PRESENCIAL</p>
-					<h1 id="talk-title">Charla midudev en 42 Barcelona</h1>
+					<div class="pane__head">
+						<img
+							class="pane__icon pane__icon--avatar"
+							src="/midudev.jpg"
+							alt=""
+							width="56"
+							height="56"
+							decoding="async"
+							fetchpriority="high"
+						/>
+						<p class="eyebrow">01 // CHARLA PRESENCIAL</p>
+						<h1 id="talk-title">Charla midudev en 42 Barcelona</h1>
+					</div>
 					<p class="summary">
 						Nos vemos en persona en el campus de 42 Barcelona. Entrada libre hasta completar aforo.
 					</p>
@@ -263,7 +265,7 @@ const jsonLd = [
 							<dt>Lugar</dt>
 							<dd>
 								<span>42 Barcelona</span>
-								<span class="muted">Carrer d'Albert Einstein, 11 · Barcelona</span>
+								<span class="muted">Carrer d'Albert Einstein, 11<span class="desktop-only"> · Barcelona</span></span>
 							</dd>
 						</div>
 					</dl>
@@ -340,35 +342,37 @@ const jsonLd = [
 			<!-- Mitad 2: Curso de Python -->
 			<section class="pane pane--course" aria-labelledby="course-title">
 				<div class="pane__inner">
-					<svg
-						class="pane__icon pane__icon--python"
-						viewBox="0 0 256 255"
-						width="56"
-						height="56"
-						aria-hidden="true"
-						focusable="false"
-					>
-						<defs>
-							<linearGradient id="py-blue" x1="12.959%" y1="12.039%" x2="79.639%" y2="78.201%">
-								<stop offset="0%" stop-color="#387EB8" />
-								<stop offset="100%" stop-color="#366994" />
-							</linearGradient>
-							<linearGradient id="py-yellow" x1="19.128%" y1="20.579%" x2="90.742%" y2="88.429%">
-								<stop offset="0%" stop-color="#FFE052" />
-								<stop offset="100%" stop-color="#FFC331" />
-							</linearGradient>
-						</defs>
-						<path
-							fill="url(#py-blue)"
-							d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z"
-						/>
-						<path
-							fill="url(#py-yellow)"
-							d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z"
-						/>
-					</svg>
-					<p class="eyebrow">02 // CURSO PRESENCIAL GRATUITO</p>
-					<h2 id="course-title">Curso de Python</h2>
+					<div class="pane__head">
+						<svg
+							class="pane__icon pane__icon--python"
+							viewBox="0 0 256 255"
+							width="56"
+							height="56"
+							aria-hidden="true"
+							focusable="false"
+						>
+							<defs>
+								<linearGradient id="py-blue" x1="12.959%" y1="12.039%" x2="79.639%" y2="78.201%">
+									<stop offset="0%" stop-color="#387EB8" />
+									<stop offset="100%" stop-color="#366994" />
+								</linearGradient>
+								<linearGradient id="py-yellow" x1="19.128%" y1="20.579%" x2="90.742%" y2="88.429%">
+									<stop offset="0%" stop-color="#FFE052" />
+									<stop offset="100%" stop-color="#FFC331" />
+								</linearGradient>
+							</defs>
+							<path
+								fill="url(#py-blue)"
+								d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z"
+							/>
+							<path
+								fill="url(#py-yellow)"
+								d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z"
+							/>
+						</svg>
+						<p class="eyebrow">02 // CURSO PRESENCIAL GRATUITO</p>
+						<h2 id="course-title">Curso de Python</h2>
+					</div>
 					<p class="summary">
 						<strong>Piscine Discovery Python</strong> en 42 Barcelona. 4 días prácticos para aprender desde cero con la metodología de 42.
 					</p>
@@ -604,6 +608,10 @@ const jsonLd = [
 		border-radius: 2px;
 	}
 
+	.desktop-only {
+		display: none;
+	}
+
 	.visually-hidden {
 		position: absolute;
 		width: 1px;
@@ -645,7 +653,7 @@ const jsonLd = [
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		padding: 1rem 1.5rem;
+		padding: 0.6rem 1.25rem;
 		border-bottom: 1px solid var(--border);
 	}
 
@@ -665,8 +673,8 @@ const jsonLd = [
 
 	.avatar {
 		display: block;
-		width: 34px;
-		height: 34px;
+		width: 28px;
+		height: 28px;
 		border-radius: 50%;
 		object-fit: cover;
 		border: 1px solid var(--border);
@@ -687,12 +695,13 @@ const jsonLd = [
 
 	.logo-42 {
 		display: block;
-		height: 34px;
+		height: 28px;
 		width: auto;
 	}
 
 	/* Split Viewport Layout:
-	   - Mobile: 2 mitades apiladas en vertical (una encima de la otra)
+	   - Mobile: 2 mitades apiladas en vertical y compactas para que ambas
+	     quepan en la primera pantalla sin hacer scroll
 	   - Desktop: 2 mitades en columnas verticales (50% / 50% del viewport) */
 	.split {
 		flex: 1;
@@ -706,7 +715,7 @@ const jsonLd = [
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding: 2.5rem 1.5rem;
+		padding: 0.9rem 1.25rem;
 	}
 
 	.pane--talk {
@@ -719,14 +728,24 @@ const jsonLd = [
 		margin-inline: auto;
 		display: flex;
 		flex-direction: column;
-		gap: 1.25rem;
+		gap: 0.75rem;
+	}
+
+	/* Mobile: icono a la izquierda de eyebrow + título */
+	.pane__head {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		column-gap: 0.85rem;
+		row-gap: 0.2rem;
 	}
 
 	.pane__icon {
 		display: block;
-		width: 3.5rem;
-		height: 3.5rem;
+		width: 2.75rem;
+		height: 2.75rem;
 		flex: none;
+		grid-row: 1 / span 2;
 	}
 
 	.pane__icon--avatar {
@@ -737,7 +756,7 @@ const jsonLd = [
 
 	.eyebrow {
 		font-family: var(--pixel);
-		font-size: 0.85rem;
+		font-size: 0.72rem;
 		color: var(--accent);
 		letter-spacing: 0.04em;
 		text-transform: uppercase;
@@ -747,16 +766,16 @@ const jsonLd = [
 	h2 {
 		font-family: var(--pixel);
 		font-weight: 400;
-		font-size: clamp(1.85rem, 4.5vw, 2.85rem);
+		font-size: 1.4rem;
 		line-height: 1.12;
 		letter-spacing: -0.01em;
 		text-wrap: balance;
 	}
 
 	.summary {
-		font-size: 0.95rem;
+		font-size: 0.85rem;
 		color: var(--muted);
-		line-height: 1.6;
+		line-height: 1.5;
 		text-wrap: pretty;
 	}
 
@@ -765,21 +784,26 @@ const jsonLd = [
 		font-weight: 600;
 	}
 
+	/* Mobile: etiqueta y valor en la misma fila; la columna de etiquetas
+	   se ajusta a la más larga para dejar el máximo ancho a los valores */
 	.facts {
 		display: grid;
-		gap: 1rem;
-		padding-block: 1.15rem;
+		grid-template-columns: max-content 1fr;
+		gap: 0.5rem 0.75rem;
+		padding-block: 0.7rem;
 		border-block: 1px solid var(--border);
 	}
 
 	.fact {
 		display: grid;
-		gap: 0.2rem;
+		grid-column: 1 / -1;
+		grid-template-columns: subgrid;
+		align-items: baseline;
 	}
 
 	.fact dt {
 		font-family: var(--pixel);
-		font-size: 0.78rem;
+		font-size: 0.7rem;
 		color: var(--muted);
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
@@ -788,25 +812,25 @@ const jsonLd = [
 	.fact dd {
 		display: grid;
 		gap: 0.15rem;
-		font-size: 0.98rem;
+		font-size: 0.9rem;
 		font-weight: 500;
 	}
 
 	.highlight {
-		font-size: 1.15rem;
+		font-size: 1rem;
 		font-weight: 600;
 		color: var(--accent);
 	}
 
 	.muted {
-		font-size: 0.85rem;
+		font-size: 0.78rem;
 		font-weight: 400;
 		color: var(--muted);
 	}
 
 	/* Buttons & Calendar Menu */
 	.cta {
-		margin-top: 0.25rem;
+		margin-top: 0.1rem;
 	}
 
 	.btn {
@@ -815,10 +839,10 @@ const jsonLd = [
 		justify-content: center;
 		gap: 0.6rem;
 		width: 100%;
-		min-height: 3.25rem;
-		padding: 0.85rem 1.25rem;
+		min-height: 2.75rem;
+		padding: 0.6rem 1rem;
 		font-family: var(--pixel);
-		font-size: 1.05rem;
+		font-size: 0.95rem;
 		text-decoration: none;
 		border-radius: 4px;
 		border: 1px solid var(--text);
@@ -917,7 +941,7 @@ const jsonLd = [
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		padding: 0.85rem 1.5rem;
+		padding: 0.75rem 1.25rem;
 		border-top: 1px solid var(--border);
 		font-size: 0.8rem;
 		color: var(--muted);
@@ -933,10 +957,53 @@ const jsonLd = [
 		color: var(--accent);
 	}
 
+	/* Mobile con poca altura: priorizar título, fechas y CTA para que
+	   las dos mitades se vean sin hacer scroll */
+	@media (max-width: 51.99rem) and (max-height: 760px) {
+		.summary {
+			display: none;
+		}
+	}
+
+	@media (max-width: 51.99rem) and (max-height: 600px) {
+		.pane {
+			padding-block: 0.75rem;
+		}
+
+		.pane__inner {
+			gap: 0.6rem;
+		}
+
+		.pane__icon {
+			width: 2.25rem;
+			height: 2.25rem;
+		}
+
+		.facts {
+			padding-block: 0.5rem;
+		}
+
+		.fact .muted {
+			display: none;
+		}
+	}
+
 	@media (min-width: 52rem) {
-		.top,
+		.top {
+			padding: 1rem 2.5rem;
+		}
+
 		.foot {
-			padding-inline: 2.5rem;
+			padding: 0.85rem 2.5rem;
+		}
+
+		.desktop-only {
+			display: revert;
+		}
+
+		.avatar {
+			width: 34px;
+			height: 34px;
 		}
 
 		.logo-42 {
@@ -955,6 +1022,69 @@ const jsonLd = [
 		.pane--talk {
 			border-bottom: 0;
 			border-right: 1px solid var(--border);
+		}
+
+		.pane__inner {
+			gap: 1.25rem;
+		}
+
+		.pane__head {
+			display: contents;
+		}
+
+		.pane__icon {
+			width: 3.5rem;
+			height: 3.5rem;
+		}
+
+		.eyebrow {
+			font-size: 0.85rem;
+		}
+
+		h1,
+		h2 {
+			font-size: clamp(1.85rem, 4.5vw, 2.85rem);
+		}
+
+		.summary {
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
+
+		.facts {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+			padding-block: 1.15rem;
+		}
+
+		.fact {
+			gap: 0.2rem;
+		}
+
+		.fact dt {
+			font-size: 0.78rem;
+		}
+
+		.fact dd {
+			font-size: 0.98rem;
+		}
+
+		.highlight {
+			font-size: 1.15rem;
+		}
+
+		.muted {
+			font-size: 0.85rem;
+		}
+
+		.cta {
+			margin-top: 0.25rem;
+		}
+
+		.btn {
+			min-height: 3.25rem;
+			padding: 0.85rem 1.25rem;
+			font-size: 1.05rem;
 		}
 	}
 
