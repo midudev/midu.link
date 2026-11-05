@@ -1,0 +1,912 @@
+---
+/**
+ * Landing de la gira de talleres de midudev con la Upskilling Week de
+ * Mobile World Capital Barcelona (noviembre–diciembre 2026):
+ * Barcelona, Lleida, Girona y Tarragona. Taller presencial y gratuito de 3h.
+ * Ruta estática `/mwc` → gana sobre el redirect dinámico de `[slug].ts`.
+ */
+
+type Session = {
+	id: string;
+	city: string;
+	event: string;
+	eventKind: string;
+	weekday: string;
+	dateShort: string;
+	dateLong: string;
+	timeRange: string;
+	startLocal: string;
+	endLocal: string;
+	startUTC: string;
+	endUTC: string;
+	venue: string;
+	venueDetail: string;
+	location: string;
+	url: string;
+	almostFull?: boolean;
+};
+
+const SESSIONS: Session[] = [
+	{
+		id: 'barcelona',
+		city: 'Barcelona',
+		event: 'Upskilling Week Barcelona',
+		eventKind: 'Upskilling Week',
+		weekday: 'Martes',
+		dateShort: '17 nov',
+		dateLong: 'martes 17 de noviembre de 2026',
+		timeRange: '15:00–18:00h',
+		startLocal: '2026-11-17T15:00:00+01:00',
+		endLocal: '2026-11-17T18:00:00+01:00',
+		startUTC: '2026-11-17T14:00:00Z',
+		endUTC: '2026-11-17T17:00:00Z',
+		venue: 'Edificio MediaTIC',
+		venueDetail: 'Cibernàrium 22@ · Barcelona Activa',
+		location: 'Cibernàrium 22@ (Edificio MediaTIC), Carrer de Roc Boronat, 117, 08018 Barcelona',
+		url: 'https://mobileworldcapital.com/agenda/upskilling-week-noviembre-2026/',
+		almostFull: true,
+	},
+	{
+		id: 'lleida',
+		city: 'Lleida',
+		event: 'Upskilling Day Lleida',
+		eventKind: 'Upskilling Day',
+		weekday: 'Martes',
+		dateShort: '24 nov',
+		dateLong: 'martes 24 de noviembre de 2026',
+		timeRange: '11:00–14:00h',
+		startLocal: '2026-11-24T11:00:00+01:00',
+		endLocal: '2026-11-24T14:00:00+01:00',
+		startUTC: '2026-11-24T10:00:00Z',
+		endUTC: '2026-11-24T13:00:00Z',
+		venue: 'Universitat de Lleida',
+		venueDetail: 'EPS · Edificio Polivalente 1 · Campus de Cappont',
+		location: 'Edificio Polivalente 1, Escola Politècnica Superior, Universitat de Lleida, Campus de Cappont, Lleida',
+		url: 'https://mobileworldcapital.com/agenda/upskilling-day-lleida/',
+	},
+	{
+		id: 'girona',
+		city: 'Girona',
+		event: 'Upskilling Day Girona',
+		eventKind: 'Upskilling Day',
+		weekday: 'Jueves',
+		dateShort: '26 nov',
+		dateLong: 'jueves 26 de noviembre de 2026',
+		timeRange: '16:00–19:00h',
+		startLocal: '2026-11-26T16:00:00+01:00',
+		endLocal: '2026-11-26T19:00:00+01:00',
+		startUTC: '2026-11-26T15:00:00Z',
+		endUTC: '2026-11-26T18:00:00Z',
+		venue: 'Universitat de Girona',
+		venueDetail: 'EPS · Edifici P1 · Campus de Montilivi',
+		location: 'Edifici P1, Escola Politècnica Superior, Universitat de Girona, Campus de Montilivi, Girona',
+		url: 'https://mobileworldcapital.com/agenda/upskilling-day-girona/',
+	},
+	{
+		id: 'tarragona',
+		city: 'Tarragona',
+		event: 'Upskilling Day Tarragona',
+		eventKind: 'Upskilling Day',
+		weekday: 'Miércoles',
+		dateShort: '2 dic',
+		dateLong: 'miércoles 2 de diciembre de 2026',
+		timeRange: '11:00–14:00h',
+		startLocal: '2026-12-02T11:00:00+01:00',
+		endLocal: '2026-12-02T14:00:00+01:00',
+		startUTC: '2026-12-02T10:00:00Z',
+		endUTC: '2026-12-02T13:00:00Z',
+		venue: 'El Seminari',
+		venueDetail: 'Casa de Cultura · Tarragona',
+		location: 'El Seminari, Casa de Cultura, Tarragona',
+		url: 'https://mobileworldcapital.com/agenda/upskilling-day-tarragona-2026/',
+	},
+];
+
+const TOPICS = ['MCP UI', 'WebMCP', 'IA local en el navegador'];
+
+const eventTitle = (s: Session) => `Taller de midudev · ${s.event}`;
+
+// «la» Upskilling Week, «el» Upskilling Day
+const inEvent = (s: Session) => `${s.eventKind.endsWith('Week') ? 'en la' : 'en el'} ${s.event}`;
+
+const pageTitle = 'midudev × Mobile World Capital · Taller gratuito de IA en Barcelona, Lleida, Girona y Tarragona';
+const pageDescription =
+	'Taller presencial y gratuito de 3 horas con midudev en la Upskilling Week de Mobile World Capital Barcelona: MCP UI, WebMCP e IA local en el navegador. Barcelona (17 nov), Lleida (24 nov), Girona (26 nov) y Tarragona (2 dic).';
+const canonical = new URL('/mwc', Astro.site ?? 'https://midu.link').href;
+const ogImage = new URL('/og.png', Astro.site ?? 'https://midu.link').href;
+
+const jsonLd = SESSIONS.map((s) => ({
+	'@context': 'https://schema.org',
+	'@type': 'EducationEvent',
+	name: eventTitle(s),
+	description: `Taller presencial y gratuito de 3 horas de midudev sobre ${TOPICS.join(', ')} ${inEvent(s)}.`,
+	startDate: s.startLocal,
+	endDate: s.endLocal,
+	eventStatus: 'https://schema.org/EventScheduled',
+	eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+	inLanguage: 'es',
+	isAccessibleForFree: true,
+	url: s.url,
+	image: ogImage,
+	location: {
+		'@type': 'Place',
+		name: s.venue,
+		address: s.location,
+	},
+	performer: { '@type': 'Person', name: 'Miguel Ángel Durán (midudev)', url: 'https://midu.dev' },
+	organizer: {
+		'@type': 'Organization',
+		name: 'Fundación Mobile World Capital Barcelona',
+		url: 'https://mobileworldcapital.com',
+	},
+}));
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/mwc-icon.svg" />
+		<link
+			rel="preload"
+			href="/fonts/GeistPixel-Square.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+			fetchpriority="high"
+		/>
+		<link
+			rel="preload"
+			href="/fonts/GeistMono-Variable.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+			fetchpriority="high"
+		/>
+		<style is:inline>
+			@font-face {
+				font-family: 'Geist Pixel';
+				src: url('/fonts/GeistPixel-Square.woff2') format('woff2');
+				font-weight: 400;
+				font-style: normal;
+				font-display: swap;
+			}
+			@font-face {
+				font-family: 'Geist Mono';
+				src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+				font-weight: 100 900;
+				font-style: normal;
+				font-display: swap;
+			}
+		</style>
+
+		<title>{pageTitle}</title>
+		<meta name="description" content={pageDescription} />
+		<meta name="author" content="midudev" />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="color-scheme" content="dark light" />
+		<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+		<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+		<link rel="canonical" href={canonical} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="event" />
+		<meta property="og:site_name" content="midu.link" />
+		<meta property="og:locale" content="es_ES" />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDescription} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={pageTitle} />
+		<meta property="event:start_time" content={SESSIONS[0].startUTC} />
+		<meta property="event:end_time" content={SESSIONS[SESSIONS.length - 1].endUTC} />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@midudev" />
+		<meta name="twitter:creator" content="@midudev" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={pageDescription} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:label1" content="Taller gratuito" />
+		<meta name="twitter:data1" content="3 horas · IA en la web" />
+		<meta name="twitter:label2" content="Ciudades" />
+		<meta name="twitter:data2" content="BCN 17/11 · Lleida 24/11 · Girona 26/11 · Tarragona 2/12" />
+
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+	</head>
+
+	<body>
+		<a class="skip" href="#contenido">Saltar al contenido</a>
+
+		<header class="top">
+			<a class="brand-midu" href="https://midu.dev" target="_blank" rel="noopener noreferrer">
+				<img
+					class="avatar"
+					src="/midudev.jpg"
+					alt="Miguel Ángel Durán (midudev)"
+					width="36"
+					height="36"
+					decoding="async"
+					fetchpriority="high"
+				/>
+				<span>@midudev</span>
+			</a>
+
+			<span class="top__x" aria-hidden="true">×</span>
+
+			<a
+				class="brand-mwc"
+				href="https://mobileworldcapital.com"
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="Mobile World Capital Barcelona"
+			>
+				<img
+					class="logo-mwc"
+					src="/mwc.svg"
+					alt="Mobile World Capital Barcelona"
+					width="233"
+					height="73"
+					decoding="async"
+					fetchpriority="high"
+				/>
+			</a>
+		</header>
+
+		<main id="contenido" class="page" tabindex="-1">
+			<section class="intro" aria-labelledby="intro-title">
+				<div class="intro__inner">
+					<h1 id="intro-title">
+						Taller de IA presencial y gratuito <span class="h1__meta">3 horas · 4 ciudades</span>
+					</h1>
+				</div>
+			</section>
+
+			<ol class="stops" aria-label="Fechas del taller">
+				{SESSIONS.map((s, i) => (
+					<li class="stop" data-end={s.endUTC} aria-labelledby={`stop-${s.id}`}>
+						<div class="stop__inner">
+							<div class="stop__head">
+								<p class="stop__eyebrow">
+									{String(i + 1).padStart(2, '0')} // {s.eventKind}
+								</p>
+								<div class="stop__badges">
+									<span class="badge badge--next">Próximo</span>
+									{s.almostFull && <span class="badge badge--full">Casi lleno</span>}
+									<span class="badge badge--past">Celebrado</span>
+								</div>
+							</div>
+							<h2 id={`stop-${s.id}`} class="stop__city">{s.city}</h2>
+
+							<dl class="facts">
+								<div class="fact">
+									<dt>Cuándo</dt>
+									<dd>
+										<time datetime={s.startLocal} class="highlight">
+											{s.dateShort} · {s.timeRange.split('–')[0]}h
+										</time>
+										<span class="muted">{s.weekday} · {s.timeRange}</span>
+									</dd>
+								</div>
+								<div class="fact">
+									<dt>Dónde</dt>
+									<dd>
+										<span>{s.venue}</span>
+										<span class="muted">{s.venueDetail}</span>
+									</dd>
+								</div>
+							</dl>
+
+							<div class="cta">
+								<a
+									class:list={['btn', s.almostFull ? 'btn--secondary' : 'btn--primary']}
+									href={s.url}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Inscribirme gratis
+									<span aria-hidden="true">→</span>
+									<span class="visually-hidden"> en {s.city} (web de Mobile World Capital, se abre en una pestaña nueva)</span>
+								</a>
+							</div>
+
+							<p class="past-note">Este taller ya se celebró. ¡Gracias por venir!</p>
+						</div>
+					</li>
+				))}
+			</ol>
+		</main>
+
+		<footer class="foot">
+			<span>Mobile World Capital Barcelona × midudev</span>
+			<a href="/">midu.link</a>
+		</footer>
+
+		<script>
+			// Marcar talleres ya celebrados y el siguiente por celebrar
+			const now = Date.now();
+			let nextMarked = false;
+			for (const stop of document.querySelectorAll<HTMLElement>('.stop')) {
+				const end = Date.parse(stop.dataset.end ?? '');
+				if (end < now) {
+					stop.classList.add('is-past');
+				} else if (!nextMarked) {
+					stop.classList.add('is-next');
+					nextMarked = true;
+				}
+			}
+
+			// Registrar visita en las analíticas de midu.link
+			try {
+				const payload = JSON.stringify({ slug: 'mwc' });
+				if (navigator.sendBeacon) {
+					navigator.sendBeacon('/api/track', new Blob([payload], { type: 'application/json' }));
+				} else {
+					fetch('/api/track', {
+						method: 'POST',
+						headers: { 'content-type': 'application/json' },
+						body: payload,
+						keepalive: true,
+					}).catch(() => {});
+				}
+			} catch {}
+		</script>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		color-scheme: dark;
+		--bg: #0a0a0a;
+		--surface: #111111;
+		--text: #ededed;
+		--muted: #8a8a8a;
+		--border: #222222;
+		/* Rojo de Mobile World Capital: --accent para texto sobre el fondo,
+		   --accent-strong para fondos de botón con texto blanco encima */
+		--accent: #ff5a5a;
+		--accent-strong: #de0000;
+		--accent-ink: #ffffff;
+		--focus: #ffffff;
+		--mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+		--pixel: 'Geist Pixel', var(--mono);
+	}
+
+	@media (prefers-color-scheme: light) {
+		:root {
+			color-scheme: light;
+			--bg: #fafafa;
+			--surface: #f0f0f0;
+			--text: #111111;
+			--muted: #5c5c5c;
+			--border: #dddddd;
+			--accent: #c40000;
+			--accent-strong: #c40000;
+			--accent-ink: #ffffff;
+			--focus: #111111;
+		}
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html {
+		font-family: var(--mono);
+		background: var(--bg);
+		color: var(--text);
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		font-size: 100%;
+		line-height: 1.5;
+		font-synthesis: none;
+	}
+
+	body {
+		min-height: 100dvh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	::selection {
+		background: var(--accent-strong);
+		color: var(--accent-ink);
+	}
+
+	:is(a, button, summary):focus-visible {
+		outline: 2px solid var(--focus);
+		outline-offset: 3px;
+		border-radius: 2px;
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.skip {
+		position: absolute;
+		inset-inline-start: 1rem;
+		top: 0;
+		z-index: 100;
+		transform: translateY(-150%);
+		padding: 0.65rem 1rem;
+		background: var(--bg);
+		color: var(--text);
+		border: 2px solid var(--focus);
+		border-radius: 4px;
+		text-decoration: none;
+		transition: transform 120ms ease;
+	}
+
+	.skip:focus {
+		transform: translateY(1rem);
+	}
+
+	main:focus {
+		outline: none;
+	}
+
+	/* Header */
+	.top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.6rem 1.25rem;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.brand-midu {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		text-decoration: none;
+		color: var(--text);
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.brand-midu:hover {
+		color: var(--accent);
+	}
+
+	.avatar {
+		display: block;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 1px solid var(--border);
+	}
+
+	.top__x {
+		color: var(--muted);
+		font-size: 0.9rem;
+		user-select: none;
+	}
+
+	.brand-mwc {
+		display: inline-flex;
+		align-items: center;
+		text-decoration: none;
+	}
+
+	.logo-mwc {
+		display: block;
+		height: 30px;
+		width: auto;
+	}
+
+	/* Layout:
+	   - Mobile: intro + 4 paradas apiladas
+	   - Tablet: intro + rejilla 2×2
+	   - Desktop: intro + 4 columnas que ocupan el resto del viewport */
+	.page {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.intro {
+		padding: 1.5rem 1.25rem 1.35rem;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.intro__inner {
+		width: 100%;
+		max-width: 46rem;
+		margin-inline: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.stop__eyebrow {
+		font-family: var(--pixel);
+		font-size: 0.72rem;
+		color: var(--accent);
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	h1,
+	h2 {
+		font-family: var(--pixel);
+		font-weight: 400;
+		line-height: 1.1;
+		letter-spacing: -0.01em;
+		text-wrap: balance;
+	}
+
+	h1 {
+		font-size: 1.65rem;
+	}
+
+	.h1__meta {
+		display: block;
+		margin-top: 0.15em;
+		color: var(--accent);
+	}
+
+	.stops {
+		flex: 1;
+		display: grid;
+		grid-template-columns: 1fr;
+		list-style: none;
+	}
+
+	.stop {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 1.25rem;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.stop:last-child {
+		border-bottom: 0;
+	}
+
+	.stop__inner {
+		width: 100%;
+		max-width: 30rem;
+		margin-inline: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.stop__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		min-height: 1.4rem;
+	}
+
+	.stop__badges {
+		display: flex;
+		gap: 0.35rem;
+	}
+
+	.badge {
+		display: none;
+		align-items: center;
+		padding: 0.1rem 0.5rem;
+		border-radius: 999px;
+		border: 1px solid var(--border);
+		font-size: 0.65rem;
+		font-weight: 600;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	.badge--full {
+		display: inline-flex;
+		color: var(--accent);
+		border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+		background: color-mix(in srgb, var(--accent) 10%, transparent);
+	}
+
+	.is-next .badge--next {
+		display: inline-flex;
+		color: var(--text);
+		border-color: var(--text);
+	}
+
+	.is-past .badge--past {
+		display: inline-flex;
+		color: var(--muted);
+	}
+
+	.is-past .badge--full {
+		display: none;
+	}
+
+	.stop__city {
+		font-size: 2rem;
+	}
+
+	/* Mobile: etiqueta y valor en la misma fila */
+	.facts {
+		display: grid;
+		grid-template-columns: max-content 1fr;
+		gap: 0.5rem 0.75rem;
+		padding-block: 0.7rem;
+		border-block: 1px solid var(--border);
+	}
+
+	.fact {
+		display: grid;
+		grid-column: 1 / -1;
+		grid-template-columns: subgrid;
+		align-items: baseline;
+	}
+
+	.fact dt {
+		font-family: var(--pixel);
+		font-size: 0.7rem;
+		color: var(--muted);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.fact dd {
+		display: grid;
+		gap: 0.15rem;
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.highlight {
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--accent);
+	}
+
+	.muted {
+		font-size: 0.78rem;
+		font-weight: 400;
+		color: var(--muted);
+	}
+
+	/* Buttons & Calendar Menu */
+	.cta {
+		display: flex;
+		gap: 0.5rem;
+		margin-top: 0.1rem;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+		flex: 1;
+		min-height: 2.75rem;
+		padding: 0.6rem 1rem;
+		font-family: var(--pixel);
+		font-size: 0.95rem;
+		text-decoration: none;
+		border-radius: 4px;
+		border: 1px solid var(--text);
+		cursor: pointer;
+		transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease, filter 120ms ease;
+	}
+
+	.btn--primary {
+		background: var(--accent-strong);
+		color: var(--accent-ink);
+		border-color: var(--accent-strong);
+	}
+
+	.btn--primary:hover {
+		filter: brightness(1.12);
+	}
+
+	.btn--secondary {
+		background: var(--text);
+		color: var(--bg);
+		border-color: var(--text);
+	}
+
+	.btn--secondary:hover {
+		background: transparent;
+		color: var(--text);
+	}
+
+
+	.past-note {
+		display: none;
+		font-size: 0.85rem;
+		color: var(--muted);
+	}
+
+	.is-past .cta {
+		display: none;
+	}
+
+	.is-past .past-note {
+		display: block;
+	}
+
+	.is-past :is(.stop__city, .highlight) {
+		color: var(--muted);
+	}
+
+	.foot {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.75rem 1.25rem;
+		border-top: 1px solid var(--border);
+		font-size: 0.8rem;
+		color: var(--muted);
+	}
+
+	.foot a {
+		color: var(--text);
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+
+	.foot a:hover {
+		color: var(--accent);
+	}
+
+	/* Tablet: rejilla 2×2 */
+	@media (min-width: 40rem) {
+		.stops {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.stop {
+			padding: 1.75rem 1.5rem;
+		}
+
+		.stop:nth-child(odd) {
+			border-right: 1px solid var(--border);
+		}
+
+		.stop:nth-last-child(-n + 2) {
+			border-bottom: 0;
+		}
+	}
+
+	@media (min-width: 52rem) {
+		.top {
+			padding: 1rem 2.5rem;
+		}
+
+		.foot {
+			padding: 0.85rem 2.5rem;
+		}
+
+		.avatar {
+			width: 34px;
+			height: 34px;
+		}
+
+		.logo-mwc {
+			height: 40px;
+		}
+
+		.intro {
+			padding: 2.5rem 2.5rem 2.25rem;
+		}
+
+		.intro__inner {
+			align-items: center;
+			text-align: center;
+		}
+
+		h1 {
+			font-size: clamp(2rem, 3.6vw, 2.75rem);
+		}
+
+		/* Columnas alineadas: badges en su propia fila (reservada aunque esté
+		   vacía) para que todas las ciudades empiecen a la misma altura */
+		.stop__head {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+
+		.stop__badges {
+			min-height: 1.3rem;
+		}
+
+		.stop__city {
+			font-size: clamp(2rem, 3.4vw, 2.6rem);
+		}
+
+		.facts {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+			padding-block: 1.1rem;
+		}
+
+		.fact {
+			gap: 0.2rem;
+		}
+
+		.fact dt {
+			font-size: 0.75rem;
+		}
+
+		.fact dd {
+			font-size: 0.95rem;
+		}
+
+		.highlight {
+			font-size: 1.1rem;
+		}
+
+		.muted {
+			font-size: 0.82rem;
+		}
+
+		.btn {
+			min-height: 3rem;
+			font-size: 1rem;
+		}
+
+	}
+
+	/* Desktop ancho: 4 columnas */
+	@media (min-width: 72rem) {
+		.stops {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.stop {
+			padding: 1.75rem 2rem;
+			border-bottom: 0;
+		}
+
+		.stop:nth-child(odd) {
+			border-right: 0;
+		}
+
+		.stop:not(:last-child) {
+			border-right: 1px solid var(--border);
+		}
+
+		.stop__inner {
+			gap: 1rem;
+		}
+
+		/* El detalle del lugar ocupa 1 o 2 líneas según la ciudad: reservamos
+		   2 para que las columnas midan igual y los botones queden alineados */
+		.fact:last-child .muted {
+			min-height: 3em;
+		}
+
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation: none !important;
+			transition: none !important;
+			scroll-behavior: auto !important;
+		}
+	}
+</style>

@@ -16,6 +16,12 @@ export type SpecialLanding = {
 
 export const specialLandings: SpecialLanding[] = [
 	{
+		slug: 'mwc',
+		url: 'https://midu.link/mwc',
+		label: 'Taller midudev · Upskilling Week MWC (BCN, Lleida, Girona, Tarragona)',
+		created: '2026-11-05',
+	},
+	{
 		slug: '42',
 		url: 'https://midu.link/42',
 		label: 'Charla midudev en 42 Barcelona + Curso Python (13–16 oct)',
