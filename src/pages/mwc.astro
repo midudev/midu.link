@@ -24,6 +24,8 @@ type Session = {
 	location: string;
 	url: string;
 	almostFull?: boolean;
+	/** Sin plazas: se muestra el aviso y se oculta la inscripción. */
+	full?: boolean;
 };
 
 const SESSIONS: Session[] = [
@@ -44,7 +46,7 @@ const SESSIONS: Session[] = [
 		venueDetail: 'Cibernàrium 22@ · Barcelona Activa',
 		location: 'Cibernàrium 22@ (Edificio MediaTIC), Carrer de Roc Boronat, 117, 08018 Barcelona',
 		url: 'https://mobileworldcapital.com/agenda/upskilling-week-noviembre-2026/',
-		almostFull: true,
+		full: true,
 	},
 	{
 		id: 'lleida',
@@ -126,6 +128,7 @@ const jsonLd = SESSIONS.map((s) => ({
 	eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
 	inLanguage: 'es',
 	isAccessibleForFree: true,
+	...(s.full ? { remainingAttendeeCapacity: 0 } : {}),
 	url: s.url,
 	image: ogImage,
 	location: {
@@ -268,7 +271,11 @@ const jsonLd = SESSIONS.map((s) => ({
 
 			<ol class="stops" aria-label="Fechas del taller">
 				{SESSIONS.map((s, i) => (
-					<li class="stop" data-end={s.endUTC} aria-labelledby={`stop-${s.id}`}>
+					<li
+						class:list={['stop', s.full && 'is-full']}
+						data-end={s.endUTC}
+						aria-labelledby={`stop-${s.id}`}
+					>
 						<div class="stop__inner">
 							<div class="stop__head">
 								<p class="stop__eyebrow">
@@ -277,6 +284,7 @@ const jsonLd = SESSIONS.map((s) => ({
 								<div class="stop__badges">
 									<span class="badge badge--next">Próximo</span>
 									{s.almostFull && <span class="badge badge--full">Casi lleno</span>}
+									{s.full && <span class="badge badge--soldout">Aforo completo</span>}
 									<span class="badge badge--past">Celebrado</span>
 								</div>
 							</div>
@@ -314,6 +322,7 @@ const jsonLd = SESSIONS.map((s) => ({
 								</a>
 							</div>
 
+							<p class="soldout-note">Aforo completo. Ya no quedan plazas.</p>
 							<p class="past-note">Este taller ya se celebró. ¡Gracias por venir!</p>
 						</div>
 					</li>
@@ -600,6 +609,8 @@ const jsonLd = SESSIONS.map((s) => ({
 
 	.stop__badges {
 		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
 		gap: 0.35rem;
 	}
 
@@ -616,7 +627,8 @@ const jsonLd = SESSIONS.map((s) => ({
 		white-space: nowrap;
 	}
 
-	.badge--full {
+	.badge--full,
+	.badge--soldout {
 		display: inline-flex;
 		color: var(--accent);
 		border-color: color-mix(in srgb, var(--accent) 45%, transparent);
@@ -634,7 +646,8 @@ const jsonLd = SESSIONS.map((s) => ({
 		color: var(--muted);
 	}
 
-	.is-past .badge--full {
+	.is-past .badge--full,
+	.is-past .badge--soldout {
 		display: none;
 	}
 
@@ -731,10 +744,19 @@ const jsonLd = SESSIONS.map((s) => ({
 	}
 
 
-	.past-note {
+	.past-note,
+	.soldout-note {
 		display: none;
 		font-size: 0.85rem;
 		color: var(--muted);
+	}
+
+	.is-full:not(.is-past) .cta {
+		display: none;
+	}
+
+	.is-full:not(.is-past) .soldout-note {
+		display: block;
 	}
 
 	.is-past .cta {
