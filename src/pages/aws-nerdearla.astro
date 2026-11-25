@@ -179,6 +179,11 @@ const jsonLd = {
 		<a class="skip" href="#contenido">Saltar al contenido</a>
 		<div class="visually-hidden" id="ics-status" role="status" aria-live="polite"></div>
 
+		<p class="ended">
+			<strong class="ended__title">Evento finalizado</strong>
+			<span class="ended__text">La sesión se celebró el 25 de septiembre de 2026 en Nerdearla. ¡Gracias por venir!</span>
+		</p>
+
 		<header class="top">
 			<img class="avatar" src="/midudev.jpg" alt="Miguel Ángel Durán, midudev" width="40" height="40" decoding="async" fetchpriority="high" />
 			<div class="logos" role="group" aria-label="Organizadores">
@@ -616,6 +621,42 @@ const jsonLd = {
 
 	main:focus {
 		outline: none;
+	}
+
+	/* Aviso de evento finalizado */
+	.ended {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: center;
+		gap: 0.25rem 0.75rem;
+		padding: 0.65rem 1.25rem;
+		border-bottom: 1px solid var(--border);
+		background: color-mix(in srgb, var(--text) 4%, var(--bg));
+		font-size: 0.85rem;
+		line-height: 1.4;
+		text-align: center;
+		text-wrap: balance;
+	}
+
+	.ended__title {
+		font-family: var(--pixel);
+		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.ended__title::before {
+		content: '';
+		display: inline-block;
+		width: 0.5em;
+		height: 0.5em;
+		margin-inline-end: 0.5em;
+		background: var(--accent);
+	}
+
+	.ended__text {
+		color: var(--muted);
 	}
 
 	.top,

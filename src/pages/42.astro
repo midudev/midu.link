@@ -202,6 +202,11 @@ const jsonLd = [
 		<a class="skip" href="#contenido">Saltar al contenido</a>
 		<div class="visually-hidden" id="ics-status" role="status" aria-live="polite"></div>
 
+		<p class="ended">
+			<strong class="ended__title">Evento finalizado</strong>
+			<span class="ended__text">La charla y el curso de Python se celebraron del 13 al 16 de octubre de 2026. ¡Gracias por venir!</span>
+		</p>
+
 		<header class="top">
 			<a class="brand-midu" href="https://midu.dev" target="_blank" rel="noopener noreferrer">
 				<img
@@ -645,6 +650,42 @@ const jsonLd = [
 
 	main:focus {
 		outline: none;
+	}
+
+	/* Aviso de evento finalizado */
+	.ended {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: center;
+		gap: 0.25rem 0.75rem;
+		padding: 0.6rem 1.25rem;
+		border-bottom: 1px solid var(--border);
+		background: var(--surface);
+		font-size: 0.8rem;
+		line-height: 1.4;
+		text-align: center;
+		text-wrap: balance;
+	}
+
+	.ended__title {
+		font-family: var(--pixel);
+		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.ended__title::before {
+		content: '';
+		display: inline-block;
+		width: 0.5em;
+		height: 0.5em;
+		margin-inline-end: 0.5em;
+		background: var(--accent);
+	}
+
+	.ended__text {
+		color: var(--muted);
 	}
 
 	/* Header */
