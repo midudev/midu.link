@@ -143,7 +143,7 @@ const jsonLd = [
 			crossorigin
 			fetchpriority="high"
 		/>
-		<style is:inline>
+		<style is:global>
 			@font-face {
 				font-family: 'Geist Pixel';
 				src: url('/fonts/geist-pixel-square-latin.woff2') format('woff2');
@@ -421,7 +421,11 @@ const jsonLd = [
 			<a href="/">midu.link</a>
 		</footer>
 
-		<script define:vars={{ TALK_EVENT }}>
+		<script type="application/json" id="event-data" set:html={JSON.stringify(TALK_EVENT)} />
+		<script>
+			// Processed script (hashed in the CSP); define:vars would make it inline-only.
+			const TALK_EVENT = JSON.parse(document.getElementById('event-data')?.textContent ?? '{}');
+
 			const icsEscape = (s) =>
 				String(s)
 					.replace(/\\/g, '\\\\')

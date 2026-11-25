@@ -13,4 +13,24 @@ export default defineConfig({
 	// No sessions or image transforms: skip the KV and Images bindings.
 	session: false,
 	adapter: cloudflare({ imageService: 'passthrough' }),
+	// Content-Security-Policy <meta> with a hash for every script and style Astro
+	// renders, so no inline code runs unless it ships with the page.
+	// `frame-ancestors` only works as a header: see public/_headers and src/worker.ts.
+	security: {
+		csp: {
+			directives: [
+				"default-src 'self'",
+				"img-src 'self' data:",
+				"font-src 'self'",
+				"connect-src 'self'",
+				"base-uri 'self'",
+				"object-src 'none'",
+				"form-action 'self'",
+			],
+			// /stats/<slug> sizes its bars with style="" attributes, which cannot run code.
+			styleDirective: {
+				resources: ["'self'", { resource: "'unsafe-inline'", kind: 'attribute' }],
+			},
+		},
+	},
 });
