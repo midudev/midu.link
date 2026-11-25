@@ -1,34 +1,30 @@
 import type { APIRoute } from 'astro';
-import { trackableBySlug } from '../../lib/links';
 import { recordClick } from '../../lib/db';
+import { trackableBySlug } from '../../lib/links';
 
 export const prerender = false;
 
 /**
- * Internal click collector. Invoked in the background from middleware via
- * waitUntil(fetch) so the 302 never waits on Turso, and via sendBeacon on
- * special landing pages.
+ * Click collector for the special landings (`navigator.sendBeacon`). Short
+ * links are counted directly in `src/worker.ts`, without this endpoint.
  */
-export const POST: APIRoute = async ({ request }) => {
-	let slug: string | undefined;
+export const POST: APIRoute = async ({ request, locals }) => {
+	let slug: unknown;
 
 	try {
-		const body = (await request.json()) as { slug?: unknown };
-		if (typeof body.slug === 'string') slug = body.slug;
+		({ slug } = (await request.json()) as { slug?: unknown });
 	} catch {
 		return new Response(null, { status: 400 });
 	}
 
-	if (!slug || !trackableBySlug.has(slug)) {
+	if (typeof slug !== 'string' || !trackableBySlug.has(slug)) {
 		return new Response(null, { status: 404 });
 	}
 
-	try {
-		await recordClick(slug);
-	} catch (err) {
-		console.error('[analytics] track failed', slug, err);
-		return new Response(null, { status: 500 });
-	}
+	// The beacon never reads the answer: reply now, write after.
+	locals.cfContext.waitUntil(
+		recordClick(slug).catch((err) => console.error('[analytics] track failed', slug, err)),
+	);
 
-	return new Response(null, { status: 204 });
+	return new Response(null, { status: 202 });
 };
