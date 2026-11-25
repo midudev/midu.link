@@ -22,6 +22,19 @@ const prettyUrl = (url: string) => {
 	<link slot="head" rel="preload" href="/fonts/geist-pixel-square-latin.woff2" as="font" type="font/woff2" crossorigin />
 	<link slot="head" rel="preload" href="/api/stats" as="fetch" crossorigin />
 	<main>
+		<!-- Icons shared by every card: each one is a <use> instead of ~250 bytes of inline SVG. -->
+		<svg class="sprite" width="0" height="0" aria-hidden="true">
+			<symbol id="i-arrow" viewBox="0 0 24 24" fill="none">
+				<path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+			</symbol>
+			<symbol id="i-copy" viewBox="0 0 24 24" fill="none">
+				<rect x="9" y="9" width="11" height="11" rx="2.5" stroke="currentColor" stroke-width="2" />
+				<path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+			</symbol>
+			<symbol id="i-check" viewBox="0 0 24 24" fill="none">
+				<path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+			</symbol>
+		</svg>
 		<header>
 			<h1>midu.link</h1>
 			<p class="subtitle">
@@ -87,9 +100,7 @@ const prettyUrl = (url: string) => {
 								<span class="landing-badge">Landing</span>
 							</span>
 							<span class="link-target">
-								<svg class="target-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-									<path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
+								<svg class="target-arrow" width="12" height="12" aria-hidden="true"><use href="#i-arrow" /></svg>
 								<span class="target-url">{label}</span>
 							</span>
 						</a>
@@ -110,13 +121,8 @@ const prettyUrl = (url: string) => {
 						</a>
 
 						<button class="copy" type="button" data-slug={slug} aria-label={`Copiar midu.link/${slug}`}>
-							<svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-								<rect x="9" y="9" width="11" height="11" rx="2.5" stroke="currentColor" stroke-width="2" />
-								<path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-							</svg>
-							<svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-								<path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-							</svg>
+							<svg class="icon-copy" width="15" height="15" aria-hidden="true"><use href="#i-copy" /></svg>
+							<svg class="icon-check" width="15" height="15" aria-hidden="true"><use href="#i-check" /></svg>
 						</button>
 					</div>
 				))}
@@ -145,9 +151,7 @@ const prettyUrl = (url: string) => {
 								<span class="domain">midu.link/</span><span class="slug">{slug}</span>
 							</span>
 							<span class="link-target">
-								<svg class="target-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-									<path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
+								<svg class="target-arrow" width="12" height="12" aria-hidden="true"><use href="#i-arrow" /></svg>
 								<span class="target-url">{target}</span>
 							</span>
 						</a>
@@ -168,13 +172,8 @@ const prettyUrl = (url: string) => {
 						</a>
 
 						<button class="copy" type="button" data-slug={slug} aria-label={`Copiar midu.link/${slug}`}>
-							<svg class="icon-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-								<rect x="9" y="9" width="11" height="11" rx="2.5" stroke="currentColor" stroke-width="2" />
-								<path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-							</svg>
-							<svg class="icon-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-								<path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-							</svg>
+							<svg class="icon-copy" width="15" height="15" aria-hidden="true"><use href="#i-copy" /></svg>
+							<svg class="icon-check" width="15" height="15" aria-hidden="true"><use href="#i-check" /></svg>
 						</button>
 					</div>
 				);
@@ -375,9 +374,16 @@ const prettyUrl = (url: string) => {
 
 	let tipHide: ReturnType<typeof setTimeout> | undefined;
 
-	function showTip(r: { left: number; top: number; width: number }, html: string) {
+	const tipCount = document.createElement('strong');
+	const tipUnit = document.createTextNode('');
+	const tipDay = document.createElement('span');
+	tip.append(tipCount, tipUnit, tipDay);
+
+	function showTip(r: { left: number; top: number; width: number }, count: number, label: string) {
 		clearTimeout(tipHide);
-		tip.innerHTML = html;
+		tipCount.textContent = formatCount(count);
+		tipUnit.data = count === 1 ? ' click' : ' clicks';
+		tipDay.textContent = label;
 		tip.hidden = false;
 		const tw = tip.offsetWidth;
 		const th = tip.offsetHeight;
@@ -428,8 +434,8 @@ const prettyUrl = (url: string) => {
 		const isToday = i === stats.days.length - 1;
 		showTip(
 			{ left: r.left + i * col, top: r.top, width: col },
-			`<strong>${formatCount(day.count)}</strong> click${day.count === 1 ? '' : 's'}` +
-				`<span>${formatDayLabel(day.day)}${isToday ? ' · hoy' : ''}</span>`,
+			day.count,
+			`${formatDayLabel(day.day)}${isToday ? ' · hoy' : ''}`,
 		);
 	}
 
@@ -627,6 +633,13 @@ const prettyUrl = (url: string) => {
 	.search-wrapper:focus-within {
 		border-color: var(--accent);
 		box-shadow: 0 0 0 3px var(--accent-soft);
+	}
+
+	.sprite {
+		position: absolute;
+		width: 0;
+		height: 0;
+		overflow: hidden;
 	}
 
 	.search-icon {
