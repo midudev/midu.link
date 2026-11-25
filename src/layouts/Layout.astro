@@ -74,11 +74,12 @@ const jsonLd = {
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage.href} />
 
-		<!-- Fonts: preloaded and same-origin for a fast first paint -->
-		<link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-		<link rel="preload" href="/fonts/GeistPixel-Square.woff2" as="font" type="font/woff2" crossorigin />
+		<!-- Fonts: same-origin Latin subsets. Pages that show Geist Pixel above the
+		     fold preload it through the "head" slot. -->
+		<link rel="preload" href="/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
 
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+		<slot name="head" />
 	</head>
 	<body>
 		<slot />
@@ -88,15 +89,15 @@ const jsonLd = {
 <style is:global>
 	@font-face {
 		font-family: 'Geist Mono';
-		src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
-		font-weight: 100 900;
+		src: url('/fonts/geist-mono-latin.woff2') format('woff2');
+		font-weight: 400 700;
 		font-style: normal;
 		font-display: swap;
 	}
 
 	@font-face {
 		font-family: 'Geist Pixel';
-		src: url('/fonts/GeistPixel-Square.woff2') format('woff2');
+		src: url('/fonts/geist-pixel-square-latin.woff2') format('woff2');
 		font-weight: 400;
 		font-style: normal;
 		font-display: swap;
