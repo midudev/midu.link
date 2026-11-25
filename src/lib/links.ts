@@ -35,6 +35,9 @@ export const specialLandings: SpecialLanding[] = [
 	},
 ];
 
+/** Slugs that may be counted through `POST /api/track` (the landings' beacon). */
+export const specialLandingSlugs = new Set(specialLandings.map(({ slug }) => slug));
+
 const linkList = links as Link[];
 
 /** O(1) slug → destination URL for short-link redirects. */
