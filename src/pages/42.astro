@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets';
 /**
  * Landing minimalista a pantalla dividida:
  * 1) Charla de Midu el 13 de octubre a las 17:00h en 42 Barcelona.
@@ -127,38 +128,8 @@ const jsonLd = [
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/42.svg" />
-		<link
-			rel="preload"
-			href="/fonts/geist-pixel-square-latin.woff2"
-			as="font"
-			type="font/woff2"
-			crossorigin
-			fetchpriority="high"
-		/>
-		<link
-			rel="preload"
-			href="/fonts/geist-mono-latin.woff2"
-			as="font"
-			type="font/woff2"
-			crossorigin
-			fetchpriority="high"
-		/>
-		<style is:global>
-			@font-face {
-				font-family: 'Geist Pixel';
-				src: url('/fonts/geist-pixel-square-latin.woff2') format('woff2');
-				font-weight: 400;
-				font-style: normal;
-				font-display: swap;
-			}
-			@font-face {
-				font-family: 'Geist Mono';
-				src: url('/fonts/geist-mono-latin.woff2') format('woff2');
-				font-weight: 400 700;
-				font-style: normal;
-				font-display: swap;
-			}
-		</style>
+		<Font cssVariable="--font-geist-pixel" preload />
+		<Font cssVariable="--font-geist-mono" preload />
 
 		<title>{pageTitle}</title>
 		<meta name="description" content={pageDescription} />
@@ -550,8 +521,8 @@ const jsonLd = [
 		--accent: #00babc;
 		--accent-ink: #061010;
 		--focus: #ffffff;
-		--mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-		--pixel: 'Geist Pixel', var(--mono);
+		--mono: var(--font-geist-mono);
+		--pixel: var(--font-geist-pixel);
 	}
 
 	@media (prefers-color-scheme: light) {

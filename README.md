@@ -7,9 +7,9 @@ Acortador de URLs de [midudev](https://midu.dev). Construido con [Astro](https:/
 ```text
 /
 ├── public/
-│   ├── _headers               # Cache-Control de los assets estáticos
-│   └── fonts/                 # Geist Mono y Geist Pixel (subset latino)
+│   └── _headers               # Cabeceras de seguridad y Cache-Control de los assets
 ├── src/
+│   ├── assets/fonts/          # Geist Mono, Geist Pixel y Geist (subset latino, vía la API de fuentes de Astro)
 │   ├── worker.ts              # Entrypoint del Worker: 302 + analytics, caché de stats
 │   ├── data/
 │   │   └── links.json         # Todos los enlaces cortos

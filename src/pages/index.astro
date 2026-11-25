@@ -18,8 +18,7 @@ const prettyUrl = (url: string) => {
 };
 ---
 
-<Layout>
-	<link slot="head" rel="preload" href="/fonts/geist-pixel-square-latin.woff2" as="font" type="font/woff2" crossorigin />
+<Layout preloadPixel>
 	<link slot="head" rel="preload" href="/api/stats" as="fetch" crossorigin />
 	<main>
 		<!-- Icons shared by every card: each one is a <use> instead of ~250 bytes of inline SVG. -->

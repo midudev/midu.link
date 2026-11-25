@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets';
 /**
  * Landing especial: sesión de Midu en el stand de AWS en Nerdearla 2026.
  * Ruta estática → gana sobre el redirect dinámico de `[slug].ts`.
@@ -102,40 +103,8 @@ const jsonLd = {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/webp" href="/aws.webp" />
-		<link
-			rel="preload"
-			href="/fonts/geist-pixel-square-latin.woff2"
-			as="font"
-			type="font/woff2"
-			crossorigin
-			fetchpriority="high"
-		/>
-		<link
-			rel="preload"
-			href="/fonts/geist-latin.woff2"
-			as="font"
-			type="font/woff2"
-			crossorigin
-			fetchpriority="high"
-		/>
-		<style is:global>
-			@font-face {
-				font-family: 'Geist Pixel';
-				src: url('/fonts/geist-pixel-square-latin.woff2') format('woff2');
-				font-weight: 400;
-				font-style: normal;
-				font-display: optional;
-				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-			}
-			@font-face {
-				font-family: 'Geist';
-				src: url('/fonts/geist-latin.woff2') format('woff2');
-				font-weight: 400 600;
-				font-style: normal;
-				font-display: optional;
-				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-			}
-		</style>
+		<Font cssVariable="--font-geist-pixel" preload />
+		<Font cssVariable="--font-geist" preload />
 
 		<title>{pageTitle}</title>
 		<meta name="description" content={pageDescription} />
@@ -513,8 +482,8 @@ const jsonLd = {
 		--accent: #00CC60;
 		--accent-ink: #0a0a0a;
 		--focus: #ffffff;
-		--sans: 'Geist', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-		--pixel: 'Geist Pixel', ui-monospace, SFMono-Regular, Menlo, monospace;
+		--sans: var(--font-geist);
+		--pixel: var(--font-geist-pixel);
 		--maxw: 42rem;
 	}
 

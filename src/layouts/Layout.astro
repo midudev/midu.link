@@ -1,11 +1,16 @@
 ---
+import { Font } from 'astro:assets';
+
 interface Props {
 	title?: string;
 	description?: string;
 	image?: string;
+	/** Preload Geist Pixel too, for pages that show it above the fold. */
+	preloadPixel?: boolean;
 }
 
 const {
+	preloadPixel = false,
 	title = 'midu.link · Acortador de URLs de midudev',
 	description = 'Todos los enlaces cortos de midudev en un solo lugar. Busca, copia y accede a cursos, recursos y herramientas recomendadas.',
 	image = '/og.png',
@@ -76,9 +81,9 @@ const jsonLd = {
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage.href} />
 
-		<!-- Fonts: same-origin Latin subsets. Pages that show Geist Pixel above the
-		     fold preload it through the "head" slot. -->
-		<link rel="preload" href="/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
+		<!-- Fonts: hashed, self-hosted Latin subsets with metric-matched fallbacks (astro.config.mjs). -->
+		<Font cssVariable="--font-geist-mono" preload />
+		<Font cssVariable="--font-geist-pixel" preload={preloadPixel} />
 
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
 		<slot name="head" />
@@ -89,22 +94,6 @@ const jsonLd = {
 </html>
 
 <style is:global>
-	@font-face {
-		font-family: 'Geist Mono';
-		src: url('/fonts/geist-mono-latin.woff2') format('woff2');
-		font-weight: 400 700;
-		font-style: normal;
-		font-display: swap;
-	}
-
-	@font-face {
-		font-family: 'Geist Pixel';
-		src: url('/fonts/geist-pixel-square-latin.woff2') format('woff2');
-		font-weight: 400;
-		font-style: normal;
-		font-display: swap;
-	}
-
 	:root {
 		--bg: #0a0a0a;
 		--surface: #101010;
@@ -117,8 +106,8 @@ const jsonLd = {
 		--accent: #a78bfa;
 		--accent-soft: rgba(167, 139, 250, 0.12);
 		--radius: 12px;
-		--mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-		--pixel: 'Geist Pixel', var(--mono);
+		--mono: var(--font-geist-mono);
+		--pixel: var(--font-geist-pixel);
 	}
 
 	* {

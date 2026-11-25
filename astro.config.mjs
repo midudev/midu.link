@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 
 // Every page is prerendered and served as a free static asset. Only requests
@@ -13,6 +13,34 @@ export default defineConfig({
 	// No sessions or image transforms: skip the KV and Images bindings.
 	session: false,
 	adapter: cloudflare({ imageService: 'passthrough' }),
+	// Self-hosted Latin subsets (src/assets/fonts) without stylistic alternates.
+	// Astro serves them from /_astro/fonts with a content hash (immutable cache),
+	// writes the @font-face rules and a metric-matched fallback (size-adjust,
+	// ascent-override) so text doesn't shift when the font swaps in.
+	// Pages use them through <Font cssVariable="…" />.
+	fonts: [
+		{
+			provider: fontProviders.local(),
+			name: 'Geist Mono',
+			cssVariable: '--font-geist-mono',
+			fallbacks: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+			options: { variants: [{ src: ['./src/assets/fonts/geist-mono.woff2'], weight: '400 700', style: 'normal' }] },
+		},
+		{
+			provider: fontProviders.local(),
+			name: 'Geist Pixel',
+			cssVariable: '--font-geist-pixel',
+			fallbacks: ['ui-monospace', 'monospace'],
+			options: { variants: [{ src: ['./src/assets/fonts/geist-pixel-square.woff2'], weight: '400', style: 'normal' }] },
+		},
+		{
+			provider: fontProviders.local(),
+			name: 'Geist',
+			cssVariable: '--font-geist',
+			fallbacks: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+			options: { variants: [{ src: ['./src/assets/fonts/geist.woff2'], weight: '400 600', style: 'normal' }] },
+		},
+	],
 	// Content-Security-Policy <meta> with a hash for every script and style Astro
 	// renders, so no inline code runs unless it ships with the page.
 	// `frame-ancestors` only works as a header: see public/_headers and src/worker.ts.
