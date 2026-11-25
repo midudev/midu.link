@@ -14,6 +14,9 @@ if (!slug || !destination) {
 
 const stats = await getSlugAnalytics(slug, 90);
 
+// `src/worker.ts` shares this page from the colo cache for max-age.
+Astro.response.headers.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=300');
+
 const prettyUrl = (url: string) => {
 	try {
 		const u = new URL(url);

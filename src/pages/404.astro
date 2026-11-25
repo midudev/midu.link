@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Enlace no encontrado · midu.link">
+	<link slot="head" rel="preload" href="/fonts/geist-pixel-square-latin.woff2" as="font" type="font/woff2" crossorigin />
+	<main>
+		<p class="code">404</p>
+		<h1>Este enlace no existe</h1>
+		<p class="hint">Puede que se haya escrito mal o que ya no esté disponible.</p>
+		<a href="/">← Ver todos los enlaces</a>
+	</main>
+</Layout>
+
+<style>
+	main {
+		min-height: 100vh;
+		display: grid;
+		place-content: center;
+		justify-items: center;
+		gap: 0.9rem;
+		padding: 2rem 1.5rem;
+		text-align: center;
+	}
+
+	.code {
+		font-family: var(--pixel);
+		font-size: clamp(3.5rem, 14vw, 5.5rem);
+		line-height: 1;
+		color: var(--accent);
+	}
+
+	h1 {
+		font-size: 1.1rem;
+		font-weight: 600;
+	}
+
+	.hint {
+		color: var(--muted);
+		font-size: 0.85rem;
+	}
+
+	a {
+		margin-top: 0.75rem;
+		color: var(--muted);
+		font-size: 0.85rem;
+		text-decoration: none;
+		transition: color 0.15s;
+	}
+
+	a:hover {
+		color: var(--accent);
+	}
+</style>

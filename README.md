@@ -1,31 +1,33 @@
 # midu.link
 
-Acortador de URLs de [midudev](https://midu.dev). Construido con [Astro](https://astro.build). Desplegado en Vercel. Analytics de clicks con [Turso](https://turso.tech).
+Acortador de URLs de [midudev](https://midu.dev). Construido con [Astro](https://astro.build). Desplegado en [Cloudflare Workers](https://developers.cloudflare.com/workers/). Analytics de clicks con [D1](https://developers.cloudflare.com/d1/).
 
 ## Estructura
 
 ```text
 /
 ├── public/
-│   └── favicon.svg
-├── scripts/
-│   └── init-db.mjs            # Crea la tabla clicks_daily en Turso
+│   ├── _headers               # Cache-Control de los assets estáticos
+│   └── fonts/                 # Geist Mono y Geist Pixel (subset latino)
 ├── src/
+│   ├── worker.ts              # Entrypoint del Worker: 302 + analytics, caché de stats
 │   ├── data/
 │   │   └── links.json         # Todos los enlaces cortos
 │   ├── lib/
-│   │   ├── db.ts              # Cliente Turso + contadores diarios
+│   │   ├── db.ts              # Contadores diarios en D1
 │   │   └── links.ts           # Map slug → URL
-│   ├── middleware.ts          # 302 + analytics en background
 │   ├── layouts/
 │   │   └── Layout.astro
 │   └── pages/
 │       ├── index.astro        # Homepage con sparklines
+│       ├── 404.astro
 │       ├── aws-nerdearla.astro # Landing especial (ruta estática, sin redirect)
+│       ├── stats/[slug].astro # Analíticas de un enlace (on demand)
 │       └── api/
 │           ├── stats.ts       # JSON de clicks (hoy + 7 días)
-│           └── track.ts       # POST interno: incrementa contador
+│           └── track.ts       # POST de las landings: incrementa contador
 ├── astro.config.mjs
+├── wrangler.jsonc
 └── package.json
 ```
 
@@ -37,34 +39,40 @@ Los enlaces se definen en `src/data/links.json`. Cada entrada tiene un `slug` y 
 { "slug": "youtube", "url": "https://www.youtube.com/channel/UC8LeXCWOalN8SxlrPcG-PaQ" }
 ```
 
-El **middleware** resuelve el slug en memoria y responde `302` de inmediato. En paralelo (via `waitUntil` + `POST /api/track`) se incrementa el contador diario en Turso — el redirect **nunca** espera a la base de datos. La homepage pinta un mini gráfico de 7 días + contadores de hoy y de la semana.
+Todas las páginas se prerenderizan y Cloudflare las sirve como assets estáticos (gratis, sin ejecutar el Worker). Solo las peticiones que no coinciden con ningún archivo llegan a `src/worker.ts`:
+
+- **Enlace corto** (`/youtube`): el Worker resuelve el slug en memoria y responde `302` sin pasar por Astro. El contador diario se incrementa en D1 después de responder (`ctx.waitUntil`): el redirect **nunca** espera a la base de datos.
+- **`/api/stats` y `/stats/<slug>`**: los renderiza Astro bajo demanda y el Worker guarda la respuesta en la caché del colo durante su `max-age` (30 s y 60 s), así que D1 recibe como mucho una consulta por colo y ventana.
+- Cualquier otra ruta: Astro responde con la página 404 prerenderizada.
+
+La homepage pinta un mini gráfico de 7 días + contadores de hoy y de la semana.
 
 ## Landings especiales
 
-Algunos slugs no redirigen: son páginas propias. Basta con crear `src/pages/<slug>.astro` — en Astro las rutas estáticas tienen prioridad sobre `[slug].ts`, y en Vercel el `handle: filesystem` sirve el HTML prerenderizado antes de llegar a la función. Ejemplo: `midu.link/aws-nerdearla`.
+Algunos slugs no redirigen: son páginas propias. Basta con crear `src/pages/<slug>.astro`: el HTML prerenderizado se sirve como asset estático antes de llegar al Worker. Ejemplo: `midu.link/aws-nerdearla`. Para contar sus visitas, la página envía un `navigator.sendBeacon('/api/track', …)` y su slug tiene que estar en `specialLandings` (`src/lib/links.ts`).
 
-## Variables de entorno
+## Base de datos
 
-Copia `.env.example` a `.env`:
+Los clics se guardan en D1 (binding `DB`, base de datos `midu-link`), en una tabla `clicks_daily` con un contador por slug y día UTC. No hay que configurar nada:
 
-```bash
-TURSO_DATABASE_URL=libsql://…
-TURSO_AUTH_TOKEN=…
-```
+- **En local**, `pnpm dev` y `pnpm preview` usan una copia SQLite en `.wrangler/state`, así que nunca tocan los datos de producción.
+- **En producción**, el primer `pnpm deploy` crea la base de datos y escribe su `database_id` en `wrangler.jsonc`.
+- **La tabla** la crea el Worker en la primera consulta que no la encuentra.
 
-En Vercel: `TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN` (Production / Preview / Development).
-
-Inicializar el esquema (una vez):
+Para consultar los datos de producción:
 
 ```bash
-node --env-file=.env scripts/init-db.mjs
+pnpm wrangler d1 execute DB --remote --command "SELECT * FROM clicks_daily ORDER BY day DESC LIMIT 20"
 ```
 
 ## Comandos
 
-| Comando          | Acción                                    |
-| :--------------- | :---------------------------------------- |
-| `pnpm install`   | Instala dependencias                      |
-| `pnpm dev`       | Servidor de desarrollo en `localhost:4321` |
-| `pnpm build`     | Build de producción en `./dist/`          |
-| `pnpm preview`   | Preview del build local                   |
+| Comando        | Acción                                                     |
+| :------------- | :--------------------------------------------------------- |
+| `pnpm install` | Instala dependencias                                       |
+| `pnpm dev`     | Servidor de desarrollo (workerd) en `localhost:4321`       |
+| `pnpm build`   | Build de producción en `./dist/`                           |
+| `pnpm preview` | Preview del build en workerd, igual que en producción      |
+| `pnpm deploy`  | Build + `wrangler deploy` (Worker en el dominio midu.link) |
+
+`pnpm dev` y `pnpm build` ejecutan antes `wrangler types`, que genera `worker-configuration.d.ts` con los tipos de los bindings.

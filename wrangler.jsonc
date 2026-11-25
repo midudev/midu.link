@@ -1,0 +1,18 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "midu-link",
+	"account_id": "599228840df452ef6b4df93a2b67c0ee",
+	"main": "./src/worker.ts",
+	"compatibility_date": "2026-11-24",
+	// The Cloudflare Vite plugin points this at Astro's dist/client on build.
+	"assets": { "binding": "ASSETS" },
+	"routes": [{ "pattern": "midu.link", "custom_domain": true }],
+	// Click analytics. The table is created on first use (src/lib/db.ts).
+	"d1_databases": [
+		{ "binding": "DB", "database_name": "midu-link", "database_id": "9e253029-8ea7-4453-ba3b-055a9bb4364b" }
+	],
+	"observability": {
+		"enabled": true
+	},
+	"upload_source_maps": true
+}

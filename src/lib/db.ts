@@ -1,63 +1,33 @@
-import { createClient, type Client } from '@libsql/client/web';
+import { env } from 'cloudflare:workers';
 
-let client: Client | null = null;
-let schemaReady: Promise<void> | null = null;
+type Row = Record<string, unknown>;
+
+/** Daily click counters. Created on first use, so a new database needs no setup. */
+const SCHEMA = [
+	`CREATE TABLE IF NOT EXISTS clicks_daily (
+		slug TEXT NOT NULL,
+		day  TEXT NOT NULL,
+		count INTEGER NOT NULL DEFAULT 0,
+		PRIMARY KEY (slug, day)
+	)`,
+	// `getStats` filters by day only; without this it scans the whole table.
+	'CREATE INDEX IF NOT EXISTS clicks_daily_day ON clicks_daily (day)',
+];
 
 /**
- * Resolve a secret from the runtime (Vercel/Node) or from Vite's env (local `astro dev`).
- * Dynamic `process.env[name]` stays runtime-evaluated so Vercel can inject secrets
- * after the build; `import.meta.env` covers local development.
+ * Run a statement on the D1 binding and return its rows. If the table is
+ * missing (a fresh database, local or remote), create the schema and retry in
+ * the same batch: the happy path stays a single query.
  */
-function env(name: 'TURSO_DATABASE_URL' | 'TURSO_AUTH_TOKEN'): string | undefined {
-	const fromProcess = typeof process !== 'undefined' ? process.env[name] : undefined;
-	if (fromProcess) return fromProcess;
-
-	// Fall back to Vite-injected env (local dev). Access is explicit so the
-	// keys stay known to Astro/Vite's env loading.
-	if (name === 'TURSO_DATABASE_URL') return import.meta.env.TURSO_DATABASE_URL;
-	if (name === 'TURSO_AUTH_TOKEN') return import.meta.env.TURSO_AUTH_TOKEN;
-	return undefined;
-}
-
-function getClient(): Client | null {
-	const url = env('TURSO_DATABASE_URL');
-	const authToken = env('TURSO_AUTH_TOKEN');
-
-	if (!url || !authToken) {
-		console.warn('[analytics] Missing TURSO_DATABASE_URL or TURSO_AUTH_TOKEN');
-		return null;
+async function query<T = Row>(sql: string, ...args: string[]): Promise<T[]> {
+	const statement = env.DB.prepare(sql).bind(...args);
+	try {
+		return (await statement.all<T>()).results;
+	} catch (err) {
+		if (!String(err).includes('no such table')) throw err;
+		const results = await env.DB.batch<T>([...SCHEMA.map((ddl) => env.DB.prepare(ddl)), statement]);
+		return results.at(-1)!.results;
 	}
-
-	if (!client) {
-		client = createClient({ url, authToken });
-	}
-
-	return client;
-}
-
-/** Ensure the clicks_daily table exists (idempotent). */
-export async function ensureSchema(): Promise<void> {
-	const db = getClient();
-	if (!db) return;
-
-	if (!schemaReady) {
-		schemaReady = db
-			.execute(`
-				CREATE TABLE IF NOT EXISTS clicks_daily (
-					slug TEXT NOT NULL,
-					day  TEXT NOT NULL,
-					count INTEGER NOT NULL DEFAULT 0,
-					PRIMARY KEY (slug, day)
-				)
-			`)
-			.then(() => undefined)
-			.catch((err) => {
-				schemaReady = null;
-				throw err;
-			});
-	}
-
-	await schemaReady;
 }
 
 /** UTC calendar day as YYYY-MM-DD. */
@@ -66,24 +36,19 @@ export function utcDay(date = new Date()): string {
 }
 
 /**
- * Increment today's click counter for a slug.
- * Safe to call in waitUntil — never throws to the caller if wrapped.
+ * Increment today's click counter for a slug. Meant for `waitUntil`: the
+ * caller decides how to handle a rejection.
  */
 export async function recordClick(slug: string): Promise<void> {
-	const db = getClient();
-	if (!db) return;
-
-	await ensureSchema();
-
-	const day = utcDay();
-	await db.execute({
-		sql: `
+	await query(
+		`
 			INSERT INTO clicks_daily (slug, day, count)
 			VALUES (?, ?, 1)
 			ON CONFLICT(slug, day) DO UPDATE SET count = count + 1
 		`,
-		args: [slug, day],
-	});
+		slug,
+		utcDay(),
+	);
 }
 
 export type DayCount = { day: string; count: number };
@@ -112,36 +77,20 @@ export function lastNDays(n: number, from = new Date()): string[] {
  * Fetch last-7-day stats for every slug that has data (or for the given list).
  */
 export async function getStats(slugs?: string[]): Promise<Record<string, SlugStats>> {
-	const db = getClient();
 	const window = lastNDays(7);
-	const empty = (): SlugStats => ({
-		days: window.map((day) => ({ day, count: 0 })),
-		today: 0,
-		week: 0,
-	});
-
-	if (!db) {
-		const out: Record<string, SlugStats> = {};
-		for (const s of slugs ?? []) out[s] = empty();
-		return out;
-	}
-
-	await ensureSchema();
-
-	const from = window[0]!;
-	const result = await db.execute({
-		sql: `
+	const rows = await query(
+		`
 			SELECT slug, day, count
 			FROM clicks_daily
 			WHERE day >= ?
 			ORDER BY day ASC
 		`,
-		args: [from],
-	});
+		window[0]!,
+	);
 
 	const bySlug = new Map<string, Map<string, number>>();
 
-	for (const row of result.rows) {
+	for (const row of rows) {
 		const slug = String(row.slug);
 		const day = String(row.day);
 		const count = Number(row.count) || 0;
@@ -198,22 +147,17 @@ export async function getSlugAnalytics(slug: string, maxDays = 90): Promise<Slug
 		peak: null,
 	};
 
-	const db = getClient();
-	if (!db) return empty;
-
-	await ensureSchema();
-
-	const result = await db.execute({
-		sql: `
+	const rows = await query(
+		`
 			SELECT day, count
 			FROM clicks_daily
 			WHERE slug = ?
 			ORDER BY day ASC
 		`,
-		args: [slug],
-	});
+		slug,
+	);
 
-	if (result.rows.length === 0) {
+	if (rows.length === 0) {
 		// Still return a 7-day zero window so the chart has structure.
 		return {
 			...empty,
@@ -226,7 +170,7 @@ export async function getSlugAnalytics(slug: string, maxDays = 90): Promise<Slug
 	let firstDay: string | null = null;
 	let peak: DayCount | null = null;
 
-	for (const row of result.rows) {
+	for (const row of rows) {
 		const day = String(row.day);
 		const count = Number(row.count) || 0;
 		map.set(day, count);

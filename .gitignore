@@ -23,4 +23,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-.vercel
+
+# cloudflare
+.wrangler/
+.dev.vars*
+!.dev.vars.example
+worker-configuration.d.ts

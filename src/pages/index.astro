@@ -5,6 +5,9 @@ import { specialLandings } from '../lib/links';
 
 const sortedLinks = [...links].sort((a, b) => a.slug.localeCompare(b.slug));
 
+/** x of each of the 7 sparkline bars (one per day). Hover is delegated, see the script. */
+const SPARK_BARS = [0, 1, 2, 3, 4, 5, 6].map((i) => i * 10 + 2);
+
 const prettyUrl = (url: string) => {
 	try {
 		const u = new URL(url);
@@ -16,6 +19,8 @@ const prettyUrl = (url: string) => {
 ---
 
 <Layout>
+	<link slot="head" rel="preload" href="/fonts/geist-pixel-square-latin.woff2" as="font" type="font/woff2" crossorigin />
+	<link slot="head" rel="preload" href="/api/stats" as="fetch" crossorigin />
 	<main>
 		<header>
 			<h1>midu.link</h1>
@@ -96,20 +101,7 @@ const prettyUrl = (url: string) => {
 							data-analytics={slug}
 						>
 							<svg class="spark" viewBox="0 0 70 28" width="70" height="28" aria-hidden="true" preserveAspectRatio="none">
-								{[0, 1, 2, 3, 4, 5, 6].map((i) => (
-									<g class="spark-hit" data-i={i}>
-										<rect class="spark-hitarea" x={i * 10} y={0} width="10" height="28" />
-										<rect
-											class="spark-bar"
-											data-i={i}
-											x={i * 10 + 2}
-											y={24}
-											width="6"
-											height="2"
-											rx="1.5"
-										/>
-									</g>
-								))}
+								{SPARK_BARS.map((x) => <rect class="spark-bar" x={x} y="24" width="6" height="2" rx="1.5" />)}
 							</svg>
 							<span class="stat" title="Clicks últimos 7 días">
 								<span class="stat-value" data-week>—</span>
@@ -167,22 +159,7 @@ const prettyUrl = (url: string) => {
 							data-analytics={slug}
 						>
 							<svg class="spark" viewBox="0 0 70 28" width="70" height="28" aria-hidden="true" preserveAspectRatio="none">
-								{/* 7 placeholder bars — filled by client script */}
-								{[0, 1, 2, 3, 4, 5, 6].map((i) => (
-									<g class="spark-hit" data-i={i}>
-										{/* Invisible wider hit target for hover */}
-										<rect class="spark-hitarea" x={i * 10} y={0} width="10" height="28" />
-										<rect
-											class="spark-bar"
-											data-i={i}
-											x={i * 10 + 2}
-											y={24}
-											width="6"
-											height="2"
-											rx="1.5"
-										/>
-									</g>
-								))}
+								{SPARK_BARS.map((x) => <rect class="spark-bar" x={x} y="24" width="6" height="2" rx="1.5" />)}
 							</svg>
 							<span class="stat" title="Clicks últimos 7 días">
 								<span class="stat-value" data-week>—</span>
@@ -220,13 +197,13 @@ const prettyUrl = (url: string) => {
 	import { $, $$ } from '../lib/dom';
 
 	const search = $<HTMLInputElement>('#search')!;
-	const list = $('#links-list')!;
-	const specialSection = $('#special-section')!;
-	const specialList = $('#special-list')!;
-	const count = $('#count')!;
-	const noResults = $('#no-results')!;
-	const queryEcho = $('#query-echo')!;
-	const sortGroup = $('.sort')!;
+	const list = $<HTMLElement>('#links-list')!;
+	const specialSection = $<HTMLElement>('#special-section')!;
+	const specialList = $<HTMLElement>('#special-list')!;
+	const count = $<HTMLElement>('#count')!;
+	const noResults = $<HTMLElement>('#no-results')!;
+	const queryEcho = $<HTMLElement>('#query-echo')!;
+	const sortGroup = $<HTMLElement>('.sort')!;
 	const allCards = () => $$<HTMLElement>('.link-card');
 	const total = allCards().length;
 
@@ -398,11 +375,10 @@ const prettyUrl = (url: string) => {
 
 	let tipHide: ReturnType<typeof setTimeout> | undefined;
 
-	function showTip(anchor: Element, html: string) {
+	function showTip(r: { left: number; top: number; width: number }, html: string) {
 		clearTimeout(tipHide);
 		tip.innerHTML = html;
 		tip.hidden = false;
-		const r = anchor.getBoundingClientRect();
 		const tw = tip.offsetWidth;
 		const th = tip.offsetHeight;
 		let left = r.left + r.width / 2 - tw / 2;
@@ -418,42 +394,68 @@ const prettyUrl = (url: string) => {
 		}, 40);
 	}
 
+	/** Stats painted into each sparkline, read back by the delegated hover below. */
+	const sparkStats = new WeakMap<SVGSVGElement, SlugStats>();
+	let hoverBar: Element | null = null;
+
+	function clearHover() {
+		hoverBar?.classList.remove('is-hover');
+		hoverBar = null;
+		hideTip();
+	}
+
+	// One delegated handler per list instead of two listeners on each of the
+	// ~1.5k bars: the hovered day comes from the pointer's x within the spark.
+	function onSparkPointer(e: PointerEvent) {
+		const spark = (e.target as Element).closest<SVGSVGElement>('.spark');
+		const stats = spark && sparkStats.get(spark);
+		if (!spark || !stats) {
+			if (hoverBar) clearHover();
+			return;
+		}
+
+		const r = spark.getBoundingClientRect();
+		const col = r.width / stats.days.length;
+		const i = Math.min(stats.days.length - 1, Math.max(0, Math.floor((e.clientX - r.left) / col)));
+		const bar = spark.children[i];
+		if (!bar || bar === hoverBar) return;
+
+		hoverBar?.classList.remove('is-hover');
+		hoverBar = bar;
+		bar.classList.add('is-hover');
+
+		const day = stats.days[i]!;
+		const isToday = i === stats.days.length - 1;
+		showTip(
+			{ left: r.left + i * col, top: r.top, width: col },
+			`<strong>${formatCount(day.count)}</strong> click${day.count === 1 ? '' : 's'}` +
+				`<span>${formatDayLabel(day.day)}${isToday ? ' · hoy' : ''}</span>`,
+		);
+	}
+
+	for (const container of [specialList, list]) {
+		container.addEventListener('pointerover', onSparkPointer);
+		container.addEventListener('pointermove', onSparkPointer);
+		container.addEventListener('pointerout', (e) => {
+			if (hoverBar && !hoverBar.parentNode!.contains(e.relatedTarget as Node | null)) clearHover();
+		});
+	}
+
 	function paintSpark(root: HTMLElement, stats: SlugStats) {
+		const spark = $<SVGSVGElement>('.spark', root);
+		if (!spark) return;
 		const counts = stats.days.map((d) => d.count);
 		const max = Math.max(...counts, 1);
 
-		for (const bar of $$<SVGRectElement>('.spark-bar', root)) {
-			const i = Number(bar.dataset.i);
-			const day = stats.days[i];
-			const value = day?.count ?? 0;
+		Array.from(spark.children).forEach((bar, i) => {
+			const value = counts[i] ?? 0;
 			const h = value === 0 ? BAR_MIN : Math.max(BAR_MIN, Math.round((value / max) * BAR_MAX));
 			bar.setAttribute('y', String(SPARK_H - h));
 			bar.setAttribute('height', String(h));
 			bar.classList.toggle('is-today', i === counts.length - 1);
 			bar.classList.toggle('has-clicks', value > 0);
-		}
-
-		for (const hit of $$<SVGGElement>('.spark-hit', root)) {
-			const i = Number(hit.dataset.i);
-			const day = stats.days[i];
-			if (!day) continue;
-			const label = formatDayLabel(day.day);
-			const clicks = day.count;
-			const isToday = i === stats.days.length - 1;
-
-			hit.addEventListener('pointerenter', () => {
-				$('.spark-bar', hit)!.classList.add('is-hover');
-				showTip(
-					hit,
-					`<strong>${formatCount(clicks)}</strong> click${clicks === 1 ? '' : 's'}` +
-						`<span>${label}${isToday ? ' · hoy' : ''}</span>`,
-				);
-			});
-			hit.addEventListener('pointerleave', () => {
-				$('.spark-bar', hit)?.classList.remove('is-hover');
-				hideTip();
-			});
-		}
+		});
+		sparkStats.set(spark, stats);
 
 		const weekEl = $('[data-week]', root);
 		if (weekEl) weekEl.textContent = formatCount(stats.week);
@@ -491,7 +493,9 @@ const prettyUrl = (url: string) => {
 	loadStats();
 </script>
 
-<style>
+<!-- Global on purpose: these styles only ship with this page, and scoping would
+     stamp a data-astro-cid attribute on every element of every card. -->
+<style is:global>
 	main {
 		max-width: 920px;
 		margin: 0 auto;
@@ -852,11 +856,6 @@ const prettyUrl = (url: string) => {
 		display: block;
 		overflow: visible;
 		flex-shrink: 0;
-	}
-
-	.spark-hitarea {
-		fill: transparent;
-		pointer-events: all;
 	}
 
 	.spark-bar {

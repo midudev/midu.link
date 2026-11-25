@@ -7,12 +7,10 @@ export const prerender = false;
 export const GET: APIRoute = async () => {
 	const stats = await getStats(allTrackableSlugs);
 
-	return new Response(JSON.stringify(stats), {
-		status: 200,
+	return Response.json(stats, {
 		headers: {
-			'Content-Type': 'application/json',
-			// Short cache so the homepage stays snappy but stays fairly fresh.
-			'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
+			// `src/worker.ts` keeps it in the colo cache for max-age; browsers too.
+			'Cache-Control': 'public, max-age=30, stale-while-revalidate=60',
 		},
 	});
 };
