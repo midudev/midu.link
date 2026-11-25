@@ -5,7 +5,12 @@
 	"main": "./src/worker.ts",
 	"compatibility_date": "2026-11-24",
 	// The Cloudflare Vite plugin points this at Astro's dist/client on build.
-	"assets": { "binding": "ASSETS" },
+	"assets": {
+		"binding": "ASSETS",
+		// Landings go through the Worker so it can count visits (src/worker.ts).
+		// Keep in sync with specialLandings in src/lib/links.ts.
+		"run_worker_first": ["/42", "/aws-nerdearla", "/mwc"]
+	},
 	"routes": [{ "pattern": "midu.link", "custom_domain": true }],
 	// Click analytics. The table is created on first use (src/lib/db.ts).
 	"d1_databases": [

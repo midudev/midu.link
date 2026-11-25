@@ -1,6 +1,6 @@
 import { handle } from '@astrojs/cloudflare/handler';
 import { recordClick } from './lib/db';
-import { linksBySlug } from './lib/links';
+import { linksBySlug, specialLandingSlugs } from './lib/links';
 
 /** On-demand routes whose responses may be shared from the colo cache. */
 const EDGE_CACHED = /^\/(?:api\/stats|stats\/[^/]+)\/?$/;
@@ -36,7 +36,8 @@ function secure(response: Response): Response {
 
 /**
  * Worker entrypoint. Static files never get here (the assets layer answers
- * them for free), so this only sees short links and on-demand routes.
+ * them for free), so this only sees short links, on-demand routes and the
+ * landings listed in `assets.run_worker_first`.
  */
 export default {
 	async fetch(request, env, ctx) {
@@ -59,6 +60,17 @@ export default {
 					status: 302,
 					headers: { Location: destination, 'Strict-Transport-Security': HSTS },
 				});
+			}
+
+			// Landings: count the visit here, then serve their static HTML. There
+			// is no public tracking endpoint, so nothing outside can add clicks.
+			if (specialLandingSlugs.has(slug)) {
+				if (method === 'GET') {
+					ctx.waitUntil(
+						recordClick(slug).catch((err) => console.error('[analytics] track failed', slug, err)),
+					);
+				}
+				return env.ASSETS.fetch(request);
 			}
 
 			// Stats query D1: share one response per colo for its max-age.

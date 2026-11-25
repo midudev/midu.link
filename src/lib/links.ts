@@ -35,7 +35,10 @@ export const specialLandings: SpecialLanding[] = [
 	},
 ];
 
-/** Slugs that may be counted through `POST /api/track` (the landings' beacon). */
+/**
+ * Landings counted by the Worker when it serves their page. Each one must be in
+ * `assets.run_worker_first` (wrangler.jsonc) or its HTML skips the Worker.
+ */
 export const specialLandingSlugs = new Set(specialLandings.map(({ slug }) => slug));
 
 const linkList = links as Link[];

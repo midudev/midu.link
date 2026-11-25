@@ -348,21 +348,6 @@ const jsonLd = SESSIONS.map((s) => ({
 					nextMarked = true;
 				}
 			}
-
-			// Registrar visita en las analíticas de midu.link
-			try {
-				const payload = JSON.stringify({ slug: 'mwc' });
-				if (navigator.sendBeacon) {
-					navigator.sendBeacon('/api/track', new Blob([payload], { type: 'application/json' }));
-				} else {
-					fetch('/api/track', {
-						method: 'POST',
-						headers: { 'content-type': 'application/json' },
-						body: payload,
-						keepalive: true,
-					}).catch(() => {});
-				}
-			} catch {}
 		</script>
 	</body>
 </html>
