@@ -7,9 +7,10 @@
 	// The Cloudflare Vite plugin points this at Astro's dist/client on build.
 	"assets": { "binding": "ASSETS" },
 	"routes": [{ "pattern": "midu.link", "custom_domain": true }],
-	// Click analytics. No database_id: `wrangler deploy` creates the database
-	// (or links the existing one by name) and writes the ID back here.
-	"d1_databases": [{ "binding": "DB", "database_name": "midu-link" }],
+	// Click analytics. The table is created on first use (src/lib/db.ts).
+	"d1_databases": [
+		{ "binding": "DB", "database_name": "midu-link", "database_id": "9e253029-8ea7-4453-ba3b-055a9bb4364b" }
+	],
 	"observability": {
 		"enabled": true
 	},
